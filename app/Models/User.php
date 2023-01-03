@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -22,6 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    protected $with = ['rider', 'merchant'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +45,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function merchant(): HasOne
+    {
+        return $this->hasOne(Merchant::class);
+    }
+
+    public function rider(): HasOne
+    {
+        return $this->hasOne(Rider::class);
+    }
 }
