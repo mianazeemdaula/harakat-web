@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('name_ar');
             $table->string('image')->nullable();
             $table->boolean('status')->default(true);
+            $table->integer('position')->unsigned()->default(1);
+            $table->unsignedBigInteger('parent_id')->unsigned()->default(1);
             $table->timestamps();
         });
     }

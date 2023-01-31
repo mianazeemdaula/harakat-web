@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('payment_cards', function (Blueprint $table) {
             $table->id();
-            $table->string('name');  
-            $table->string('name_ar');  
-            $table->float('price');
-            $table->float('promo_price')->deafult(0);
-            $table->float('vat')->default(0.0);
-            $table->time('prepration_time')->default(15);
-            $table->string('description');
-            $table->string('image');
+            $table->unsignedBigInteger('user_id');
+            $table->string('holder_name');
+            $table->char('card_no',16);
+            $table->char('expiry',7);
+            $table->smallInteger('code')->nullable()->default(0);
+            $table->boolean('active')->default(false);
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('payment_cards');
     }
 };

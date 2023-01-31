@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedInteger('qty')->default(1);
-            $table->double('price')->default(0.0);
-            $table->double('delivery_charges')->default(0.0);
+            $table->float('price')->default(0.0);
+            $table->float('delivery_charges')->default(0.0);
             $table->string('status',20)->nullable();
             $table->timestamps();
         });

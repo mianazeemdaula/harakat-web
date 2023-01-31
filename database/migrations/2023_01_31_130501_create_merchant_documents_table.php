@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('merchant_documents', function (Blueprint $table) {
             $table->id();
-            $table->string('name');  
-            $table->string('name_ar');  
-            $table->float('price');
-            $table->float('promo_price')->deafult(0);
-            $table->float('vat')->default(0.0);
-            $table->time('prepration_time')->default(15);
-            $table->string('description');
-            $table->string('image');
+            $table->unsignedBigInteger('user_id');
+            $table->string('doc');
+            $table->char('type',20)->defatul('licence');
+            $table->char('status',20)->default('pending');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('merchant_documents');
     }
 };

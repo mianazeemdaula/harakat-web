@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_extras', function (Blueprint $table) {
+        Schema::create('inbox_chats', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('inbox_id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('msg');
+            $table->tinyInteger('type')->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_extras');
+        Schema::dropIfExists('inbox_chats');
     }
 };

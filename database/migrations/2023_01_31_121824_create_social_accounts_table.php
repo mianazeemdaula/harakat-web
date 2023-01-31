@@ -13,17 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('social_accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');  
-            $table->string('name_ar');  
-            $table->float('price');
-            $table->float('promo_price')->deafult(0);
-            $table->float('vat')->default(0.0);
-            $table->time('prepration_time')->default(15);
-            $table->string('description');
-            $table->string('image');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('provider');
+            $table->string('uid');
             $table->timestamps();
+            $table->unique(['user_id', 'uid', 'provider']);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('social_accounts');
     }
 };

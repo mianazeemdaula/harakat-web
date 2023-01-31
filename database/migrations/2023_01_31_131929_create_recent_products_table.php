@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('time_slots', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('merchant_id');
-            $table->tinyInteger('day_num');
-            $table->time('min_delivery_time')->nullable()->default(9);
-            $table->time('max_delivery_time')->nullable()->default(22);
+        Schema::create('recent_products', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('time_slots');
+        Schema::dropIfExists('recent_products');
     }
 };
