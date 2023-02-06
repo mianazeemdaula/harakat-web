@@ -15,15 +15,13 @@ return new class extends Migration
     {
         Schema::create('riders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable()->default(12);
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('city_id');
             $table->string('category_id', 100)->nullable()->default('text');
-            $table->string('rider_name', 100)->nullable()->default('text');
-            $table->string('fullname', 100)->nullable()->default('text');
-            $table->string('city', 100)->nullable()->default('text');
-            $table->string('phone', 100)->nullable()->default('text');
+            // $table->string('phone', 100)->nullable()->default('text');
             $table->string('address', 100)->nullable()->default('text');
-            $table->string('licence', 100)->nullable()->default('text');
-            $table->string('other_licence', 100)->nullable()->default('text');
+            // $table->string('licence', 100)->nullable()->default('text');
+            // $table->string('other_licence', 100)->nullable()->default('text');
             $table->string('awards', 100)->nullable()->default('text');
             $table->timestamps();
         });

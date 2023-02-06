@@ -20,7 +20,6 @@ return new class extends Migration
             $table->unsignedBigInteger('city_id');
             $table->string('shop_name')->nullable()->default('text');
             $table->string('phone',15)->nullable()->default('text');
-            $table->string('address')->nullable()->default('text');
             // $table->string('licence')->nullable()->default('text');
             // $table->timestamp('licence_verified_at')->nullable();
             // $table->string('other_licence')->nullable()->default('text');
@@ -32,6 +31,7 @@ return new class extends Migration
             $table->time('prepration_time')->nullable()->default(1.0);
             $table->time('min_delivery_time')->nullable()->default(1.0);
             $table->time('max_delivery_time')->nullable()->default(1.0);
+            $table->string('address')->nullable()->default('text');
             $table->point('location')->nullable();
             $table->char('status',20)->default('pending');
             $table->timestamps();

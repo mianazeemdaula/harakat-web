@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->nullable()->default('text');
             $table->string('name_ar', 100)->nullable()->default('text');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

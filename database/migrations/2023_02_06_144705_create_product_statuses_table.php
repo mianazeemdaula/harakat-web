@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('merchant_documents', function (Blueprint $table) {
+        Schema::create('product_statuses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('merchant_id');
-            $table->string('doc');
-            $table->char('type',20)->defatul('licence');
-            $table->char('status',20)->default('pending');
-            $table->string('note')->nullable();
+            $table->unsignedBigInteger('product_id');
+            $table->string('description')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('merchant_documents');
+        Schema::dropIfExists('product_statuses');
     }
 };
