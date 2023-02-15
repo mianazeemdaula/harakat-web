@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('addons', function (Blueprint $table) {
             $table->id();
-            $table->unsingedBigInteger('merchant_id');
+            $table->unsignedBigInteger('merchant_id');
             $table->string('name');
             $table->string('name_ar');
             $table->float('price');

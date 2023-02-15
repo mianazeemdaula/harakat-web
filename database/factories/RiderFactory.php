@@ -18,10 +18,12 @@ class RiderFactory extends Factory
     public function definition()
     {
         return [
-            'rider_name' => fake()->name(),
-            'category_id' => fake()->unique()->safeEmail(),
-            'user_id' => fake()->numberBetween(1,20),
-            'fullname' => fake()->name()
+            'user_id' => fake()->numberBetween(1,10),
+            'city_id' => fake()->numberBetween(1,8),
+            'category_id' => fake()->numberBetween(1,4),
+            'address' => fake()->address(),
+            // 'location' => new Point(fake()->latitude($min = -90, $max = 90), fake()->longitude($min = -90, $max = 90)),
+            'awards' => 'active',
         ];
     }
 
