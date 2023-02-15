@@ -31,3 +31,7 @@ Route::prefix('rider')->group(function () {
         
     });
 });
+
+Route::post('auth/{provider}/callback', function (Request $request) {
+    return $request->all();
+});
