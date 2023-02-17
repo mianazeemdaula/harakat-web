@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class SocialAccount extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['provider', 'uid', 'user_id'];
 }
