@@ -33,7 +33,7 @@ class MerchantFactory extends Factory
             // 'min_delivery_time' => fake()->time(),
             // 'max_delivery_time' => fake()->time(),
             'address' => fake()->address(),
-            'location' => new Point(fake()->latitude($min = -90, $max = 90), fake()->longitude($min = -90, $max = 90)),
+            'location' => new Point(fake()->latitude($min = 30.670258, $max = 30.679375), fake()->longitude($min = 73.638012, $max = 73.679334)),
             'status' => 'active',
         ];
     }

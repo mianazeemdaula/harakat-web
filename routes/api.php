@@ -5,10 +5,12 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthCustomerController;
 use App\Http\Controllers\Api\AuthRiderController;
+use App\Http\Controllers\Api\HomeController;
 
 
 Route::get('users/{id}', function ($id) {
     $data = \App\Models\User::find($id)->products;
+    $data = \App\Models\Merchant::withinGeoRadius()->get();
      return response()->json($data, 200, [],JSON_PRETTY_PRINT);
 });
 
@@ -16,6 +18,8 @@ Route::prefix('customer')->group(function () {
     Route::post('/login', [AuthCustomerController::class,'login']);
     Route::post('/signup', [AuthCustomerController::class,'signup']);
     Route::post('/social', [AuthCustomerController::class,'social']);
+
+    Route::get('home', [HomeController::class,'index']);
 
     Route::middleware(['auth:sanctum'])->group(function () {
         
