@@ -30,6 +30,11 @@ class Merchant extends Model
         return parent::query();
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

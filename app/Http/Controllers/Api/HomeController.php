@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Merchant;
 use App\Models\ProductCategory;
 use App\Models\Category;
-
+use App\Models\User;
 class HomeController extends Controller
 {
     public function index()
@@ -22,7 +22,9 @@ class HomeController extends Controller
             'delivery_radius * 1000'
         );
         // $data =  Merchant::query()->whereDistance('location', $position, '<', \DB::raw('delivery_radius * 1000'))->get();
-        $data =  Merchant::query()->whereRaw($statement)->withDistance('location', $position)->get();
+        $ids =  Merchant::query()->whereRaw($statement)->withDistance('location', $position)
+        ->pluck('user_id');
+        $data = User::whereIn('id',$ids)->get();
         return response()->json($data, 200);
     }
 

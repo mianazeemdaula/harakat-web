@@ -31,7 +31,7 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $with = ['rider', 'merchant', 'customer'];
+    protected $with = ['rider', 'merchant.category', 'customer'];
     protected $appends = ['rating','rating_count'];
 
     /**
