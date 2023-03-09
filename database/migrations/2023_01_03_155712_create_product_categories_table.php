@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('name_ar');
             $table->boolean('status')->default(true);
+            $table->smallInteger('sort')->default(1);
+            $table->string('image');
             $table->timestamps();
         });
     }

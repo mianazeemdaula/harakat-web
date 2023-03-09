@@ -8,6 +8,9 @@ use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 use MatanYadaev\EloquentSpatial\SpatialBuilder;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+
 
 class Merchant extends Model
 {
@@ -25,6 +28,16 @@ class Merchant extends Model
     public static function query(): SpatialBuilder
     {
         return parent::query();
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Merchant::class,'parent_id');
     }
 
     private function findNearestRestaurants($latitude, $longitude, $radius = 400)

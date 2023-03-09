@@ -10,6 +10,8 @@ class City extends Model
 {
     use HasFactory;
 
+    protected $casts = ['status' => 'boolean'];
+
     public function merchants(): HasMany
     {
         return $this->hasMany(Merchant::class);

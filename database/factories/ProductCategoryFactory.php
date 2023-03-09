@@ -19,6 +19,7 @@ class ProductCategoryFactory extends Factory
         return [
             'name' => fake()->word(),
             'name_ar' => fake()->word(),
+            'image' => fake()->imageUrl(640, 480, 'product', true),
         ];
     }
 }

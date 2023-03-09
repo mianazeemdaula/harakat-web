@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Permission\Traits\HasRoles;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
@@ -30,6 +32,7 @@ class User extends Authenticatable
     ];
 
     protected $with = ['rider', 'merchant', 'customer'];
+    protected $appends = ['rating','rating_count'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,6 +51,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'rating' => 'float',
+        'rating_count' => 'integer'
     ];
 
     public function merchant(): HasOne
@@ -75,9 +80,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(PaymentCard::class);
     }
-
-    public function reviews(): HasMany
+    
+    public function reviews(): MorphMany
     {
-        return $this->hasMany(PaymentCard::class);
+        return $this->morphMany(Review::class, 'reviewable');
+    }
+
+    public function getRatingAttribute()
+    {
+        return $this->reviews()->avg('rating') ?? 0;
+    }
+
+    public function getRatingCountAttribute()
+    {
+        return $this->reviews()->count();
     }
 }

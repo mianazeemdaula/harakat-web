@@ -11,8 +11,26 @@ class ProductCategory extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
+    protected $appends = [
+        'product_count'
+    ];
+
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status',true);
+    }
+
+    public function getProductCountAttribute()
+    {
+        return $this->products()->count();
     }
 }

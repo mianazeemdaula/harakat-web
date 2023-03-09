@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('status')->default(true);
             $table->integer('position')->unsigned()->default(1);
             $table->unsignedBigInteger('parent_id')->unsigned()->default(1);
+            $table->smallInteger('sort')->default(1);
             $table->timestamps();
         });
     }

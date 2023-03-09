@@ -19,6 +19,7 @@ return new class extends Migration
             $table->tinyInteger('day_num');
             $table->time('min_delivery_time')->nullable()->default(9);
             $table->time('max_delivery_time')->nullable()->default(22);
+            $table->boolean('day_off')->default(false);
             $table->timestamps();
         });
     }

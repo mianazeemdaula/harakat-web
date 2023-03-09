@@ -7,6 +7,8 @@ use MatanYadaev\EloquentSpatial\Objects\Point;
 use Illuminate\Http\Request;
 
 use App\Models\Merchant;
+use App\Models\ProductCategory;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
@@ -23,4 +25,5 @@ class HomeController extends Controller
         $data =  Merchant::query()->whereRaw($statement)->withDistance('location', $position)->get();
         return response()->json($data, 200);
     }
+
 }
