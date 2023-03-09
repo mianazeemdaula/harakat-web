@@ -58,6 +58,7 @@ class AuthCustomerController extends Controller
         $customer->city_id = $request->city_id;
         $customer->gender = $request->gender;
         $customer->dob = $request->dob;
+        $customer->user_id = $user->id;
         $customer->save();
         $user->customer;
         $token = $user->createToken('login')->plainTextToken;
