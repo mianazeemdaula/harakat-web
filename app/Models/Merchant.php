@@ -18,6 +18,7 @@ class Merchant extends Model
 
     protected $casts = [
         'location' => Point::class,
+        'user_id' => 'integer',
     ];
 
     public function newEloquentBuilder($query): SpatialBuilder
