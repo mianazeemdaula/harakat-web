@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
         ))->create();
         \App\Models\Rider::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+11],
         ))->create();
+        \App\Models\Customer::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+21],
+        ))->create();
         \App\Models\ProductCategory::factory(10)->create();
         \App\Models\Product::factory(100)->create();
         \App\Models\PaymentCard::factory(100)->create();

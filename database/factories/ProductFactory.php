@@ -17,7 +17,7 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'merchant_id' => fake()->numberBetween(1,10),
+            'user_id' => fake()->numberBetween(1,10),
             'product_category_id' => fake()->numberBetween(1,10),
             'name' => fake()->word(),
             'name_ar' => fake()->word(),

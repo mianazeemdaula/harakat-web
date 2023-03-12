@@ -23,6 +23,7 @@ Route::prefix('customer')->group(function () {
     Route::post('/social', [AuthCustomerController::class,'social']);
 
     Route::get('home', [HomeController::class,'index']);
+    Route::get('category', [MenuController::class,'categories']);
     Route::get('menus', [MenuController::class,'menus']);
     Route::get('cities', [DataController::class, 'cities']);
     Route::post('cat-products', [MenuController::class,'menuProduct']);

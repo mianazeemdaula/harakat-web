@@ -12,7 +12,7 @@ class MenuController extends Controller
 {
     
     
-    public function index()
+    public function categories()
     {
         $menus = ProductCategory::query()->active()->get();
         return response()->json($menus, 200);

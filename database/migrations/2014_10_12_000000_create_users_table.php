@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('mobile')->unique()->nullable();
             $table->timestamp('mobile_verified_at')->nullable();
+            $table->string('fcm_token')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
