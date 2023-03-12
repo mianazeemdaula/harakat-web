@@ -10,7 +10,7 @@ use MatanYadaev\EloquentSpatial\Objects\Point;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class MerchantFactory extends Factory
+class ShopFactory extends Factory
 {
     /**
      * Define the model's default state.

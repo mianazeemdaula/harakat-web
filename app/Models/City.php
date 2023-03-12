@@ -12,8 +12,8 @@ class City extends Model
 
     protected $casts = ['status' => 'boolean'];
 
-    public function merchants(): HasMany
+    public function shops(): HasMany
     {
-        return $this->hasMany(Merchant::class);
+        return $this->hasMany(Shop::class);
     }
 }

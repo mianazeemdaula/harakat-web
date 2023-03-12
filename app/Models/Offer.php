@@ -11,8 +11,8 @@ class Offer extends Model
 {
     use HasFactory;
 
-    public function merchant(): BelongsTo
+    public function shop(): BelongsTo
     {
-        return $this->belongsTo(Merchant::class);
+        return $this->belongsTo(Shop::class);
     }
 }

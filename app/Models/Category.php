@@ -12,9 +12,9 @@ class Category extends Model
     use HasFactory;
     protected $casts = ['status' => 'boolean'];
 
-    public function merchants(): HasMany
+    public function shops(): HasMany
     {
-        return $this->hasMany(Merchant::class);
+        return $this->hasMany(Shop::class);
     }
 
     public function scopeActive($query)

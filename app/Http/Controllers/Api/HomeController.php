@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use Illuminate\Http\Request;
 
-use App\Models\Merchant;
+use App\Models\Shop;
 use App\Models\ProductCategory;
 use App\Models\Category;
 use App\Models\User;
@@ -21,8 +21,8 @@ class HomeController extends Controller
             30.672956,
             'delivery_radius * 1000'
         );
-        // $data =  Merchant::query()->whereDistance('location', $position, '<', \DB::raw('delivery_radius * 1000'))->get();
-        $ids =  Merchant::query()->whereRaw($statement)->withDistance('location', $position)
+        // $data =  Shop::query()->whereDistance('location', $position, '<', \DB::raw('delivery_radius * 1000'))->get();
+        $ids =  Shop::query()->whereRaw($statement)->withDistance('location', $position)
         ->pluck('user_id');
         $data = User::whereIn('id',$ids)->get();
         return response()->json($data, 200);

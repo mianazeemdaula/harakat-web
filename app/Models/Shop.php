@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
 
-class Merchant extends Model
+class Shop extends Model
 {
     use HasFactory;
 
@@ -43,7 +43,7 @@ class Merchant extends Model
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Merchant::class,'parent_id');
+        return $this->belongsTo(Shop::class,'parent_id');
     }
 
     private function findNearestRestaurants($latitude, $longitude, $radius = 400)
@@ -52,7 +52,7 @@ class Merchant extends Model
          * using eloquent approach, make sure to replace the "Restaurant" with your actual model name
          * replace 6371000 with 6371 for kilometer and 3956 for miles
          */
-        $restaurants = Merchant::selectRaw("id, name, address, latitude, longitude, rating, zone ,
+        $restaurants = Shop::selectRaw("id, name, address, latitude, longitude, rating, zone ,
                          ( 6371000 * acos( cos( radians(?) ) *
                            cos( radians( latitude ) )
                            * cos( radians( longitude ) - radians(?)

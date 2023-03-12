@@ -20,13 +20,13 @@ class MenuController extends Controller
 
     public function menuProduct(Request $request)
     {
-        $products = Product::with(['category','merchant'])->get();
+        $products = Product::with(['category','shop'])->get();
         return response()->json($products, 200);
     }
 
     public function popularProducts(Request $request)
     {
-        $products = Product::with(['category','merchant'])->get();
+        $products = Product::with(['category','shop'])->get();
         return response()->json($products, 200);
     }
 }

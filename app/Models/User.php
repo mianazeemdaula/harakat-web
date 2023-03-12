@@ -31,7 +31,7 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $with = ['rider', 'merchant.category', 'customer'];
+    protected $with = ['rider', 'shop.category', 'customer'];
     protected $appends = ['rating','rating_count'];
 
     /**
@@ -55,9 +55,9 @@ class User extends Authenticatable
         'rating_count' => 'integer'
     ];
 
-    public function merchant(): HasOne
+    public function shop(): HasOne
     {
-        return $this->hasOne(Merchant::class);
+        return $this->hasOne(Shop::class);
     }
 
     public function customer(): HasOne
@@ -84,6 +84,11 @@ class User extends Authenticatable
     public function reviews(): MorphMany
     {
         return $this->morphMany(Review::class, 'reviewable');
+    }
+
+    public function recentProducts()
+    {
+        return $this->belongsToMany(Product::class,'recent_products')->withTimestamps();
     }
 
     public function getRatingAttribute()

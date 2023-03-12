@@ -16,7 +16,7 @@ class Product extends Model
     protected $appends = ['rating','rating_count'];
     protected $casts = ['status' => 'boolean'];
 
-    public function merchant(): BelongsTo
+    public function shop(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Umm Al Quwain', 'name_ar' => 'Sweets & Flowers'],
         ]);
         \App\Models\User::factory(30)->create();
-        \App\Models\Merchant::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+1],
+        \App\Models\Shop::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+1],
         ))->create();
         \App\Models\Rider::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+11],
         ))->create();

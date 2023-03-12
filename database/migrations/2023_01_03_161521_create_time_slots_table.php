@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('time_slots', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('merchant_id');
+            $table->unsignedBigInteger('user_id'); // shop id
             $table->tinyInteger('day_num');
             $table->time('min_delivery_time')->nullable()->default(9);
             $table->time('max_delivery_time')->nullable()->default(22);

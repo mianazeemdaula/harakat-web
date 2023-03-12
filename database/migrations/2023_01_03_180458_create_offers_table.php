@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('merchant_id');
+            $table->unsignedBigInteger('shop_id');
             $table->string('title',100)->nullable();
             $table->string('code',15)->nullable();
             $table->date('start_date')->nullable();
