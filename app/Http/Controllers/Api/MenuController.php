@@ -23,4 +23,10 @@ class MenuController extends Controller
         $products = Product::with(['category','merchant'])->get();
         return response()->json($products, 200);
     }
+
+    public function popularProducts(Request $request)
+    {
+        $products = Product::with(['category','merchant'])->get();
+        return response()->json($products, 200);
+    }
 }
