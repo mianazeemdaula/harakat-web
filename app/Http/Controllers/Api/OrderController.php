@@ -52,7 +52,7 @@ class OrderController extends Controller
             $order->payment_type = $request->payment_type;
             $order->vat = $request->vat;
             $order->gross_amount = $request->gross_amount;
-            $order->delivery_cost = $request->delivery_cost;
+            $order->delivery_amount = $request->delivery_cost;
             $order->total_amount = $request->total_amount;
             $order->drop_address = $request->drop_address;
             $order->drop_location = new Point($request->drop_lat, $request->drop_lng);

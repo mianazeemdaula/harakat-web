@@ -28,7 +28,8 @@ return new class extends Migration
             $table->timestamp('canceled_at')->nullable();
             $table->string('payment_type')->default('cod');
             $table->float('vat')->default(0);
-            $table->float('delivery_cost')->default(0);
+            $table->float('delivery_amount')->default(0);
+            $table->float('gross_amount');
             $table->float('total_amount');
             $table->string('drop_address')->nullable();
             $table->point('drop_location')->nullable();
