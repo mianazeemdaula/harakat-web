@@ -60,11 +60,11 @@ class OrderController extends Controller
             foreach ($request->items as $detail) {
                 $item = new OrderDetail;
                 $item->order_id = $order->id;
-                $item->product_id = $detail->product_id;
-                $item->qty = $detail->qty;
-                $item->price = $detail->price;
-                $item->delivery_charges = $detail->charges;
-                $item->status = $detail->status;
+                $item->product_id = $detail['product_id'];
+                $item->qty = $detail['qty'];
+                $item->price = $detail['price'];
+                $item->delivery_charges = $detail['charges'];
+                $item->status = $detail['status'];
                 $item->save();
             }
             DB::rollback();
