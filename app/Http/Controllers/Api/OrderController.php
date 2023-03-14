@@ -69,9 +69,9 @@ class OrderController extends Controller
             }
             DB::commit();
             return response()->json($order, 200);
-        } catch (\Throwable $th) {
+        } catch (\Exception $th) {
             DB::rollback();
-            return response()->json($order, 422);
+            return response()->json($th->getMessage(), 422);
         }
         
     }
