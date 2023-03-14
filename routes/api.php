@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\AuthRiderController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\DataController;
 use App\Http\Controllers\Api\MenuController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\RecentProductController;
 use App\Http\Controllers\Api\NotificationController;
 
@@ -33,6 +34,7 @@ Route::prefix('customer')->group(function () {
     
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('notification', NotificationController::class);
+        Route::resource('order', OrderController::class);
         Route::resource('recent-product', RecentProductController::class);
         
     });
