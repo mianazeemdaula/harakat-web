@@ -57,7 +57,7 @@ class OrderController extends Controller
             $order->drop_address = $request->drop_address;
             $order->drop_location = new Point($request->drop_lat, $request->drop_lng);
             $order->save();
-            foreach ($request->items as $details) {
+            foreach ($request->items as $detail) {
                 $item = new OrderDetail;
                 $item->order_id = $order->id;
                 $item->product_id = $detail->product_id;
