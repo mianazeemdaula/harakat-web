@@ -41,7 +41,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         DB::beginTransaction();
-        // try {
+        try {
             $orderCount = Order::count();
             $orderNum = sprintf('%04d', ($orderCount + 1));
             $order = new Order();
@@ -67,12 +67,12 @@ class OrderController extends Controller
                 $item->status = $detail['status'];
                 $item->save();
             }
-            DB::rollback();
+            DB::commit();
             return response()->json($order, 200);
-        // } catch (\Exception $th) {
-        //     DB::rollback();
-        //     return response()->json($th->getMessage(), 422);
-        // }
+        } catch (\Exception $th) {
+            DB::rollback();
+            return response()->json($th->getMessage(), 422);
+        }
         
     }
 
