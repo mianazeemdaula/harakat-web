@@ -47,7 +47,7 @@ class OrderController extends Controller
             $order = new Order();
             $order->number = $orderNum;
             $order->shop_id = $request->shop_id;
-            $order->user_id = $request->user()->id();
+            $order->user_id = $request->user()->id;
             $order->extra_note = $request->extra_note;
             $order->payment_type = $request->payment_type;
             $order->vat = $request->vat;
