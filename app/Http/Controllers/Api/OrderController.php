@@ -71,6 +71,7 @@ class OrderController extends Controller
             return response()->json($order, 200);
         } catch (\Throwable $th) {
             DB::rollback();
+            return response()->json($order, 422);
         }
         
     }
