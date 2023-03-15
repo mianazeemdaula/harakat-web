@@ -18,9 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('holder_name');
             $table->char('card_no',16);
-            $table->char('expiry',7);
-            $table->smallInteger('code')->nullable()->default(0);
-            $table->boolean('active')->default(false);
+            $table->char('expiry_month',2);
+            $table->char('expiry_year',4);
+            $table->smallInteger('cvc')->nullable()->default(0);
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

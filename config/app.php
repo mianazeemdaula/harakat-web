@@ -210,6 +210,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        // 'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+
     ])->toArray(),
 
 ];

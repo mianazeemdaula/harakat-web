@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use Illuminate\Support\Facades\DB;
+use App\Helper\StripPayment;
 
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\OrderPayment;
 
 class OrderController extends Controller
 {
@@ -68,6 +70,17 @@ class OrderController extends Controller
                 $item->save();
             }
             DB::commit();
+            if($request->payment_type == 'card'){
+                $payment = StripPayment::cardPayment($request->card, intval($request->total_amount) * 100);
+                $pay = new OrderPayment();
+                $pay->order_id = $order->id;
+                $pay->gateway = 'stripe';
+                $pay->payment_id = $payment ? $pay['id'] : null;
+                $pay->status = $payment ? 'paid' : 'declined';
+                $pay->data = $payment;
+                $pay->save();
+            }
+            $order= $order->withData();
             return response()->json($order, 200);
         } catch (\Exception $th) {
             DB::rollback();

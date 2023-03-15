@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order_payments', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id');
-            $table->string('gateway');
-            $table->string('payment_id');
-            $table->char('status')->default('pending'); // pending, canceld, declined, paid
-            $table->json('data');
+            $table->unsignedBigInteger('user_id');
+            $table->string('address');
+            $table->point('location');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_payments');
+        Schema::dropIfExists('addresses');
     }
 };

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 use MatanYadaev\EloquentSpatial\SpatialBuilder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
 class Order extends Model
@@ -20,5 +23,36 @@ class Order extends Model
     public function newEloquentBuilder($query): SpatialBuilder
     {
         return new SpatialBuilder($query);
+    }
+
+    public function details(): HasMany
+    {
+        return $this->hasMany(OrderDetails::class);
+    }
+
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(OrderPayment::class);
+    }
+
+    public function payment(): HasOne
+    {
+        return $this->hasOne(OrderPayment::class)->latest();
+    }
+
+    public function shop(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'shop_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    public function scopWithData($query)
+    {
+        return $query->with(['payment', 'details','user', 'shop']);
     }
 }

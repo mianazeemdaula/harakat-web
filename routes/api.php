@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\DataController;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\CardController;
 use App\Http\Controllers\Api\RecentProductController;
 use App\Http\Controllers\Api\NotificationController;
 
@@ -30,11 +31,11 @@ Route::prefix('customer')->group(function () {
     Route::post('popular-products', [MenuController::class,'popularProducts']);
     Route::get('cities', [DataController::class, 'cities']);
     Route::post('cat-products', [MenuController::class,'menuProduct']);
-
     
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('notification', NotificationController::class);
         Route::resource('order', OrderController::class);
+        Route::resource('card', CardController::class);
         Route::resource('recent-product', RecentProductController::class);
         
     });
@@ -52,4 +53,8 @@ Route::prefix('rider')->group(function () {
 
 Route::post('auth/{provider}/callback', function (Request $request) {
     return $request->all();
+});
+
+Route::get('test/{id}', function($id){
+    return \App\Helper\StripePayment::cardPayment(\App\Models\PaymentCard::find(2),200);
 });

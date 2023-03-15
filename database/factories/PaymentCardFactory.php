@@ -17,11 +17,12 @@ class PaymentCardFactory extends Factory
     public function definition()
     {
         return [
-          'user_id' => fake()->numberBetween(21,30), 
+          'user_id' => fake()->numberBetween(21,31), 
           'holder_name' => fake()->name(), 
           'card_no' => fake()->creditCardNumber(), 
-          'expiry' => fake()->creditCardExpirationDateString(), 
-          'code' => fake()->randomNumber(3, true), 
+          'expiry_month' => '08', 
+          'expiry_year' => '24', 
+          'cvc' => fake()->randomNumber(3, true), 
         ];
     }
 }
