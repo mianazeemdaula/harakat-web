@@ -12,7 +12,8 @@ class CardController extends Controller
 
     public function index()
     {
-        $data = PaymentCard::where('active', true)->get();
+        $data = PaymentCard::where('user_id',auth()->user()->id)
+        ->where('active', true)->get();
         return response()->json($data, 200);
     }
 
