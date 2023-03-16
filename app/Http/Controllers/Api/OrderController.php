@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Helper\StripePayment;
 
 use App\Models\Order;
+use App\Models\PaymentCard;
 use App\Models\OrderDetail;
 use App\Models\OrderPayment;
 
@@ -71,7 +72,7 @@ class OrderController extends Controller
             }
             DB::commit();
             if($request->payment_type == 'card'){
-                $payment = StripePayment::cardPayment($request->card, intval($request->total_amount) * 100);
+                $payment = StripePayment::cardPayment(PaymentCard::find($request->card), intval($request->total_amount) * 100);
                 if($payment){
                     $pay = new OrderPayment();
                     $pay->order_id = $order->id;
