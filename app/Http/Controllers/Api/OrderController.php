@@ -75,13 +75,15 @@ class OrderController extends Controller
                 $order->payment_card = $request->card;
                 $order->save();
                 $payment = StripePayment::cardPayment(PaymentCard::find($request->card), intval($request->total_amount) * 100);
-                $pay = new OrderPayment();
-                $pay->order_id = $order->id;
-                $pay->gateway = 'stripe';
-                $pay->payment_id = $payment ? $pay['id'] : null;
-                $pay->status = $payment ? 'paid' : 'declined';
-                $pay->data = $payment ? json_encode($payment): null;
-                $pay->save();
+                if($payment){
+                    $pay = new OrderPayment();
+                    $pay->order_id = $order->id;
+                    $pay->gateway = 'stripe';
+                    $pay->payment_id = $payment ? $pay['id'] : null;
+                    $pay->status = $payment ? 'paid' : 'declined';
+                    $pay->data = $payment ? json_encode($payment): null;
+                    $pay->save();
+                }
             }
             $order= Order::with(['payment', 'details','user', 'shop'])->find($order->id);
             return response()->json($order, 200);
