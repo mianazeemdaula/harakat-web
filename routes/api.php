@@ -26,7 +26,7 @@ Route::prefix('customer')->group(function () {
     Route::post('/signup', [AuthCustomerController::class,'signup']);
     Route::post('/social', [AuthCustomerController::class,'social']);
 
-    Route::get('home', [HomeController::class,'index']);
+    Route::post('shops', [HomeController::class,'shops']);
     Route::get('category', [MenuController::class,'categories']);
     Route::get('menus', [MenuController::class,'menus']);
     Route::post('popular-products', [MenuController::class,'popularProducts']);

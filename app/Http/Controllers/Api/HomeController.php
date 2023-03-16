@@ -12,13 +12,13 @@ use App\Models\Category;
 use App\Models\User;
 class HomeController extends Controller
 {
-    public function index()
+    public function shops(Request $request)
     {
-        $position = new Point(30.672956, 73.655428);
+        $position = new Point($request->lat, $request->lng);
         $statement = sprintf(
             "ST_Distance_Sphere(location,POINT(%f, %f), %s)",
-            73.655428,
-            30.672956,
+            $request->lng,
+            $request->lat,
             'delivery_radius * 1000'
         );
         // $data =  Shop::query()->whereDistance('location', $position, '<', \DB::raw('delivery_radius * 1000'))->get();
