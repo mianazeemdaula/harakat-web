@@ -11,6 +11,10 @@ class PaymentCard extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
