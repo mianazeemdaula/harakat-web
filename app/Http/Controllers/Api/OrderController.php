@@ -43,7 +43,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         DB::beginTransaction();
-        try {
+        // try {
             $orderCount = Order::count();
             $orderNum = sprintf('%04d', ($orderCount + 1));
             $order = new Order();
@@ -77,15 +77,15 @@ class OrderController extends Controller
                 $pay->gateway = 'stripe';
                 $pay->payment_id = $payment ? $pay['id'] : null;
                 $pay->status = $payment ? 'paid' : 'declined';
-                $pay->data = $payment;
+                $pay->data = $payment ? json_encode($payment): null;
                 $pay->save();
             }
             $order= $order->withData();
             return response()->json($order, 200);
-        } catch (\Exception $th) {
-            DB::rollback();
-            return response()->json($th->getMessage(), 422);
-        }
+        // } catch (\Exception $th) {
+        //     DB::rollback();
+        //     return response()->json($th->getMessage(), 422);
+        // }
         
     }
 
