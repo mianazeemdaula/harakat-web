@@ -72,13 +72,15 @@ class OrderController extends Controller
             DB::commit();
             if($request->payment_type == 'card'){
                 $payment = StripPayment::cardPayment($request->card, intval($request->total_amount) * 100);
-                $pay = new OrderPayment();
-                $pay->order_id = $order->id;
-                $pay->gateway = 'stripe';
-                $pay->payment_id = $payment ? $pay['id'] : null;
-                $pay->status = $payment ? 'paid' : 'declined';
-                $pay->data = $payment ? json_encode($payment): null;
-                $pay->save();
+                if($payment){
+                    $pay = new OrderPayment();
+                    $pay->order_id = $order->id;
+                    $pay->gateway = 'stripe';
+                    $pay->payment_id = $payment ? $pay['id'] : null;
+                    $pay->status = $payment ? 'paid' : 'declined';
+                    $pay->data = $payment ? json_encode($payment): null;
+                    $pay->save();
+                }
             }
             $order= $order->withData();
             return response()->json($order, 200);
