@@ -79,7 +79,7 @@ class OrderController extends Controller
                     $pay = new OrderPayment();
                     $pay->order_id = $order->id;
                     $pay->gateway = 'stripe';
-                    $pay->payment_id = $payment ? $pay['id'] : null;
+                    $pay->payment_id = $payment['id'];
                     $pay->status = $payment ? 'paid' : 'declined';
                     $pay->data = $payment ? json_encode($payment): null;
                     $pay->save();
