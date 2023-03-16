@@ -82,7 +82,7 @@ class OrderController extends Controller
                     $pay->save();
                 }
             }
-            $order= $order->withData();
+            $order= Order::with(['payment', 'details','user', 'shop'])->find($order->id);
             return response()->json($order, 200);
         // } catch (\Exception $th) {
         //     DB::rollback();
