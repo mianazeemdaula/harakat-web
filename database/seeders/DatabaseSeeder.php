@@ -44,10 +44,15 @@ class DatabaseSeeder extends Seeder
         \App\Models\PaymentCard::factory(100)->create();
         \App\Models\Review::factory(300)->create();
 
-        \App\Models\User::factory()->create([
+        $user = \App\Models\User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
         ]);
+        $user->customer()->save(new \App\Models\Customer([
+            'city_id' => 1,
+            'dob' => now(),
+            'gender' => 'male',
+        ]));
     }
 }
