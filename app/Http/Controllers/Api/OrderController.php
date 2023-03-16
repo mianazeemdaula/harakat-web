@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use Illuminate\Support\Facades\DB;
-use App\Helper\StripPayment;
+use App\Helper\StripePayment;
 
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -71,7 +71,7 @@ class OrderController extends Controller
             }
             DB::commit();
             if($request->payment_type == 'card'){
-                $payment = StripPayment::cardPayment($request->card, intval($request->total_amount) * 100);
+                $payment = StripePayment::cardPayment($request->card, intval($request->total_amount) * 100);
                 if($payment){
                     $pay = new OrderPayment();
                     $pay->order_id = $order->id;
