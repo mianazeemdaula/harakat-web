@@ -29,6 +29,8 @@ Route::prefix('customer')->group(function () {
     Route::post('shops', [HomeController::class,'shops']);
     Route::get('category', [MenuController::class,'categories']);
     Route::get('menus', [MenuController::class,'menus']);
+    Route::post('menu-shops', [MenuController::class,'menuShops']);
+    Route::post('shop-products', [MenuController::class,'shopProducts']);
     Route::post('popular-products', [MenuController::class,'popularProducts']);
     Route::get('cities', [DataController::class, 'cities']);
     Route::post('cat-products', [MenuController::class,'menuProduct']);

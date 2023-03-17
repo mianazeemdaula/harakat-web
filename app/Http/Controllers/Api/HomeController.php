@@ -21,7 +21,6 @@ class HomeController extends Controller
             $request->lat,
             'delivery_radius * 1000'
         );
-        // $data =  Shop::query()->whereDistance('location', $position, '<', \DB::raw('delivery_radius * 1000'))->get();
         $ids =  Shop::query()->whereRaw($statement)->withDistance('location', $position)
         ->pluck('user_id');
         $data = User::whereIn('id',$ids)->get();
