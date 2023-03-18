@@ -13,6 +13,6 @@ class Offer extends Model
 
     public function shop(): BelongsTo
     {
-        return $this->belongsTo(Shop::class);
+        return $this->belongsTo(User::class);
     }
 }

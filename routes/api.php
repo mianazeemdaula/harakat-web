@@ -34,6 +34,7 @@ Route::prefix('customer')->group(function () {
     Route::post('popular-products', [MenuController::class,'popularProducts']);
     Route::get('cities', [DataController::class, 'cities']);
     Route::post('cat-products', [MenuController::class,'menuProduct']);
+    Route::post('offers', [HomeController::class,'offers']);
     
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('notification', NotificationController::class);

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('shop_id');
+            $table->unsignedBigInteger('user_id'); // shop 
             $table->string('title',100)->nullable();
             $table->string('code',15)->nullable();
             $table->date('start_date')->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('type',15)->default('first_order');
             $table->string('image')->nullable();
             $table->integer('limit')->default(1);
-            $table->boolean('status')->default(1);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

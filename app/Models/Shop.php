@@ -81,4 +81,17 @@ class Shop extends Model
 
         return whereRaw($statement);
     }
+
+    static public function nearByIds($lat, $lng)
+    {
+        $position = new Point($lat, $lng);
+        $statement = sprintf(
+            "ST_Distance_Sphere(location,POINT(%f, %f), %s)",
+            $lng,
+            $lat,
+            'delivery_radius * 1000'
+        );
+        return Shop::whereRaw($statement)->withDistance('location', $position)
+        ->pluck('user_id');
+    }
 }
