@@ -12,7 +12,7 @@ class NotificationController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $data = Notification::with('user')->where('user_id', $user->id)->orderBy('id', 'desc')->paginate();
+        $data = Notification::with('user')->orderBy('id', 'desc')->paginate();
         return response()->json($data);
     }
 
