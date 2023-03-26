@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\CardController;
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\RecentProductController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\UserController;
 
 
 Route::get('users/{id}', function ($id) {
@@ -42,7 +43,9 @@ Route::prefix('customer')->group(function () {
         Route::resource('card', CardController::class);
         Route::resource('address', AddressController::class);
         Route::resource('recent-product', RecentProductController::class);
-        
+        Route::get('user/profile', [UserController::class,'profile']);
+        Route::post('user/update', [UserController::class,'updateUser']);
+        Route::post('user/delete', [UserController::class,'deleteAccount']);
     });
 });
 
