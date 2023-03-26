@@ -13,6 +13,8 @@ class Addon extends Model
 
     protected $casts = [
         'available'=> 'boolean',
+        'user_id' => 'integer',
+        'price' => 'double',
     ];
 
     public function products(): BelongsToMany
