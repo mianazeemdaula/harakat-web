@@ -101,6 +101,34 @@ class AuthCustomerController extends Controller
         return response()->json($data, 200);
     }
 
+    public function completeProfile(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            // 'mobile' => 'required|unique:users',
+            'dob' => 'required',
+            'gender' => 'required',
+            'city_id' => 'required'
+        ]);
+        $user = User::where('email', $request->email)->first();
+        if($user){
+            $customer = new Customer;
+            $customer->city_id = $request->city_id;
+            $customer->gender = $request->gender;
+            $customer->dob = $request->dob;
+            $customer->user_id = $user->id;
+            $customer->save();
+            $user->customer;
+            $token = $user->createToken('login')->plainTextToken;
+            $data['token'] = $token;
+            $data['user'] = $user;
+            return response()->json($data, 200);
+        }else{
+            return response()->json(['email' => 'The provided credentials are incorrect.'], 204); 
+        }
+    }
+
+
     public function mobileRegister(Request $request)
     {
         $user = User::where('mobile', $request->mobile)->first();
