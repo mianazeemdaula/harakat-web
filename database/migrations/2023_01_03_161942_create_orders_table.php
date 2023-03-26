@@ -34,6 +34,7 @@ return new class extends Migration
             $table->point('drop_location')->nullable();
             $table->string('payment_type')->default('cod');
             $table->unsignedBigInteger('payment_card')->nullable();
+            $table->unsignedBigInteger('offer_id')->nullable();
             $table->timestamps();
         });
     }

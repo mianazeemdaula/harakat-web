@@ -11,8 +11,15 @@ class Offer extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'status' => 'boolean',
+        'min_purchase' => 'double',
+        'max_discount' => 'double',
+        'discount' => 'double',
+    ];
+
     public function shop(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 }

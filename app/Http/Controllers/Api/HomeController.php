@@ -15,24 +15,15 @@ class HomeController extends Controller
 {
     public function shops(Request $request)
     {
-        // $position = new Point($request->lat, $request->lng);
-        // $statement = sprintf(
-        //     "ST_Distance_Sphere(location,POINT(%f, %f), %s)",
-        //     $request->lng,
-        //     $request->lat,
-        //     'delivery_radius * 1000'
-        // );
-        // $ids =  Shop::query()->whereRaw($statement)->withDistance('location', $position)
-        // ->pluck('user_id');
-        $ids = Shop::nearByIds($request->lat, $request->lng);
+        $ids = Shop::nearBy($request->lat, $request->lng)->pluck('user_id');
         $data = User::whereIn('id',$ids)->get();
         return response()->json($data, 200);
     }
 
     public function offers(Request $request)
     {
-        $ids = Shop::nearByIds($request->lat, $request->lng);
-        $data = Offer::whereIn('shop_id',$ids)->get();
+        $ids = Shop::nearBy($request->lat, $request->lng)->pluck('user_id');
+        $data = Offer::with(['shop'])->whereIn('user_id',$ids)->get();
         return response()->json($data, 200);
     }
 

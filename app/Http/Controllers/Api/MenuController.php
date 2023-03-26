@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Category;
 use App\Models\ProductCategory;
 use App\Models\Product;
 use App\Models\Shop;
@@ -20,20 +21,13 @@ class MenuController extends Controller
     
     public function categories()
     {
-        $menus = ProductCategory::query()->active()->get();
+        $menus = Category::query()->active()->get();
         return response()->json($menus, 200);
     }
 
     public function menuShops(Request $request)
     {
-        $statement = sprintf(
-            "ST_Distance_Sphere(location,POINT(%f, %f), %s)",
-            $request->lng,
-            $request->lat,
-            'delivery_radius * 1000'
-        );
-        $ids =  Shop::query()->whereRaw($statement)->withDistance('location', $position)
-        ->where('category_id', $request->category)
+        $ids =  Shop::query()->nearBy($request->lat, $request->lng)->where('category_id', $request->category)
         ->pluck('user_id');
         $data = User::whereIn('id',$ids)->get();
         return response()->json($products, 200);
@@ -41,19 +35,19 @@ class MenuController extends Controller
 
     public function shopProducts(Request $request)
     {
-        $data = User::with(['products'])->find($request->id);
+        $data = User::with(['products.addons'])->find($request->id);
         return response()->json($data, 200);
     }
 
     public function menuProduct(Request $request)
     {
-        $products = Product::with(['category','shop'])->get();
+        $products = Product::with(['category','shop','addons'])->get();
         return response()->json($products, 200);
     }
 
     public function popularProducts(Request $request)
     {
-        $products = Product::with(['category','shop'])->get();
+        $products = Product::with(['category','shop','addons'])->get();
         return response()->json($products, 200);
     }
 }

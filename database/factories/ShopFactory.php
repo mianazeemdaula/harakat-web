@@ -23,7 +23,7 @@ class ShopFactory extends Factory
             'user_id' => fake()->numberBetween(1,10),
             'city_id' => fake()->numberBetween(1,8),
             'category_id' => fake()->numberBetween(1,4),
-            'shop_name' => fake()->name(),
+            'shop_name' => fake()->company(),
             'phone' => fake()->phoneNumber(),
             'base_delivery_charges' => fake()->randomFloat(1, 1, 2),
             'delivery_charges_km' => fake()->randomFloat(1, 2, 10),

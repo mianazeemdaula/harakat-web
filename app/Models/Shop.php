@@ -82,7 +82,7 @@ class Shop extends Model
         return whereRaw($statement);
     }
 
-    static public function nearByIds($lat, $lng)
+    public function scopeNearBy($query, $lat, $lng)
     {
         $position = new Point($lat, $lng);
         $statement = sprintf(
@@ -91,7 +91,6 @@ class Shop extends Model
             $lat,
             'delivery_radius * 1000'
         );
-        return Shop::whereRaw($statement)->withDistance('location', $position)
-        ->pluck('user_id');
+        return $query->whereRaw($statement)->withDistance('location', $position);
     }
 }

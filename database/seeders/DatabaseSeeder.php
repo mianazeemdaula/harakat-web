@@ -16,31 +16,36 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\Category::insert([
-            ['name' => 'Resturant & Cafe', 'name_ar' => 'Resturant & Cafe'],
-            ['name' => 'Fashion & Perfumes', 'name_ar' => 'Fashion & Perfumes'],
-            ['name' => 'Sweets & Flowers', 'name_ar' => 'Sweets & Flowers'],
-            ['name' => 'Electronics', 'name_ar' => 'Electronics'],
+            ['name' => 'Resturant & Cafe', 'name_ar' => 'مطعم وكافيه'],
+            ['name' => 'Fashion & Perfumes', 'name_ar' => 'الأزياء والعطور'],
+            ['name' => 'Sweets & Flowers', 'name_ar' => 'حلويات وزهور'],
+            ['name' => 'Electronics', 'name_ar' => 'إلكترونيات'],
         ]);
 
         \App\Models\City::insert([
-            ['name' => 'Dubai', 'name_ar' => 'Electronics'],
-            ['name' => 'Abu Dhabi', 'name_ar' => 'Resturant & Cafe'],
-            ['name' => 'Sharja', 'name_ar' => 'Fashion & Perfumes'],
-            ['name' => 'Ajman', 'name_ar' => 'Sweets & Flowers'],
-            ['name' => 'Ras Al-Khaimah', 'name_ar' => 'Sweets & Flowers'],
-            ['name' => 'Al Ain', 'name_ar' => 'Sweets & Flowers'],
-            ['name' => 'Fujairah', 'name_ar' => 'Sweets & Flowers'],
-            ['name' => 'Umm Al Quwain', 'name_ar' => 'Sweets & Flowers'],
+            ['name' => 'Dubai', 'name_ar' => 'دبي'],
+            ['name' => 'Abu Dhabi', 'name_ar' => 'أبو ظبي'],
+            ['name' => 'Sharja', 'name_ar' => 'الشارقة'],
+            ['name' => 'Ajman', 'name_ar' => 'عجمان'],
+            ['name' => 'Ras Al-Khaimah', 'name_ar' => 'رأس الخيمة'],
+            ['name' => 'Al Ain', 'name_ar' => 'العين'],
+            ['name' => 'Fujairah', 'name_ar' => 'الفجيرة'],
+            ['name' => 'Umm Al Quwain', 'name_ar' => 'أم القيوين'],
         ]);
         \App\Models\User::factory(30)->create();
         \App\Models\Shop::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+1],
-        ))->create();
+        ))->create()->each(function($shop){
+            \App\Models\Addon::factory(rand(10,20))->state(new Sequence(fn ($se) => ['user_id' =>$shop->user_id],
+            ))->create();
+        });
         \App\Models\Rider::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+11],
         ))->create();
         \App\Models\Customer::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+21],
         ))->create();
         \App\Models\ProductCategory::factory(10)->create();
-        \App\Models\Product::factory(100)->create();
+        \App\Models\Product::factory(100)->create()->each(function($p){
+            $p->addons()->sync([rand(1,10),rand(11,20),rand(21,30), rand(31,40)]);
+        });
         \App\Models\PaymentCard::factory(100)->create();
         \App\Models\Review::factory(300)->create();
 
@@ -54,5 +59,7 @@ class DatabaseSeeder extends Seeder
             'dob' => now(),
             'gender' => 'male',
         ]));
+        \App\Models\Offer::factory(100)->create();
+        \App\Models\Notification::factory(200)->create();
     }
 }

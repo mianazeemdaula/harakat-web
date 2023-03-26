@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Traits\HasRoles;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -90,6 +91,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Product::class,'recent_products')->withTimestamps();
     }
+
 
     public function getRatingAttribute()
     {
