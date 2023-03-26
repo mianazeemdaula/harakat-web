@@ -105,13 +105,15 @@ class AuthCustomerController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            // 'mobile' => 'required|unique:users',
+            'mobile' => 'required|unique:users',
             'dob' => 'required',
             'gender' => 'required',
             'city_id' => 'required'
         ]);
         $user = User::where('email', $request->email)->first();
         if($user){
+            $user->mobile = $request->mobile;
+            $user->save();
             $customer = new Customer;
             $customer->city_id = $request->city_id;
             $customer->gender = $request->gender;
