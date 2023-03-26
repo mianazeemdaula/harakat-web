@@ -13,6 +13,7 @@ class ProductCategory extends Model
 
     protected $casts = [
         'status' => 'boolean',
+        'sort' => 'integer',
     ];
 
     protected $appends = [
