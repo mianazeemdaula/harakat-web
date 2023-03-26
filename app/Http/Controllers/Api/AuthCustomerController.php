@@ -120,7 +120,7 @@ class AuthCustomerController extends Controller
             $customer->dob = $request->dob;
             $customer->user_id = $user->id;
             $customer->save();
-            $user->customer;
+            $user =  User::find($user->id);
             $token = $user->createToken('login')->plainTextToken;
             $data['token'] = $token;
             $data['user'] = $user;
