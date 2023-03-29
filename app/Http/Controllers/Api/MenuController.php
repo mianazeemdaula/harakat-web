@@ -35,15 +35,11 @@ class MenuController extends Controller
 
     public function shopProducts(Request $request)
     {
-        $data = User::with(['products.addons'])->find($request->id);
-        return response()->json($data, 200);
-    }
-
-    public function menuProduct(Request $request)
-    {
-        $products = Product::with(['category','shop','addons'])->get();
+        $products = Product::with(['category','shop','addons'])
+        ->where('user_id', $request->shop)->paginate();
         return response()->json($products, 200);
     }
+
 
     public function popularProducts(Request $request)
     {
