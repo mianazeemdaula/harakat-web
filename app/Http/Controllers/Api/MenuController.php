@@ -29,7 +29,7 @@ class MenuController extends Controller
     {
         $ids =  Shop::query()->nearBy($request->lat, $request->lng)->where('category_id', $request->category)
         ->pluck('user_id');
-        $data = User::whereIn('id',$ids)->get();
+        $data = User::whereIn('id',$ids)->paginate();
         return response()->json($data, 200);
     }
 
