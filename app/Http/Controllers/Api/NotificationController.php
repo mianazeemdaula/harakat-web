@@ -21,13 +21,13 @@ class NotificationController extends Controller
         $data = Notification::find($id);
         $data->is_read = true;
         $data->save();
-        return $this->index();
+        return response()->json($data, 200);
     }
 
     public function destroy($id)
     {
         $data = Notification::find($id)->delete();
-        return $this->index();
+        return response()->json($data, 200);
     }
 
     public function deleteAll(Request $request)

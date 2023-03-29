@@ -30,7 +30,7 @@ class MenuController extends Controller
         $ids =  Shop::query()->nearBy($request->lat, $request->lng)->where('category_id', $request->category)
         ->pluck('user_id');
         $data = User::whereIn('id',$ids)->get();
-        return response()->json($products, 200);
+        return response()->json($data, 200);
     }
 
     public function shopProducts(Request $request)

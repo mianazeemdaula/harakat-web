@@ -11,6 +11,7 @@ use App\Helper\StripePayment;
 use App\Models\Order;
 use App\Models\PaymentCard;
 use App\Models\OrderDetail;
+use App\Models\OrderAddon;
 use App\Models\OrderPayment;
 
 class OrderController extends Controller
@@ -69,6 +70,14 @@ class OrderController extends Controller
                 $item->delivery_charges = $detail['charges'];
                 $item->status = $detail['status'];
                 $item->save();
+            }
+            foreach ($request->addons as $addon) {
+                $add = new OrderAddon();
+                $add->order_id = $order->id;
+                $add->addon_id = $addon['addon_id'];
+                $add->qty = $addon['qty'];
+                $add->price = $addon['price'];
+                $add->save();
             }
             DB::commit();
             if($request->payment_type == 'card'){
