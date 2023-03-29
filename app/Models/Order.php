@@ -30,6 +30,11 @@ class Order extends Model
         return $this->hasMany(OrderDetail::class);
     }
 
+    public function addons(): HasMany
+    {
+        return $this->hasMany(OrderAddon::class);
+    }
+
 
     public function payments(): HasMany
     {

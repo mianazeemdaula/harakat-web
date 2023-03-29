@@ -23,7 +23,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $data = Order::with(['details','payment','addons','shop','user'])
+        ->orderBy('created_at','desc')->paginate();
+        return response()->json($data, 200);
     }
 
     /**
