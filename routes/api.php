@@ -64,5 +64,5 @@ Route::post('auth/{provider}/callback', function (Request $request) {
 });
 
 Route::get('test/{id}', function($id){
-    return \App\Helper\StripePayment::cardPayment(\App\Models\PaymentCard::find(2),200);
+    return \App\Helper\StripePayment::cardPayment(\App\Models\PaymentCard::find($id),intval("23.56") * 100);
 });
