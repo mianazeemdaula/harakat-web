@@ -86,6 +86,7 @@ class OrderController extends Controller
                 $order->payment_card = $request->card;
                 $order->save();
                 $payment = StripePayment::cardPayment(PaymentCard::find($request->card), intval($request->total_amount) * 100);
+                return response()->json($payment, 204);
                 // if($payment){
                     $pay = new OrderPayment();
                     $pay->order_id = $order->id;
