@@ -36,7 +36,7 @@ class StripePayment{
                 return $charge;
             }
         } catch (\Exception $e) {
-            return $e;
+            throw $e;
         }
     }
 }
