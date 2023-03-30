@@ -30,13 +30,11 @@ class StripePayment{
                 'description' => 'wallet',
             ]);
             return $charge;
-            if(isset($charge['id'])) {
-                return $charge;
-            } else {
-                return $charge;
-            }
-        } catch (\Exception $e) {
-            throw $e;
+        } catch (CardException $e) {
+            $error = $e->getError();
+            $code = $e->getHttpStatus();
+            $message = $e->getMessage();
+            return $error;
         }
     }
 }

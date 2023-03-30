@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('payment_id');
             $table->char('status')->default('pending'); // pending, canceld, declined, paid
             $table->json('data');
+            $table->string('message')->nullable();
             $table->timestamps();
         });
     }
