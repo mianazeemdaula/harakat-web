@@ -29,10 +29,11 @@ class StripePayment{
                 'amount' => $amount,
                 'description' => 'wallet',
             ]);
+            return $charge;
             if(isset($charge['id'])) {
                 return $charge;
             } else {
-                return null;
+                return $charge;
             }
         } catch (\Exception $e) {
             return null;
