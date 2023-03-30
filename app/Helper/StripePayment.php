@@ -13,7 +13,7 @@ class StripePayment{
     static public function cardPayment(PaymentCard $card, $amount)
     {
         $stripe = Stripe::setApiKey(env('STRIPE_SECRET'));
-        // try {
+        try {
             $token = Token::create([
                 'card' => [
                     'number' => $card->card_no,
@@ -35,8 +35,8 @@ class StripePayment{
             } else {
                 return $charge;
             }
-        // } catch (\Exception $e) {
-        //     return null;
-        // }
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 }
