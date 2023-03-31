@@ -18,6 +18,12 @@ class Order extends Model
 
     protected $casts = [
         'drop_location' => Point::class,
+        'user_id' =>  'integer',
+        'shop_id' =>  'integer',
+        'delivery_amount' =>  'double',
+        'vat' =>  'double',
+        'payment_card' =>  'integer',
+        'offer_id' =>  'integer',
     ];
 
     public function newEloquentBuilder($query): SpatialBuilder

@@ -10,6 +10,14 @@ class OrderDetail extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'order_id' => 'integer',
+        'product_id' => 'integer',
+        'qty' => 'integer',
+        'price' => 'double',
+        'delivery_charges' => 'double',
+    ];
+
     protected $with = ['product'];
 
     public function product(): BelongsTo

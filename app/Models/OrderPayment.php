@@ -10,6 +10,10 @@ class OrderPayment extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'order_id' => 'integer'
+    ];
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
