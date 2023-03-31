@@ -76,7 +76,7 @@ class OrderController extends Controller
             foreach ($request->addons as $addon) {
                 $add = new OrderAddon();
                 $add->order_id = $order->id;
-                $add->addon_id = $addon['addon_id'];
+                $add->addon_id = $addon['id'];
                 $add->qty = $addon['qty'];
                 $add->price = $addon['price'];
                 $add->save();
