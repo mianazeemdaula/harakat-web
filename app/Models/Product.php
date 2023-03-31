@@ -15,7 +15,16 @@ class Product extends Model
 
     
     protected $appends = ['rating','rating_count'];
-    protected $casts = ['status' => 'boolean'];
+    protected $casts = [
+        'user_id' => 'integer',
+        'product_category_id' => 'integer',
+        'price' => 'double',
+        'promo_price' => 'double',
+        'vat' => 'double',
+        'prepration_time' => 'integer',
+        'rating' => 'double',
+        'status' => 'boolean',
+    ];
 
     public function shop(): BelongsTo
     {

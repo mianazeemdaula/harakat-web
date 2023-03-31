@@ -21,6 +21,8 @@ class Order extends Model
         'user_id' =>  'integer',
         'shop_id' =>  'integer',
         'delivery_amount' =>  'double',
+        'gross_amount' =>  'double',
+        'total_amount' =>  'double',
         'vat' =>  'double',
         'payment_card' =>  'integer',
         'offer_id' =>  'integer',
