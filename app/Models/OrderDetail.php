@@ -18,7 +18,7 @@ class OrderDetail extends Model
         'delivery_charges' => 'double',
     ];
 
-    protected $with = ['product'];
+    protected $with = ['product.category'];
 
     public function product(): BelongsTo
     {
