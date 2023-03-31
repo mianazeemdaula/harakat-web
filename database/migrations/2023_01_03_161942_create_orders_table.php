@@ -30,6 +30,7 @@ return new class extends Migration
             $table->float('delivery_amount')->default(0);
             $table->float('gross_amount');
             $table->float('total_amount');
+            $table->float('discount_amount')->default(0);
             $table->string('drop_address')->nullable();
             $table->point('drop_location')->nullable();
             $table->string('payment_type')->default('cod');

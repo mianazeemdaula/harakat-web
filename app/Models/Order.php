@@ -23,6 +23,7 @@ class Order extends Model
         'delivery_amount' =>  'double',
         'gross_amount' =>  'double',
         'total_amount' =>  'double',
+        'discount_amount' =>  'double',
         'vat' =>  'double',
         'payment_card' =>  'integer',
         'offer_id' =>  'integer',
