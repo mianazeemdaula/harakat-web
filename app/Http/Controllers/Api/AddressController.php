@@ -36,16 +36,18 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'title' => 'required',
             'address' => 'required',
             'lat' => 'required',
             'lng' => 'required',
         ]);
         $add = new Address();
         $add->user_id = $request->user()->id;
-        $add->holder_name = $request->address;
+        $add->title = $request->title;
+        $add->address = $request->address;
         $add->location = new Point( $request->lat,  $request->lng);
         $add->save();
-        return $this->index();
+        return response()->json($add, 200);
     }
 
     /**
@@ -85,10 +87,11 @@ class AddressController extends Controller
             'lng' => 'required',
         ]);
         $add = Address::find($id);
-        $add->holder_name = $request->address;
+        $add->title = $request->title;
+        $add->address = $request->address;
         $add->location = new Point( $request->lat,  $request->lng);
         $add->save();
-        return response()->json($ad, 200);
+        return response()->json($add, 200);
     }
 
     /**
