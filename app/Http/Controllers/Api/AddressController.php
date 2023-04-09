@@ -13,7 +13,7 @@ class AddressController extends Controller
 
     public function index()
     {
-        $data = Address::where('status', true)->get();
+        $data = Address::where('status', true)->paginate();
         return response()->json($data, 200);
     }
 
@@ -88,7 +88,7 @@ class AddressController extends Controller
         $add->holder_name = $request->address;
         $add->location = new Point( $request->lat,  $request->lng);
         $add->save();
-        return $this->index();
+        return response()->json($ad, 200);
     }
 
     /**
@@ -99,7 +99,7 @@ class AddressController extends Controller
      */
     public function destroy($id)
     {
-        Address::find($id)->delete();
-        return $this->index();
+        $data = Address::find($id)->delete();
+        return  response()->json($data, 200);
     }
 }

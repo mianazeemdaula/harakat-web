@@ -61,5 +61,6 @@ class DatabaseSeeder extends Seeder
         ]));
         \App\Models\Offer::factory(100)->create();
         \App\Models\Notification::factory(200)->create();
+        \App\Models\Address::factory(50)->create();
     }
 }

@@ -41,11 +41,11 @@ Route::prefix('customer')->group(function () {
         Route::resource('notification', NotificationController::class);
         Route::resource('order', OrderController::class);
         Route::resource('card', CardController::class);
-        Route::resource('address', AddressController::class);
         Route::resource('recent-product', RecentProductController::class);
         Route::get('user/profile', [UserController::class,'profile']);
         Route::post('user/update', [UserController::class,'updateUser']);
         Route::post('user/delete', [UserController::class,'deleteAccount']);
+        Route::resource('address', AddressController::class);
     });
 });
 
