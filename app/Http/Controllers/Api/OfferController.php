@@ -17,7 +17,10 @@ class OfferController extends Controller
         ->whereDate('expire_date','<=' ,now())
         ->where('min_purchase', '>=', $request->amount)
         ->where('status', true)
-        ->firstOrFail();
+        ->first();
+        if(!$offer){
+            return response()->json(['message' => 'offer_not_found'], 204);
+        }
         $count = Order::where('offer_id', $offer->id)->count();
         if($count >= $offer->limit){
             return response()->json(['message' => 'offer_limit_exceed'], 204);
