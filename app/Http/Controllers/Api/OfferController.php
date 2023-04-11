@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 
 use App\Models\Order;
 use App\Models\Offer;
+use Illuminate\Support\Str;
 
 class OfferController extends Controller
 {
     public function claim(Request $request)
     {
-        $offer = Offer::where('code', $request->code)
+        $offer = Offer::where('code', Str::upper($request->code))
         ->whereDate('start_date','<=' ,now())
         ->whereDate('expire_date','>=' ,now())
         ->where('status', true)
