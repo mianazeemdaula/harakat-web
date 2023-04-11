@@ -54,7 +54,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'rating' => 'float',
-        'rating_count' => 'integer'
+        'rating_count' => 'integer',
+        'image' => 'string',
     ];
 
     protected function image(): Attribute
