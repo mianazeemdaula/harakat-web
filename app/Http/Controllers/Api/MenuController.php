@@ -15,7 +15,7 @@ class MenuController extends Controller
 {
     public function menus()
     {
-        $menus = Category::query()->active()->get();
+        $menus = ProductCategory::query()->active()->get();
         return response()->json($menus, 200);
     }
     

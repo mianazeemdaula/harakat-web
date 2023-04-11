@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\DataController;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\CardController;
+use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\RecentProductController;
 use App\Http\Controllers\Api\NotificationController;
@@ -45,6 +46,7 @@ Route::prefix('customer')->group(function () {
         Route::get('user/profile', [UserController::class,'profile']);
         Route::post('user/update', [UserController::class,'updateUser']);
         Route::post('user/delete', [UserController::class,'deleteAccount']);
+        Route::post('claim', [OfferController::class,'claim']);
         Route::resource('address', AddressController::class);
     });
 });
