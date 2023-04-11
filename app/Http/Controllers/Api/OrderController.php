@@ -104,7 +104,7 @@ class OrderController extends Controller
                     $pay->save();
                 }
             }
-            $order= Order::with(['payment', 'details','user', 'shop'])->find($order->id);
+            $order= Order::with(['payment', 'details','user', 'shop','addons'])->find($order->id);
             return response()->json($order, 200);
         // } catch (\Exception $th) {
         //     DB::rollback();
@@ -121,7 +121,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order= Order::with(['payment', 'details','user', 'shop'])->find($id);
+        $order= Order::with(['details','payment','addons','shop','user'])->find($id);
             return response()->json($order, 200);
     }
 
