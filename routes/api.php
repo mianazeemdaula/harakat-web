@@ -30,6 +30,7 @@ Route::prefix('customer')->group(function () {
     Route::post('/complete-profile', [AuthCustomerController::class,'completeProfile']);
 
     Route::post('shops', [HomeController::class,'shops']);
+    Route::post('home', [HomeController::class,'home']);
     Route::get('category', [MenuController::class,'categories']);
     Route::get('menus', [MenuController::class,'menus']);
     Route::post('menu-shops', [MenuController::class,'menuShops']);
