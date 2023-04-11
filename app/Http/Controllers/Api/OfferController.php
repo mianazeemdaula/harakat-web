@@ -19,11 +19,11 @@ class OfferController extends Controller
         ->where('status', true)
         ->first();
         if(!$offer){
-            return response()->json(['message' => 'offer_not_found'], 204);
+            return response()->json(['message' => 'offer_not_found'], 422);
         }
         $count = Order::where('offer_id', $offer->id)->count();
         if($count >= $offer->limit){
-            return response()->json(['message' => 'offer_limit_exceed'], 204);
+            return response()->json(['message' => 'offer_limit_exceed'], 422);
         }
         return response()->json($offer, 200);
     }
