@@ -17,8 +17,11 @@ return new class extends Migration
             $table->id();
             $table->char('page_key',20);
             $table->string('title');
+            $table->string('title_ar');
             $table->string('short_desc')->nullable();
+            $table->string('short_desc_ar')->nullable();
             $table->mediumText('content')->nullable()->default('text');
+            $table->mediumText('content_ar')->nullable()->default('text');
             $table->timestamps();
         });
     }

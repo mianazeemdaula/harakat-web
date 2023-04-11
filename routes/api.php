@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\CardController;
 use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\RecentProductController;
+use App\Http\Controllers\Api\AppContentController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\UserController;
 
@@ -38,6 +39,7 @@ Route::prefix('customer')->group(function () {
     Route::post('popular-products', [MenuController::class,'popularProducts']);
     Route::get('cities', [DataController::class, 'cities']);
     Route::post('offers', [HomeController::class,'offers']);
+    Route::get('app-content', [AppContentController::class,'index']);
     
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::resource('notification', NotificationController::class);
