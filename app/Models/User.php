@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -55,6 +56,13 @@ class User extends Authenticatable
         'rating' => 'float',
         'rating_count' => 'integer'
     ];
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Str::startsWith($value, "http") ? $value : ( $value == null ? "https://ui-avatars.com/api/?name=Axy+Boe" : url($value)),
+        );
+    }
 
     public function shop(): HasOne
     {
