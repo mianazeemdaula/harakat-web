@@ -192,6 +192,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
+        'Intervention\Image\ImageServiceProvider',
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
@@ -211,6 +212,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         // 'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+        'Image' => 'Intervention\Image\Facades\Image',
 
     ])->toArray(),
 
