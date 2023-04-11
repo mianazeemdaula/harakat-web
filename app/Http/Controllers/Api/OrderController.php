@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Helper\StripePayment;
 
 use App\Models\Order;
@@ -13,6 +14,8 @@ use App\Models\PaymentCard;
 use App\Models\OrderDetail;
 use App\Models\OrderAddon;
 use App\Models\OrderPayment;
+
+use App\Models\Offer;
 
 class OrderController extends Controller
 {
@@ -58,10 +61,15 @@ class OrderController extends Controller
             $order->payment_type = $request->payment_type;
             $order->vat = $request->vat;
             $order->gross_amount = $request->gross_amount;
+            $order->discount_amount = $request->discount;
             $order->delivery_amount = $request->delivery_cost;
             $order->total_amount = $request->total_amount;
             $order->drop_address = $request->drop_address;
             $order->drop_location = new Point($request->drop_lat, $request->drop_lng);
+            if($request->offer){
+                $offer = Offer::where('code', Str::upper($request->offer))->first();
+                $order->offer_id = $offer->id;
+            }
             $order->save();
             foreach ($request->items as $detail) {
                 $item = new OrderDetail;
