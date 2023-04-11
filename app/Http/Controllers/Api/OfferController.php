@@ -13,13 +13,15 @@ class OfferController extends Controller
     public function claim(Request $request)
     {
         $offer = Offer::where('code', $request->code)
-        ->whereDate('start_date','>=' ,now())
-        ->whereDate('expire_date','<=' ,now())
-        ->where('min_purchase', '>=', $request->amount)
+        ->whereDate('start_date','<=' ,now())
+        ->whereDate('expire_date','>=' ,now())
         ->where('status', true)
         ->first();
         if(!$offer){
             return response()->json(['message' => 'offer_not_found'], 422);
+        }
+        if($offer->min_purchase >=  $request->amount){
+            return response()->json(['message' => 'min_purchase_limit'], 422);
         }
         $count = Order::where('offer_id', $offer->id)->count();
         if($count >= $offer->limit){
