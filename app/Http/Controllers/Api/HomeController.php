@@ -35,10 +35,10 @@ class HomeController extends Controller
         if($user){
             $orderIds = Order::where('user_id', $user->id)->latest()->take(10)->pluck('id');
             $productIds = OrderDetail::whereIn('order_id', $orderIds)->pluck('product_id');
-            $data['recent_products'] = Product::whereIn('id',$productIds)
+            $data = Product::whereIn('id',$productIds)
             ->with(['category','shop','addons'])->take(10)->get();
         }else{
-            $data['recent_products'] = [];
+            $data = [];
         }
     }
     public function shops(Request $request)
