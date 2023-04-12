@@ -23,8 +23,8 @@ class HomeController extends Controller
         $ids = Shop::nearBy($request->lat, $request->lng)
         ->where('category_id', $request->cat_id)->pluck('user_id');
         $data['shops'] = User::whereIn('id',$ids)->take(5)->get();
-        $data['products'] = Product::whereIn('id',$ids)->take(5)->get();
-        $data['popular'] = Product::whereIn('id',$ids)->take(5)->get();
+        $data['products'] = Product::with(['category','shop','addons'])->whereIn('id',$ids)->take(5)->get();
+        $data['popular'] = Product::with(['category','shop','addons'])->whereIn('id',$ids)->take(5)->get();
         if($user){
             $orderIds = Order::where('user_id', $user->id)->latest()->take(10)->pluck('id');
             $productIds = OrderDetail::whereIn('order_id', $orderIds)->pluck('product_id');
