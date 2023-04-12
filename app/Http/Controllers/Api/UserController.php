@@ -111,39 +111,44 @@ class UserController extends Controller
         return response()->json($data, 200);
     }
 
-    public function sendEmailVerifcationCode(Request $request)
+    public function sendResetPasswordPin(Request $request)
     {
-        $user= auth()->user();
         $code = rand(100000,999999);
-        $data = PasswordReset::where('email', $user->email)->first();
+        $user =  User::where('email', $request->email)->first();
+        if(!$user){
+            return  response()->json(['message' => 'Email not exists'], 204);
+        }
+        $data = PasswordReset::where('email', $request->email)->first();
         if($data){
-            PasswordReset::where('email', $user->email)->delete();
+            PasswordReset::where('email', $request->email)->delete();
         }
         PasswordReset::insert([
-            'email' => $user->email,
+            'email' => $request->email,
             'token' => $code,
             'created_at' => now(),
         ]);
-        Mail::to($user)->send(new VerifyApiEmail($code));
+        Mail::to($request->email)->send(new VerifyApiEmail($code));
         return response()->json(['message' => 'Email sent successfully'], 200);
     }
 
-    public function verifyEmailVerifcationCode(Request $request)
+    public function changePassword(Request $request)
     {
-        $user= $request->user();
         $request->validate([
             'token' => 'required|string|exists:password_resets',
+            'password' => 'required',
+            'email' => 'required',
         ]);
-        $data = PasswordReset::where('email', $user->email)->first();
+        $data = PasswordReset::where('email', $request->email)->first();
         if($data){
             if ($data->created_at->addMinutes(15) < now()) {
-                PasswordReset::where('email', $user->email)->delete();
+                PasswordReset::where('email', $request->email)->delete();
                 return response(['message' => trans('passwords.code_is_expire')], 422);
             }
-            $user->email_verified_at = now();
+            $user = User::where('email', $request->email)->first();
+            $user->password = bcrypt($request->password);
             $user->save();
             PasswordReset::where('email', $user->email)->delete();
-            return response()->json($user, 200);
+            return response()->json(['message'=> 'Password reset successfully'], 200);
         }
         return response()->json(['message'=> 'email verification not in process'], 409);
     }

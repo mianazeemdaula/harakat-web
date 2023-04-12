@@ -40,6 +40,7 @@ class HomeController extends Controller
         }else{
             $data = [];
         }
+        return response()->json($data, 200);
     }
     public function shops(Request $request)
     {

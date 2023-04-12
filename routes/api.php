@@ -30,6 +30,10 @@ Route::prefix('customer')->group(function () {
     Route::post('/social', [AuthCustomerController::class,'social']);
     Route::post('/complete-profile', [AuthCustomerController::class,'completeProfile']);
 
+    // Reset Password
+    Route::post('/send-reset-pass-pin', [UserController::class,'sendResetPasswordPin']);
+    Route::post('/change-password', [UserController::class,'changePassword']);
+
     Route::post('shops', [HomeController::class,'shops']);
     Route::post('home', [HomeController::class,'home']);
     Route::get('category', [MenuController::class,'categories']);
