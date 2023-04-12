@@ -25,6 +25,13 @@ class HomeController extends Controller
         $data['shops'] = User::whereIn('id',$ids)->take(5)->get();
         $data['products'] = Product::with(['category','shop','addons'])->whereIn('id',$ids)->take(5)->get();
         $data['popular'] = Product::with(['category','shop','addons'])->whereIn('id',$ids)->take(5)->get();
+        
+        return response()->json($data, 200);
+    }
+
+    public function recentProducts(Request $request)
+    {
+        $user = $request->user();
         if($user){
             $orderIds = Order::where('user_id', $user->id)->latest()->take(10)->pluck('id');
             $productIds = OrderDetail::whereIn('order_id', $orderIds)->pluck('product_id');
@@ -33,7 +40,6 @@ class HomeController extends Controller
         }else{
             $data['recent_products'] = [];
         }
-        return response()->json($data, 200);
     }
     public function shops(Request $request)
     {

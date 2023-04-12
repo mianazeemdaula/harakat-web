@@ -42,10 +42,11 @@ Route::prefix('customer')->group(function () {
     Route::get('app-content', [AppContentController::class,'index']);
     
     Route::middleware(['auth:sanctum'])->group(function () {
+        Route::post('recent-products', [HomeController::class,'recentProducts']);
         Route::resource('notification', NotificationController::class);
         Route::resource('order', OrderController::class);
         Route::resource('card', CardController::class);
-        Route::resource('recent-product', RecentProductController::class);
+        // Route::resource('recent-product', RecentProductController::class);
         Route::get('user/profile', [UserController::class,'profile']);
         Route::post('user/update', [UserController::class,'updateUser']);
         Route::post('user/delete', [UserController::class,'deleteAccount']);
