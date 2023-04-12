@@ -20,7 +20,8 @@ class HomeController extends Controller
     public function home(Request $request)
     {
         $user = $request->user();
-        $ids = Shop::nearBy($request->lat, $request->lng)->pluck('user_id');
+        $ids = Shop::nearBy($request->lat, $request->lng)
+        ->where('category_id', $request->cat_id)->pluck('user_id');
         $data['shops'] = User::whereIn('id',$ids)->take(5)->get();
         $data['products'] = Product::whereIn('id',$ids)->take(5)->get();
         $data['popular'] = Product::whereIn('id',$ids)->take(5)->get();
