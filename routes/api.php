@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\RecentProductController;
 use App\Http\Controllers\Api\AppContentController;
+use App\Http\Controllers\Api\InboxController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\UserController;
 
@@ -50,6 +51,7 @@ Route::prefix('customer')->group(function () {
         Route::resource('notification', NotificationController::class);
         Route::resource('order', OrderController::class);
         Route::resource('card', CardController::class);
+        Route::resource('inbox', InboxController::class);
         // Route::resource('recent-product', RecentProductController::class);
         Route::get('user/profile', [UserController::class,'profile']);
         Route::post('user/update', [UserController::class,'updateUser']);
