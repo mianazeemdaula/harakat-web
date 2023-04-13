@@ -76,10 +76,10 @@ class InboxController extends Controller
     public function update(Request $request, $id)
     {
         $data = Inbox::find($id);
-        if($request->read){
+        if($request->has('read')){
             $data->read = !$data->read;
         }
-        if($request->star){
+        if($request->has('star')){
             $data->star = !$data->star;
         }
         $data->save();
