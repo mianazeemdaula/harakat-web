@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Inbox extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'user_id' => 'integer',
+        'star' => 'boolean',
+        'read' => 'boolean',
+    ];
 }
