@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Customer;
+use App\Models\Rider;
 use App\Models\Address;
 use App\Models\SocialAccount;
 use \Hash;
@@ -46,7 +46,8 @@ class AuthRiderController extends Controller
             'mobile' => 'required|unique:users',
             'dob' => 'required',
             'gender' => 'required',
-            'city_id' => 'required'
+            'city_id' => 'required',
+            'appartment' => 'required'
         ]);
         $user = new User();
         $user->name = $request->name;
@@ -54,12 +55,17 @@ class AuthRiderController extends Controller
         $user->mobile = $request->mobile;
         $user->image = "https://ui-avatars.com/api/?name=".str_replace(' ', '+', $request->name);
         $user->save();
-        $customer = new Customer;
-        $customer->city_id = $request->city_id;
-        $customer->gender = $request->gender;
-        $customer->dob = $request->dob;
-        $customer->save();
-        $user->customer;
+        $rider = new Rider;
+        $rider->user_id = $user->id;
+        $rider->city_id = $request->city_id;
+        $rider->gender = $request->gender;
+        $rider->address = $request->address;
+        if($request->lat && $request->lng){
+            $rider->location = new Point($request->lat, $request->lng);
+        }
+        $rider->appartment = $request->appartment;
+        $rider->save();
+        $user->rider;
         $token = $user->createToken('login')->plainTextToken;
         $data['token'] = $token;
         $data['user'] = $user;

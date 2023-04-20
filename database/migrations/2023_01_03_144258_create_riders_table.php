@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('shop_id')->nullable();
             $table->string('address')->nullable();
+            $table->string('appartment')->nullable();
             $table->point('location')->nullable();
             $table->string('awards', 100)->nullable()->default('text');
             $table->boolean('live')->default(false);
