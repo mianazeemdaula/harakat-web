@@ -72,6 +72,11 @@ Route::prefix('rider')->group(function () {
 
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('active-orders', [OrderController::class, 'riderActiveOrders']);
+        
+        // Profile
+        Route::get('user/profile', [UserController::class,'profile']);
+        Route::post('user/update', [UserController::class,'updateUser']);
+        Route::post('user/delete', [UserController::class,'deleteAccount']);
     });
 });
 
