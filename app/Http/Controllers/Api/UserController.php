@@ -160,4 +160,11 @@ class UserController extends Controller
         $user->save();
         return response()->json($user, 200);
     }
+
+    public function riderLive(Request $request)
+    {
+        $user= $request->user();
+        $user->rider()->update(['live' => $request->live]);
+        return response()->json($user, 200);
+    }
 }

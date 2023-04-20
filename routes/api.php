@@ -65,9 +65,13 @@ Route::prefix('rider')->group(function () {
     Route::post('/login', [AuthRiderController::class,'login']);
     Route::post('/signup', [AuthRiderController::class,'signup']);
     Route::post('/social', [AuthRiderController::class,'social']);
+    
+    // Reset Password
+    Route::post('/send-reset-pass-pin', [UserController::class,'sendResetPasswordPin']);
+    Route::post('/change-password', [UserController::class,'changePassword']);
 
     Route::middleware(['auth:sanctum'])->group(function () {
-        
+        Route::get('active-orders', [OrderController::class, 'riderActiveOrders']);
     });
 });
 

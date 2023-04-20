@@ -13,16 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('riders', function (Blueprint $table) {
+        Schema::create('balances', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('city_id');
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->unsignedBigInteger('shop_id')->nullable();
-            $table->string('address')->nullable();
-            $table->point('location')->nullable();
-            $table->string('awards', 100)->nullable()->default('text');
-            $table->boolean('live')->default(false);
+            $table->float('balance');
             $table->timestamps();
         });
     }
@@ -34,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('riders');
+        Schema::dropIfExists('balances');
     }
 };
