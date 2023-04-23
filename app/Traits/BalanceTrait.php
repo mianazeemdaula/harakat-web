@@ -11,7 +11,7 @@ trait BalanceTrait
     {
         if(!$this->user){
             $acnt = new Balance();
-            $acnt->user_id = $this->user_id;
+            $acnt->user_id = $this->id;
             $acnt->save();
         }
         $this->user->balance += $amount;
@@ -22,7 +22,7 @@ trait BalanceTrait
     {
         if(!$this->user){
             $acnt = new Balance();
-            $acnt->user_id = $this->user_id;
+            $acnt->user_id = $this->id;
             $acnt->save();
         }
         $this->user->balance -= $amount;
