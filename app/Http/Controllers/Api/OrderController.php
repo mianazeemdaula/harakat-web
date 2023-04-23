@@ -171,7 +171,7 @@ class OrderController extends Controller
                         'amount' => $amount,
                         'details' => "COD Order #$order->id"
                     ]);
-                    $transaction->increaseBalance($amount);
+                    $request->user()->increaseBalance($amount);
                 }else{
                     $amount = $order->total_amount;
                     $transaction = Transaction::create([
@@ -180,7 +180,7 @@ class OrderController extends Controller
                         'amount' => $amount,
                         'details' => "Order #$order->id"
                     ]);
-                    $transaction->increaseBalance($amount);
+                    $request->user()->increaseBalance($amount);
                 }
                 $amount = $order->delivery_amount;
                 $transaction = Transaction::create([
@@ -189,7 +189,7 @@ class OrderController extends Controller
                     'amount' => $amount,
                     'details' => "Earning Order #$order->id"
                 ]);
-                $transaction->increaseBalance($amount);
+                $request->user()->increaseBalance($amount);
             }else if($request->status == 'canceled'){
                 $order->canceled_at = now();
                 $cancel = new OrderCancel();
