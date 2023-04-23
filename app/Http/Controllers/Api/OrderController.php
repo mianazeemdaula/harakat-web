@@ -166,7 +166,7 @@ class OrderController extends Controller
                     return response()->json(['message' => 'Rider already assigned'], 422);
                 }
                 $order->rider_id = $request->user()->id;
-                $order->req_riders = [];
+                $order->req_riders = null;
             }else if($request->status == 'dispatched'){
                 $order->dispatched_at = now();
             }else if($request->status == 'picked'){
@@ -181,7 +181,7 @@ class OrderController extends Controller
                         'amount' => $amount,
                         'details' => "COD Order #$order->id"
                     ]);
-                    Balance::updateOrCreate(['user_id', $order->rider_id],['balance' => DB::raw("balance - $amount")]);
+                    Balance::updateOrCreate(['user_id'=> $order->rider_id],['balance' => DB::raw("balance - $amount")]);
                 }
                 $amount = $order->total_amount;
                 $transaction = Transaction::create([
@@ -190,7 +190,7 @@ class OrderController extends Controller
                     'amount' => $amount,
                     'details' => "Order #$order->id"
                 ]);
-                Balance::updateOrCreate(['user_id', $order->shop_id],['balance' => DB::raw("balance + $amount")]);
+                Balance::updateOrCreate(['user_id'=> $order->shop_id],['balance' => DB::raw("balance + $amount")]);
                 $amount = $order->delivery_amount;
                 $transaction = Transaction::create([
                     'user_id' => $order->rider_id,
@@ -198,7 +198,7 @@ class OrderController extends Controller
                     'amount' => $amount,
                     'details' => "Earning Order #$order->id"
                 ]);
-                Balance::updateOrCreate(['user_id', $order->rider_id],['balance' => DB::raw("balance + $amount")]);
+                Balance::updateOrCreate(['user_id' => $order->rider_id],['balance' => DB::raw("balance + $amount")]);
             }else if($request->status == 'canceled'){
                 $order->canceled_at = now();
                 $cancel = new OrderCancel();
