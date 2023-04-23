@@ -15,12 +15,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\BalanceTrait;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, BalanceTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -80,6 +81,10 @@ class User extends Authenticatable
         return $this->hasOne(Rider::class);
     }
     
+    public function balance(): HasOne
+    {
+        return $this->hasOne(Balance::class);
+    }
 
     public function products(): HasMany
     {
