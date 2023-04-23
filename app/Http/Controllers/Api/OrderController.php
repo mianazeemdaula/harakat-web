@@ -16,6 +16,7 @@ use App\Models\OrderAddon;
 use App\Models\OrderPayment;
 use App\Models\Transaction;
 use App\Models\OrderCancel;
+use App\Models\Balance;
 
 use App\Models\Offer;
 
@@ -91,12 +92,11 @@ class OrderController extends Controller
                 $add->price = $addon['price'];
                 $add->save();
             }
-            DB::commit();
             if($request->payment_type == 'card'){
                 $order->payment_card = $request->card;
                 $order->save();
                 $payment = StripePayment::cardPayment(PaymentCard::find($request->card), intval($request->total_amount) * 100);
-                if($payment){
+                if($payment && isset($payment['id'])){
                     $pay = new OrderPayment();
                     $pay->order_id = $order->id;
                     $pay->gateway = 'stripe';
@@ -104,8 +104,12 @@ class OrderController extends Controller
                     $pay->status = isset($payment['id']) ? 'paid' : 'declined';
                     $pay->data = json_encode($payment);
                     $pay->save();
+                }else{
+                    DB::rollback();
+                    return response()->json(['message' => $payment['message']], 422);
                 }
             }
+            DB::commit();
             $order= Order::with(['payment', 'details','user', 'shop','addons'])->find($order->id);
             return response()->json($order, 200);
         // } catch (\Exception $th) {
@@ -157,6 +161,11 @@ class OrderController extends Controller
                 $order->processes_at = now();
             }else if($request->status == 'assigned'){
                 $order->assigned_at = now();
+                if($order->rider_id){
+                    $order->save();
+                    return response()->json(['message' => 'Rider already assigned'], 422);
+                }
+                $order->req_riders = [];
             }else if($request->status == 'dispatched'){
                 $order->dispatched_at = now();
             }else if($request->status == 'picked'){
@@ -171,17 +180,16 @@ class OrderController extends Controller
                         'amount' => $amount,
                         'details' => "COD Order #$order->id"
                     ]);
-                    $request->user()->balance()->updateOrCreate(['balance' => DB::raw("balance + $amount")]);
-                }else{
-                    $amount = $order->total_amount;
-                    $transaction = Transaction::create([
-                        'user_id' => $order->shop_id,
-                        'type' => 'Income',
-                        'amount' => $amount,
-                        'details' => "Order #$order->id"
-                    ]);
-                    $request->user()->balance()->updateOrCreate(['balance' => DB::raw("balance + $amount")]);
+                    Balance::updateOrCreate(['user_id', $order->rider_id],['balance' => DB::raw("balance - $amount")]);
                 }
+                $amount = $order->total_amount;
+                $transaction = Transaction::create([
+                    'user_id' => $order->shop_id,
+                    'type' => 'Income',
+                    'amount' => $amount,
+                    'details' => "Order #$order->id"
+                ]);
+                Balance::updateOrCreate(['user_id', $order->shop_id],['balance' => DB::raw("balance + $amount")]);
                 $amount = $order->delivery_amount;
                 $transaction = Transaction::create([
                     'user_id' => $order->rider_id,
@@ -189,7 +197,7 @@ class OrderController extends Controller
                     'amount' => $amount,
                     'details' => "Earning Order #$order->id"
                 ]);
-                $request->user()->balance()->updateOrCreate(['balance' => DB::raw("balance + $amount")]);
+                Balance::updateOrCreate(['user_id', $order->rider_id],['balance' => DB::raw("balance + $amount")]);
             }else if($request->status == 'canceled'){
                 $order->canceled_at = now();
                 $cancel = new OrderCancel();

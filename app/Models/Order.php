@@ -27,6 +27,7 @@ class Order extends Model
         'vat' =>  'double',
         'payment_card' =>  'integer',
         'offer_id' =>  'integer',
+        'req_riders' =>  'json',
     ];
 
     public function newEloquentBuilder($query): SpatialBuilder
