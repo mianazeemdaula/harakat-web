@@ -165,6 +165,7 @@ class OrderController extends Controller
                     $order->save();
                     return response()->json(['message' => 'Rider already assigned'], 422);
                 }
+                $order->rider_id = $request->user()->id;
                 $order->req_riders = [];
             }else if($request->status == 'dispatched'){
                 $order->dispatched_at = now();
