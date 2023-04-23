@@ -122,7 +122,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $order= Order::with(['details','payment','addons','shop','user'])->find($id);
-            return response()->json($order, 200);
+        return response()->json($order, 200);
     }
 
     /**
@@ -145,7 +145,30 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $order = Order::find($id);
+            $order->status = $request->status;
+            if($request->status == 'accept'){
+                $order->approved_at = now();
+            }else if($request->status == 'processed'){
+                $order->process_at = now();
+            }else if($request->status == 'dispatched'){
+                $order->dispatch_at = now();
+            }else if($request->status == 'picked'){
+                $order->picked_at = now();
+            }else if($request->status == 'delivered'){
+                $order->deliver_at = now();
+            }else if($request->status == 'canceled'){
+                $order->canceled_at = now();
+            }
+            $order->save();
+            DB::commit();
+            return $this->show($order->id);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json($th->getMessage(), 422);
+        }
     }
 
     /**
