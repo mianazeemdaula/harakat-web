@@ -14,6 +14,8 @@ use App\Models\PaymentCard;
 use App\Models\OrderDetail;
 use App\Models\OrderAddon;
 use App\Models\OrderPayment;
+use App\Models\Transaction;
+use App\Models\OrderCancel;
 
 use App\Models\Offer;
 
@@ -161,8 +163,40 @@ class OrderController extends Controller
                 $order->picked_at = now();
             }else if($request->status == 'delivered'){
                 $order->delivered_at = now();
+                if($order->payment_type == 'cod'){
+                    $amount = $order->total_amount - $order->delivery_amount;
+                    $transaction = Transaction::create([
+                        'user_id' => $order->rider_id,
+                        'type' => 'Income',
+                        'amount' => $amount,
+                        'details' => "COD Order #$order->id"
+                    ]);
+                    $transaction->increaseBalance($amount);
+                }else{
+                    $amount = $order->total_amount;
+                    $transaction = Transaction::create([
+                        'user_id' => $order->shop_id,
+                        'type' => 'Income',
+                        'amount' => $amount,
+                        'details' => "Order #$order->id"
+                    ]);
+                    $transaction->increaseBalance($amount);
+                }
+                $amount = $order->delivery_amount;
+                $transaction = Transaction::create([
+                    'user_id' => $order->rider_id,
+                    'type' => 'Income',
+                    'amount' => $amount,
+                    'details' => "Earning Order #$order->id"
+                ]);
+                $transaction->increaseBalance($amount);
             }else if($request->status == 'canceled'){
                 $order->canceled_at = now();
+                $cancel = new OrderCancel();
+                $cancel->order_id = $order->id;
+                $cancel->rider_id = $request->user()->id;
+                $cancel->reason = $request->reason;
+                $cancel->save();
             }
             $order->save();
             DB::commit();

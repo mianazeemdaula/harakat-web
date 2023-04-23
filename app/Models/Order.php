@@ -60,6 +60,11 @@ class Order extends Model
         return $this->belongsTo(User::class, 'shop_id');
     }
 
+    public function rider(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'rider_id');
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

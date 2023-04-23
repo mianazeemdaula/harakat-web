@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('number')->nullable();
             $table->unsignedBigInteger('shop_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('driver_id')->nullable();
+            $table->unsignedBigInteger('rider_id')->nullable();
             $table->string('extra_note')->nullable();
             $table->char('status', 20)->default('open');
             $table->timestamp('approved_at')->nullable();
