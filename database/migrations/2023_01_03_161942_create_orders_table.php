@@ -22,10 +22,11 @@ return new class extends Migration
             $table->string('extra_note')->nullable();
             $table->char('status', 20)->default('open');
             $table->timestamp('approved_at')->nullable();
-            $table->timestamp('process_at')->nullable();
-            $table->timestamp('dispatch_at')->nullable();
+            $table->timestamp('processes_at')->nullable();
+            $table->timestamp('assigned_at')->nullable();
+            $table->timestamp('dispatched_at')->nullable();
             $table->timestamp('picked_at')->nullable();
-            $table->timestamp('deliver_at')->nullable();
+            $table->timestamp('delivered_at')->nullable();
             $table->timestamp('canceled_at')->nullable();
             $table->float('vat')->default(0);
             $table->float('delivery_amount')->default(0);

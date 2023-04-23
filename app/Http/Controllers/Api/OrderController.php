@@ -152,13 +152,15 @@ class OrderController extends Controller
             if($request->status == 'accept'){
                 $order->approved_at = now();
             }else if($request->status == 'processed'){
-                $order->process_at = now();
+                $order->processes_at = now();
+            }else if($request->status == 'assigned'){
+                $order->assigned_at = now();
             }else if($request->status == 'dispatched'){
-                $order->dispatch_at = now();
+                $order->dispatched_at = now();
             }else if($request->status == 'picked'){
                 $order->picked_at = now();
             }else if($request->status == 'delivered'){
-                $order->deliver_at = now();
+                $order->delivered_at = now();
             }else if($request->status == 'canceled'){
                 $order->canceled_at = now();
             }
