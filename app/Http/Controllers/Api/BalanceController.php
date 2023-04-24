@@ -16,7 +16,7 @@ class BalanceController extends Controller
 {
     public function balance()
     {
-        $data = auth()->user()->balance();
+        $data = Balance::where('user_id', auth()->user()->id)->first();
         return response()->json($data, 200);
     }
 
