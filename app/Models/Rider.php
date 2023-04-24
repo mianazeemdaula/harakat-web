@@ -25,6 +25,7 @@ class Rider extends Model
         'city_id' => 'integer',
         'location' => Point::class,
         'live_geo' => Point::class,
+        'live' => 'boolean',
     ];
 
     public function newEloquentBuilder($query): SpatialBuilder
