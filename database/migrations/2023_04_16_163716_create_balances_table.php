@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->float('balance')->default(0);
+            $table->float('cash')->default(0);
             $table->timestamps();
         });
     }

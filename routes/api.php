@@ -72,7 +72,9 @@ Route::prefix('rider')->group(function () {
     Route::post('/change-password', [UserController::class,'changePassword']);
 
     Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('new-orders', [OrderController::class, 'riderNewOrders']);
         Route::get('active-orders', [OrderController::class, 'riderActiveOrders']);
+        Route::get('cancel-orders', [OrderController::class, 'riderCancelOrders']);
         Route::resource('order', OrderController::class);
         Route::resource('transaction', TransactionController::class);
         

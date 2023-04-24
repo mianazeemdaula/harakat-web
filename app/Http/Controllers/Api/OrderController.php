@@ -177,11 +177,11 @@ class OrderController extends Controller
                     $amount = $order->total_amount - $order->delivery_amount;
                     $transaction = Transaction::create([
                         'user_id' => $order->rider_id,
-                        'type' => 'Income',
+                        'type' => 'Cash',
                         'amount' => $amount,
                         'details' => "COD Order #$order->id"
                     ]);
-                    Balance::updateOrCreate(['user_id'=> $order->rider_id],['balance' => DB::raw("balance - $amount")]);
+                    Balance::updateOrCreate(['user_id'=> $order->rider_id],['cash' => DB::raw("cash - $amount")]);
                 }
                 $amount = $order->total_amount;
                 $transaction = Transaction::create([
@@ -227,9 +227,30 @@ class OrderController extends Controller
         //
     }
 
+    public function riderNewOrders()
+    {
+        $userId = auth()->user()->id;
+        // ->whereJsonContains('req_riders', 1)
+        $data = Order::with(['details','payment','addons','shop','user'])
+        ->orderBy('created_at','desc')->paginate();
+        return response()->json($data, 200);
+    }
+
     public function riderActiveOrders()
     {
+        $userId = auth()->user()->id;
         $data = Order::with(['details','payment','addons','shop','user'])
+        ->where('rider_id', $userId)
+        ->whereIn('status', ['assigned','dispatched', 'picked'])
+        ->orderBy('created_at','desc')->paginate();
+        return response()->json($data, 200);
+    }
+
+    public function riderCancelOrders()
+    {
+        $ids =  OrderCancel::where('rider_id', auth()->user()->id)->pluck('order_id');
+        $data = Order::with(['details','payment','addons','shop','user'])
+        ->whereIn('id', $ids)
         ->orderBy('created_at','desc')->paginate();
         return response()->json($data, 200);
     }
