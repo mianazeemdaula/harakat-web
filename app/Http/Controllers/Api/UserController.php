@@ -171,7 +171,10 @@ class UserController extends Controller
     public function riderLiveGeo(Request $request)
     {
         $user = $request->user();
-        $user->rider()->update(['live_geo' => new Point($request->lat, $request->lng)]);
+        $rider =  $user->rider;
+        $rider->live_geo = new Point($request->lat, $request->lng);
+        $rider->save();
+        // $user->rider()->update(['live_geo' => new Point($request->lat, $request->lng)]);
         return response()->json($user, 200);
     }
 }
