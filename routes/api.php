@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\InboxController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\BalanceController;
 
 
 Route::get('users/{id}', function ($id) {
@@ -78,6 +79,11 @@ Route::prefix('rider')->group(function () {
         Route::resource('order', OrderController::class);
         Route::resource('transaction', TransactionController::class);
         
+        // Profile
+        Route::get('balance', [BalanceController::class,'balance']);
+        Route::post('deposit', [BalanceController::class,'deposit']);
+        Route::post('expense', [BalanceController::class,'expense']);
+
         // Profile
         Route::get('user/profile', [UserController::class,'profile']);
         Route::post('user/update', [UserController::class,'updateUser']);
