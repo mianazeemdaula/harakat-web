@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('appartment')->nullable();
             $table->point('location')->nullable();
+            $table->point('live_geo')->nullable();
             $table->string('awards', 100)->nullable()->default('text');
             $table->boolean('live')->default(false);
             $table->timestamps();

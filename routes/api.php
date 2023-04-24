@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\AppContentController;
 use App\Http\Controllers\Api\InboxController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\TransactionController;
 
 
 Route::get('users/{id}', function ($id) {
@@ -73,11 +74,16 @@ Route::prefix('rider')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('active-orders', [OrderController::class, 'riderActiveOrders']);
         Route::resource('order', OrderController::class);
+        Route::resource('transaction', TransactionController::class);
         
         // Profile
         Route::get('user/profile', [UserController::class,'profile']);
         Route::post('user/update', [UserController::class,'updateUser']);
         Route::post('user/delete', [UserController::class,'deleteAccount']);
+
+        // Geo and Live
+        Route::post('user/live', [UserController::class,'riderLive']);
+        Route::post('user/live-geo', [UserController::class,'riderLiveGeo']);
     });
 });
 

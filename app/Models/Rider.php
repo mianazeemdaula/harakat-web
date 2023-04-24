@@ -14,7 +14,9 @@ class Rider extends Model
     use HasFactory;
 
     protected $fillable = [
-        'live'
+        'live',
+        'live_geo',
+        'user_id',
     ];
 
     protected $casts = [
@@ -22,6 +24,7 @@ class Rider extends Model
         'category_id' => 'integer',
         'city_id' => 'integer',
         'location' => Point::class,
+        'live_geo' => Point::class,
     ];
 
     public function newEloquentBuilder($query): SpatialBuilder
