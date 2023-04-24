@@ -17,6 +17,7 @@ class Rider extends Model
         'live',
         'live_geo',
         'user_id',
+        'location'
     ];
 
     protected $casts = [
