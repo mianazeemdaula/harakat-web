@@ -11,7 +11,9 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $data = Transaction::orderBy('created_at','desc')->paginate();
+        $user = auth()->user();
+        $data = Transaction::where('user_id',$user->id)
+        ->orderBy('created_at','desc')->paginate();
         return response()->json($data, 200);
     }
 
