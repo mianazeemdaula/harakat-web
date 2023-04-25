@@ -45,7 +45,7 @@ class AuthRiderController extends Controller
             'email' => 'sometimes|unique:users|email',
             'mobile' => 'required|unique:users',
             // 'dob' => 'required',
-            'gender' => 'required',
+            // 'gender' => 'required',
             'city_id' => 'required',
             'appartment' => 'required'
         ]);
@@ -58,7 +58,7 @@ class AuthRiderController extends Controller
         $rider = new Rider;
         $rider->user_id = $user->id;
         $rider->city_id = $request->city_id;
-        $rider->gender = $request->gender;
+        // $rider->gender = $request->gender;
         $rider->address = $request->address;
         if($request->lat && $request->lng){
             $rider->location = new Point($request->lat, $request->lng);
