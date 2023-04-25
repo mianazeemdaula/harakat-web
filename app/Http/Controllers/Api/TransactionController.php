@@ -13,6 +13,7 @@ class TransactionController extends Controller
     {
         $user = auth()->user();
         $data = Transaction::where('user_id',$user->id)
+        ->whereIn('type',['Income', 'Expense'])
         ->orderBy('created_at','desc')->paginate();
         return response()->json($data, 200);
     }
