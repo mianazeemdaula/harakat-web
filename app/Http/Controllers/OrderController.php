@@ -66,7 +66,7 @@ class OrderController extends Controller
             'from' => $order->shop->shop->address,
             'to' => $order->drop_address,
         ];
-        FCM::send($fcmTokens, 'New Order Request', 'You have a new order request to deliver', $data);
+        return FCM::send($fcmTokens, 'New Order Request', 'You have a new order request to deliver', $data);
     }
 
     /**
