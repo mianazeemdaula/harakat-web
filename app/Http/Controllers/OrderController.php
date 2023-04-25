@@ -55,7 +55,7 @@ class OrderController extends Controller
         foreach ($riders as $rider) {
             $fcmTokens[] = $rider->fcm_token;
         }
-        $order->req_riders = $riderIds;
+        $order->req_riders = json_encode($riderIds);
         $order->save();
         $data = [
             'type' => 'new_order',
