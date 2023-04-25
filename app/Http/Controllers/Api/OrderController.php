@@ -8,6 +8,7 @@ use MatanYadaev\EloquentSpatial\Objects\Point;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Helper\StripePayment;
+use App\Helper\FCM;
 
 use App\Models\Order;
 use App\Models\PaymentCard;
@@ -17,6 +18,9 @@ use App\Models\OrderPayment;
 use App\Models\Transaction;
 use App\Models\OrderCancel;
 use App\Models\Balance;
+use App\Models\User;
+use App\Models\Rider;
+
 
 use App\Models\Offer;
 
@@ -208,6 +212,22 @@ class OrderController extends Controller
                 $cancel->save();
             }
             $order->save();
+            // FCM
+            $fcmTokens = [];
+            $riderIds = Rider::whereNotNull('live_geo')->pluck('user_id');
+            $riders = User::whereNotNull('fcm_token')->whereIn('id',$riderIds)->get();
+            foreach ($riders as $rider) {
+                $fcmTokens[] = $rider->fcm_token;
+            }
+            $order->req_riders = $riderIds;
+            $order->save();
+            $data = [
+                'type' => 'new_order',
+                'id' => $order->id,
+                '_from' => $order->shop->shop->address,
+                '_to' => $order->drop_address,
+            ];
+            FCM::send($fcmTokens, 'New Order Request', 'You have a new order request to deliver', $data);
             DB::commit();
             return $this->show($order->id);
         } catch (\Throwable $th) {
