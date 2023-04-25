@@ -25,7 +25,7 @@ class BalanceController extends Controller
     public function deposit(Request $request)
     {
         $user = $request->user();
-        $amount = $request->request;
+        $amount = $request->amount;
         $type = $request->type;
 
         if($type == 'cash'){
@@ -68,8 +68,7 @@ class BalanceController extends Controller
     public function expense(Request $request)
     {
         $user = $request->user();
-        $amount = $request->request;
-        $type = $request->type;
+        $amount = $request->amount;
 
         $transaction = Transaction::create([
             'user_id' => $user->id,
