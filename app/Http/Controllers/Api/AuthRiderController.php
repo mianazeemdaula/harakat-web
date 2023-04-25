@@ -44,7 +44,7 @@ class AuthRiderController extends Controller
             'name' => 'required',
             'email' => 'sometimes|unique:users|email',
             'mobile' => 'required|unique:users',
-            'dob' => 'required',
+            // 'dob' => 'required',
             'gender' => 'required',
             'city_id' => 'required',
             'appartment' => 'required'
