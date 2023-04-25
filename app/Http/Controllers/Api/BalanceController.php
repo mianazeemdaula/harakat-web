@@ -93,22 +93,22 @@ class BalanceController extends Controller
         if($type == 'weekly'){
             $data =  Transaction::selectRaw('DATE(created_at) as _date, SUM(amount) as total')
             ->whereBetween('created_at', [$sdate, $edate])
-            ->where('type', 'Income')
+            // ->where('type', 'Income')
             ->groupBy('_date')
             ->get();
         }else if($type == 'monthly'){
             $currentYear = $sdate->format('Y');
-            $data =  Transaction::selectRaw("DATE_FORMAT(created_at, '%b') as _date, SUM(amount) as total")
+            $data =  Transaction::selectRaw("MONTH(created_at) as _date, SUM(amount) as total")
             ->whereRaw("YEAR(created_at) = ?", [$currentYear])
             ->groupBy('_date')
-            ->where('type', 'Income')
-            ->orderByRaw("STR_TO_DATE(_date, '%b')")
+            // ->where('type', 'Income')
+            ->orderBy('_date', 'ASC')
             ->get();
         }else if($type == 'yearly'){
             $currentYear = $sdate->format('Y');
             $data = Transaction::selectRaw("YEAR(created_at) as _date, SUM(amount) as total")
             ->whereRaw("YEAR(created_at) >= ?", [$currentYear - 5]) // Only get data for last 5 years
-            ->where('type', 'Income')
+            // ->where('type', 'Income')
             ->groupBy('_date')
             ->orderBy('_date', 'ASC')
             ->get();
