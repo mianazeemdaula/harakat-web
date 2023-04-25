@@ -83,6 +83,7 @@ Route::prefix('rider')->group(function () {
         Route::get('balance', [BalanceController::class,'balance']);
         Route::post('deposit', [BalanceController::class,'deposit']);
         Route::post('expense', [BalanceController::class,'expense']);
+        Route::post('earning', [BalanceController::class,'earning']);
 
         // Profile
         Route::get('user/profile', [UserController::class,'profile']);

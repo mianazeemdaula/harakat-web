@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+use App\Helper\StripePayment;
+use Carbon\Carbon;
+
 use App\Models\Balance;
 use App\Models\Transaction;
-
-use App\Helper\StripePayment;
+use App\Models\CashDeposit;
 use App\Models\PaymentCard;
 
 class BalanceController extends Controller
@@ -37,6 +39,10 @@ class BalanceController extends Controller
                 ['user_id'=> $user->id],
                 ['cash' => DB::raw("cash - $amount")]
             );
+            $cash = new CashDeposit;
+            $cash->user_id = $user->id;
+            $cars->amount = $amount;
+            $cash->save();
         }else if($type == 'card'){
             $card = PaymentCard::find($request->card);
             $payment = StripePayment::cardPayment($card, intval($amount) * 100);
@@ -77,4 +83,38 @@ class BalanceController extends Controller
         );
         return $this->balance();
     }
+
+    public function earning(Request $request)
+    {
+        $user = $request->user();
+        $type = $request->type;
+        $sdate = Carbon::parse($request->start_date);
+        $edate = Carbon::parse($request->end_date);
+        $data = [];
+        if($type == 'weekly'){
+            $data =  Transaction::selectRaw('DATE(created_at) as _date, SUM(amount) as total')
+            ->whereBetween('created_at', [$sdate, $edate])
+            ->where('type', 'Income')
+            ->groupBy('date')
+            ->get();
+        }else if($type == 'monthly'){
+            $currentYear = $sdate->format('Y');
+            $data =  Transaction::selectRaw("DATE_FORMAT(created_at, '%b') as _date, SUM(amount) as total")
+            ->whereRaw("YEAR(created_at) = ?", [$currentYear])
+            ->groupBy('_date')
+            ->where('type', 'Income')
+            ->orderByRaw("STR_TO_DATE(_date, '%b')")
+            ->get();
+        }else if($type == 'yearly'){
+            $currentYear = $sdate->format('Y');
+            $data = Transaction::selectRaw("YEAR(created_at) as _date, SUM(amount) as total")
+            ->whereRaw("YEAR(created_at) >= ?", [$currentYear - 5]) // Only get data for last 5 years
+            ->where('type', 'Income')
+            ->groupBy('_date')
+            ->orderBy('_date', 'ASC')
+            ->get();
+        }
+        return response()->json($data, 200);
+    }
+    
 }
