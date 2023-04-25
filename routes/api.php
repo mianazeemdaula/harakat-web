@@ -77,6 +77,7 @@ Route::prefix('rider')->group(function () {
         Route::get('active-orders', [OrderController::class, 'riderActiveOrders']);
         Route::get('cancel-orders', [OrderController::class, 'riderCancelOrders']);
         Route::resource('order', OrderController::class);
+        Route::resource('card', CardController::class);
         Route::resource('transaction', TransactionController::class);
         
         Route::resource('notification', NotificationController::class);
