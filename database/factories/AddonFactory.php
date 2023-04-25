@@ -19,7 +19,7 @@ class AddonFactory extends Factory
         return [
             'name' => fake()->word(),
             'name_ar' => fake()->word(),
-            'price' => fake()->randomFloat(1,5,50),
+            'price' => fake()->randomFloat(1,1,6),
             'available' => fake()->numberBetween(0,1),
             'description' => fake()->paragraph(1),
             'description_ar' => fake()->paragraph(1),
