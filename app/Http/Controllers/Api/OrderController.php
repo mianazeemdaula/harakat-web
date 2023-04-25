@@ -181,7 +181,7 @@ class OrderController extends Controller
                         'amount' => $amount,
                         'details' => "COD Order #$order->id"
                     ]);
-                    Balance::updateOrCreate(['user_id'=> $order->rider_id],['cash' => DB::raw("cash - $amount")]);
+                    Balance::updateOrCreate(['user_id'=> $order->rider_id],['cash' => DB::raw("cash + $amount")]);
                 }
                 $amount = $order->total_amount;
                 $transaction = Transaction::create([
