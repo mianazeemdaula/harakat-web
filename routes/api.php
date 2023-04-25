@@ -79,6 +79,8 @@ Route::prefix('rider')->group(function () {
         Route::resource('order', OrderController::class);
         Route::resource('transaction', TransactionController::class);
         
+        Route::resource('notification', NotificationController::class);
+        
         // Profile
         Route::get('balance', [BalanceController::class,'balance']);
         Route::post('deposit', [BalanceController::class,'deposit']);
