@@ -94,7 +94,7 @@ class BalanceController extends Controller
             $data =  Transaction::selectRaw('DATE(created_at) as _date, SUM(amount) as total')
             ->whereBetween('created_at', [$sdate, $edate])
             ->where('type', 'Income')
-            ->groupBy('date')
+            ->groupBy('_date')
             ->get();
         }else if($type == 'monthly'){
             $currentYear = $sdate->format('Y');
