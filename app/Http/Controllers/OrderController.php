@@ -56,6 +56,7 @@ class OrderController extends Controller
             $fcmTokens[] = $rider->fcm_token;
         }
         $order->req_riders = $riderIds;
+        $order->save();
         $data = [
             'type' => 'new_order',
             'id' => $order->id,
