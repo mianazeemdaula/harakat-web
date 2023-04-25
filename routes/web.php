@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,3 +58,6 @@ Route::view('addnewaddons', 'merchants.products.addnewaddons');
 Route::view('shopdetails', 'merchants.my-profile.shopdetails');
 Route::view('rating&reviews', 'merchants.my-profile.rating&reviews');
 Route::view('configuration', 'merchants.my-profile.configuration');
+
+
+Route::resource('order', OrderController::class);
