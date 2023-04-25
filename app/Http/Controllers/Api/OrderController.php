@@ -230,8 +230,9 @@ class OrderController extends Controller
     public function riderNewOrders()
     {
         $userId = auth()->user()->id;
-        // ->whereJsonContains('req_riders', 1)
+        
         $data = Order::with(['details','payment','addons','shop','user'])
+        ->whereJsonContains('req_riders', $userId)
         ->orderBy('created_at','desc')->paginate();
         return response()->json($data, 200);
     }
