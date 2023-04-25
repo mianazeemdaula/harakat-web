@@ -71,6 +71,7 @@ Route::prefix('rider')->group(function () {
     // Reset Password
     Route::post('/send-reset-pass-pin', [UserController::class,'sendResetPasswordPin']);
     Route::post('/change-password', [UserController::class,'changePassword']);
+    Route::get('cities', [DataController::class, 'cities']);
 
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('new-orders', [OrderController::class, 'riderNewOrders']);
