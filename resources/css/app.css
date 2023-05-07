@@ -28,6 +28,10 @@
         @apply p-3 rounded-lg border-2 border-blue-800 py-3;
     }
 
+    select {
+        @apply p-3 rounded-lg border-2 border-blue-800 py-3;
+    }
+
     input:focus {
         @apply border-2 border-blue-800;
     }

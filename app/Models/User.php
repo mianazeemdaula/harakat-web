@@ -100,6 +100,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(PaymentCard::class);
     }
+
+    public function timeSlots(): HasMany
+    {
+        return $this->hasMany(TimeSlot::class);
+    }
     
     public function reviews(): MorphMany
     {

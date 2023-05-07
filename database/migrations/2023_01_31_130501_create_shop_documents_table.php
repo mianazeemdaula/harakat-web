@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('shop_documents', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('shop_id');
-            $table->string('doc');
-            $table->char('type',20)->defatul('licence');
+            $table->string('doc')->nullable();
+            $table->string('title');
+            $table->char('type',20)->default('licence');
             $table->char('status',20)->default('pending');
             $table->string('note')->nullable();
             $table->timestamps();
