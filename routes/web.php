@@ -61,7 +61,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::view('reports', 'admin.reports');
     Route::view('accounting', 'admin.accounting');
     Route::view('notification', 'admin.notification');
-    Route::view('orderdetails', 'merchants.orders.orderdetails');
     Route::view('product', 'merchants.products.product');
     Route::view('addcategory', 'merchants.products.addcategory');
     Route::view('editcategory', 'merchants.products.editcategory');
