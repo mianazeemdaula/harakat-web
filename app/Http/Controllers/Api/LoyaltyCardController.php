@@ -41,7 +41,7 @@ class LoyaltyCardController extends Controller
             'image' => 'required',
         ]);
         $card = UserLoyaltyCard::where('user_id',auth()->user()->id)
-        ->where('loyalty_card_id',$request->card)->get();
+        ->where('loyalty_card_id',$request->card)->first();
         if(!$card){
             $card = new UserLoyaltyCard();
         }
