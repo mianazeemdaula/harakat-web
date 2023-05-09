@@ -34,7 +34,7 @@ class AuthCustomerController extends Controller
         $token = $user->createToken('login')->plainTextToken;
         $data['token'] = $token;
         $data['user'] = $user;
-        // $data['addresses'] = $user->addresses;
+        $data['loyaltycards'] = $user->loyaltyCards;
         return response()->json($data, 200);
     }
 
@@ -64,7 +64,7 @@ class AuthCustomerController extends Controller
         $token = $user->createToken('login')->plainTextToken;
         $data['token'] = $token;
         $data['user'] = $user;
-        // $data['addresses'] = $user->addresses;
+        $data['loyaltycards'] = $user->loyaltyCards;
         return response()->json($data, 200);
     }
 
@@ -98,6 +98,7 @@ class AuthCustomerController extends Controller
         $social->save();
         $data['token'] = $user->createToken('login')->plainTextToken;
         $data['user'] = $user;
+        $data['loyaltycards'] = $user->loyaltyCards;
         return response()->json($data, 200);
     }
 
@@ -124,6 +125,7 @@ class AuthCustomerController extends Controller
             $token = $user->createToken('login')->plainTextToken;
             $data['token'] = $token;
             $data['user'] = $user;
+            $data['loyaltycards'] = $user->loyaltyCards;
             return response()->json($data, 200);
         }else{
             return response()->json(['email' => 'The provided credentials are incorrect.'], 204); 

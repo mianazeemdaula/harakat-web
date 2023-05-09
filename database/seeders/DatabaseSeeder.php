@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\Category::insert([
-            ['name' => 'Resturant & Cafe', 'name_ar' => 'مطعم وكافيه'],
+            ['name' => 'Resturant & Cafe', 'name_ar' => 'مطاعم و كافيهات'],
             ['name' => 'Fashion & Perfumes', 'name_ar' => 'الأزياء والعطور'],
             ['name' => 'Sweets & Flowers', 'name_ar' => 'حلويات وزهور'],
             ['name' => 'Electronics', 'name_ar' => 'إلكترونيات'],
@@ -69,5 +69,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\Address::factory(50)->create();
         \App\Models\AppContent::factory(10)->create();
         \App\Models\Inbox::factory(100)->create();
+        \App\Models\LoyaltyCard::insert([
+            ['name' => 'Fazaa', 'name_ar' => 'فزعة'],
+            ['name' => 'Homat al watan', 'name_ar' => 'حماة الوطن'],
+            ['name' => 'Issad', 'name_ar' => 'اسعاد'],
+        ]);
     }
 }

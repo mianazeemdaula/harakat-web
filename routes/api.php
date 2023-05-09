@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\DataController;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\CardController;
+use App\Http\Controllers\Api\LoyaltyCardController;
 use App\Http\Controllers\Api\OfferController;
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\RecentProductController;
@@ -53,6 +54,7 @@ Route::prefix('customer')->group(function () {
         Route::resource('notification', NotificationController::class);
         Route::resource('order', OrderController::class);
         Route::resource('card', CardController::class);
+        Route::resource('loyalty-card', LoyaltyCardController::class);
         Route::resource('inbox', InboxController::class);
         // Route::resource('recent-product', RecentProductController::class);
         Route::get('user/profile', [UserController::class,'profile']);

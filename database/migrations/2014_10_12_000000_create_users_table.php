@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('mobile')->unique()->nullable();
             $table->timestamp('mobile_verified_at')->nullable();
             $table->string('fcm_token')->nullable();
+            $table->char('lang',2)->default('ar');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
