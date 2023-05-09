@@ -37,7 +37,6 @@ class LoyaltyCardController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'holder_name' => 'required',
             'card' => 'required',
             'image' => 'required',
         ]);
