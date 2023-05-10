@@ -74,5 +74,17 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Homat al watan', 'name_ar' => 'حماة الوطن'],
             ['name' => 'Issad', 'name_ar' => 'اسعاد'],
         ]);
+        \App\Models\Setting::insert([
+            ['key' => 'bike_base_rate', 'value' => 20, 'type' => 'float', 'category' => 'app'],
+            ['key' => 'bike_base_km', 'value' => 10, 'type' => 'float', 'category' => 'app'],
+            ['key' => 'bike_per_km', 'value' => 1, 'type' => 'integer', 'category' => 'app'],
+            ['key' => 'bike_max_charges', 'value' => 40, 'type' => 'float', 'category' => 'app'],
+            ['key' => 'car_base_rate', 'value' => 25, 'type' => 'float', 'category' => 'app'],
+            ['key' => 'car_base_km', 'value' => 10, 'type' => 'integer', 'category' => 'app'],
+            ['key' => 'car_per_km', 'value' => 1, 'type' => 'float', 'category' => 'app'],
+            ['key' => 'car_max_charges', 'value' => 50, 'type' => 'float', 'category' => 'app'],
+            ['key' => 'bike_max_weight', 'value' => 10, 'type' => 'integer', 'category' => 'app'],
+        ]);
+        \App\Models\ShopLoyaltyCardDiscount::factory(10)->create();
     }
 }

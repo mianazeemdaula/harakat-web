@@ -26,6 +26,7 @@ class ProductFactory extends Factory
             'vat' => fake()->randomFloat(2, 5, 10),
             'prepration_time' => fake()->numberBetween(10,50),
             'description' => fake()->paragraph(),
+            'weight' => fake()->numberBetween(1,4000),
             'image' => fake()->imageUrl(640, 480, 'product', true),
         ];
     }

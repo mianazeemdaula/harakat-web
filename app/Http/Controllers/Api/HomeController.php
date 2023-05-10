@@ -14,6 +14,7 @@ use App\Models\ProductCategory;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Offer;
+use App\Models\Setting;
 class HomeController extends Controller
 {
 
@@ -56,6 +57,16 @@ class HomeController extends Controller
         return response()->json($data, 200);
     }
 
-    
+    public function settings()
+    {
+        $url = url()->current();
+        $data = null;
+        if (str_contains($url, 'customer')) {
+            $data = Setting::where('category','app')->get();
+        }else{
+            $data = Setting::where('category','rider')->get();
+        }
+        return response()->json($data, 200);
+    }
 
 }

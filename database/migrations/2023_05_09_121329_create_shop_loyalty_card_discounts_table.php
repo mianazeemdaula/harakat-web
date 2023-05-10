@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('shop_loyalty_card_dicounts', function (Blueprint $table) {
+        Schema::create('shop_loyalty_card_discounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('loyalty_card_id');
             $table->unsignedBigInteger('user_id');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_loyalty_card_dicounts');
+        Schema::dropIfExists('shop_loyalty_card_discounts');
     }
 };

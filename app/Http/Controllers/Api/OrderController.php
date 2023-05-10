@@ -20,6 +20,8 @@ use App\Models\OrderCancel;
 use App\Models\Balance;
 use App\Models\User;
 use App\Models\Rider;
+use App\Models\UserLoyalityCard;
+use App\Models\ShopLoyaltyCardDiscount;
 
 
 use App\Models\Offer;
@@ -274,5 +276,14 @@ class OrderController extends Controller
         ->whereIn('id', $ids)
         ->orderBy('created_at','desc')->paginate();
         return response()->json($data, 200);
+    }
+
+    public function loyaltyCardDisoucnt(Request $request)
+    {
+        $user = $request->user();
+        $cards =  UserLoyalityCard::where('user_id', $user->id)->pluck('loyalty_card_id');
+        $discount =  ShopLoyaltyCardDiscount::whereIn('loyalty_card_id', $cards)
+        ->whereMax('discount_percent')->first();
+        return response()->json($discount, 200);
     }
 }

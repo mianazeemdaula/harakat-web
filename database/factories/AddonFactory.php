@@ -21,6 +21,7 @@ class AddonFactory extends Factory
             'name_ar' => fake()->word(),
             'price' => fake()->randomFloat(1,1,6),
             'available' => fake()->numberBetween(0,1),
+            'weight' => fake()->numberBetween(1,1000),
             'description' => fake()->paragraph(1),
             'description_ar' => fake()->paragraph(1),
         ];

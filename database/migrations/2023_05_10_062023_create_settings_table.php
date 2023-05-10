@@ -13,17 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('addons', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // shop
-            $table->string('name');
-            $table->string('name_ar');
-            $table->float('price');
-            $table->boolean('available');
-            $table->string('description');
-            $table->string('description_ar');
-            $table->integer('weight')->default(1);
+            $table->string('key');
+            $table->string('value');
+            $table->string('type');
+            $table->string('category')->default('web');
             $table->timestamps();
+            $table->unique('key','category');
         });
     }
 
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('addons');
+        Schema::dropIfExists('settings');
     }
 };

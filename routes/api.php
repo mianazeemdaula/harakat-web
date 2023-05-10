@@ -38,6 +38,8 @@ Route::prefix('customer')->group(function () {
     Route::post('/send-reset-pass-pin', [UserController::class,'sendResetPasswordPin']);
     Route::post('/change-password', [UserController::class,'changePassword']);
 
+    Route::get('/settings', [HomeController::class,'settings']);
+
     Route::post('shops', [HomeController::class,'shops']);
     Route::post('home', [HomeController::class,'home']);
     Route::get('category', [MenuController::class,'categories']);
@@ -53,6 +55,7 @@ Route::prefix('customer')->group(function () {
         Route::post('recent-products', [HomeController::class,'recentProducts']);
         Route::resource('notification', NotificationController::class);
         Route::resource('order', OrderController::class);
+        Route::post('loyalty-card-discount',[ OrderController::class, 'loyaltyCardDisoucnt']);
         Route::resource('card', CardController::class);
         Route::resource('loyalty-card', LoyaltyCardController::class);
         Route::resource('inbox', InboxController::class);

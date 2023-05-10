@@ -25,6 +25,7 @@ return new class extends Migration
             $table->smallInteger('prepration_time')->default(15);
             $table->text('description');
             $table->string('image');
+            $table->integer('weight')->default(1);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
