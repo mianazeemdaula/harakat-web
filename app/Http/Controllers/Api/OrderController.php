@@ -283,7 +283,7 @@ class OrderController extends Controller
         $user = $request->user();
         $cards =  UserLoyaltyCard::where('user_id', $user->id)->pluck('loyalty_card_id');
         $discount =  ShopLoyaltyCardDiscount::whereIn('loyalty_card_id', $cards)
-        ->whereMax('discount_percent')->first();
+        ->orderBY('discount_percent','desc')->first();
         return response()->json($discount, 200);
     }
 }
