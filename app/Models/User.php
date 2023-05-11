@@ -59,11 +59,10 @@ class User extends Authenticatable
         'image' => 'string',
     ];
 
-    protected function image(): Attribute
+
+    public function getImageAttribute($value)
     {
-        return Attribute::make(
-            get: fn ($value) => Str::startsWith($value, "http") ? $value : ( $value == null ? "https://ui-avatars.com/api/?name=Axy+Boe" : url($value)),
-        );
+        return Str::startsWith($value, "http") ? $value : ( $value == null ? "https://ui-avatars.com/api/?name=Axy+Boe" : url($value));
     }
 
     public function shop(): HasOne
@@ -101,6 +100,11 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function cards(): HasMany
     {
         return $this->hasMany(PaymentCard::class);
@@ -121,6 +125,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class,'recent_products')->withTimestamps();
     }
 
+    public function awards(): HasMany
+    {
+        return $this->hasMany(ShopDocument::class,'shop_id')->where('type','award');
+    }
+
+    public function licences(): HasMany
+    {
+        return $this->hasMany(ShopDocument::class,'shop_id')->where('type','licence');
+    }
 
     public function getRatingAttribute()
     {

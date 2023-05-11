@@ -24,9 +24,12 @@ return new class extends Migration
             $table->float('vat')->default(0.0);
             $table->smallInteger('prepration_time')->default(15);
             $table->text('description');
+            $table->text('description_ar');
             $table->string('image');
             $table->integer('weight')->default(1);
             $table->boolean('status')->default(true);
+            $table->boolean('promo')->default(false);
+            $table->boolean('available')->default(true);
             $table->timestamps();
         });
     }

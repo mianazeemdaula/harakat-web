@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,11 +17,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\Category::insert([
-            ['name' => 'Resturant & Cafe', 'name_ar' => 'مطاعم و كافيهات'],
-            ['name' => 'Fashion & Perfumes', 'name_ar' => 'الأزياء والعطور'],
-            ['name' => 'Sweets & Flowers', 'name_ar' => 'حلويات وزهور'],
-            ['name' => 'Electronics', 'name_ar' => 'إلكترونيات'],
+            ['name' => 'Resturant & Cafe', 'name_ar' => 'مطاعم و كافيهات', 'image' => 'images/cat_resturent.jpg'],
+            ['name' => 'Fashion & Perfumes', 'name_ar' => 'الأزياء والعطور', 'image' => 'images/cat_fashion.jpg'],
+            ['name' => 'Sweets & Flowers', 'name_ar' => 'حلويات وزهور', 'image' => 'images/cat_flower.jpg'],
+            ['name' => 'Electronics', 'name_ar' => 'إلكترونيات', 'image'=> 'images/cat_electronic.jpg'],
         ]);
+
+        $role = Role::create(['name' => 'admin']);
+        $role = Role::create(['name' => 'shop']);
+        $role = Role::create(['name' => 'rider']);
 
         \App\Models\City::insert([
             ['name' => 'Dubai', 'name_ar' => 'دبي'],

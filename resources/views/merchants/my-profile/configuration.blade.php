@@ -13,7 +13,7 @@
                 <a href="{{ url('shop-configuration') }}"
                     class="w-52 text-center h-12 text-xl text-white bg-blue-800">Configuration</a>
             </div>
-            <h2>DELIVERY TIMINGSS</h2>
+            <h2>DELIVERY TIMINGS</h2>
             <div>
                 <h3 class="ml-3">Preparation Time</h3>
                 <input type="text" name="prepration_time" id="" value="{{ $shop->shop->prepration_time }}"
@@ -47,7 +47,7 @@
                             <h4>TO</h4>
                             <input type="time" value="{{ $shop->timeSlots[$i]->max_delivery_time }}" name="timeto[]"
                                 placeholder="15 min" class="w-64 h-10">
-                            <input type="checkbox" role="switch" name="" id="">
+                            {{-- <input type="checkbox" role="switch" name="" id=""> --}}
                         </div>
                     </div>
                 @endfor

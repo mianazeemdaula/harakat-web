@@ -93,7 +93,7 @@ class SignupController extends Controller
                 $doc = new ShopDocument;
                 $doc->shop_id = $user->id;
                 $doc->doc = $licens;
-                // $doc->title = $licens;
+                $doc->title = $licens;
                 $doc->type = 'licence';
                 $doc->save();
             }
@@ -103,7 +103,7 @@ class SignupController extends Controller
                 $doc = new ShopDocument;
                 $doc->shop_id = $user->id;
                 $doc->doc = $award;
-                // $doc->title = $award;
+                $doc->title = $award;
                 $doc->type = 'award';
                 $doc->save();
             }
@@ -115,10 +115,11 @@ class SignupController extends Controller
                 $timeslot->user_id = $user->id;
                 $timeslot->save();
             }
+            $user->assignRole('shop');
             DB::commit();
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
-                return redirect()->intended('merchant');
+                return redirect()->intended('shop');
             }
         } catch (\Throwable $th) {
             DB::rollback();

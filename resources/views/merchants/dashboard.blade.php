@@ -1,22 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
-    <title>Harkatshop</title>
-</head>
-
-<body>
-    <div class="w-screen h-screen">
-        <x-header></x-header>
-        <div class="flex flex-row w-screen mt-2 h-5/6">
-            <x-merchant.sidebar></x-merchant.sidebar>
-            <div class="w-full m-6"></div>
-        </div>
+@extends('layouts.shop')
+@section('body')
+    <div class="w-full m-6">
+        <canvas id="users-chart"></canvas>
     </div>
-</body>
+@endsection
 
-</html>
+@section('js')
+    <script type="module" >
+        const data = [{
+                date: '2022-01-01',
+                count: 10
+            },
+            {
+                date: '2022-01-02',
+                count: 15
+            },
+            {
+                date: '2022-01-03',
+                count: 20
+            },
+            {
+                date: '2022-01-04',
+                count: 25
+            },
+            {
+                date: '2022-01-05',
+                count: 30
+            },
+        ];
+
+        const ctx = document.getElementById('users-chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.map((d) => d.date),
+                datasets: [{
+                    label: 'Daily Number of Users',
+                    data: data.map((d) => d.count),
+                    backgroundColor: 'rgba(99, 102, 241, 0.6)',
+                    borderColor: 'rgba(99, 102, 241, 1)',
+                    borderWidth: 1,
+                }, ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            precision: 0,
+                        },
+                    }, ],
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 16,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+    </script>
+@endsection

@@ -32,7 +32,7 @@
                         @foreach ($categories as $item)
                             <div class="">
                                 <div class="relative image-container" data-id="{{ $item->id }}">
-                                    <img class="h-32 w-32 object-cover rounded-lg " src="https://picsum.photos/200"
+                                    <img class="h-32 w-32 object-cover rounded-lg " src="{{ $item->image }}"
                                         alt="" />
                                     <div
                                         class="absolute inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50 text-white font-bold text-lg uppercase rounded-full transition-opacity duration-300 opacity-0 pointer-events-none selected-icon">

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -13,6 +13,7 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'name_ar', 'price', 'description', 'description_ar', 'promo'];
     
     protected $appends = ['rating','rating_count'];
     protected $casts = [
@@ -24,7 +25,14 @@ class Product extends Model
         'prepration_time' => 'integer',
         'rating' => 'double',
         'status' => 'boolean',
+        'promo' => 'boolean',
+        'available' => 'boolean',
     ];
+
+    public function getImageAttribute($value)
+    {
+        return Str::startsWith($value, "http") ? $value : ( $value == null ? "https://ui-avatars.com/api/?name=Axy+Boe" : url($value));
+    }
 
     public function shop(): BelongsTo
     {

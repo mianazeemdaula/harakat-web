@@ -7,6 +7,9 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\Shop\ShopOrderController;
+use App\Http\Controllers\Shop\ProductController;
+use App\Http\Controllers\Shop\OfferController;
+use App\Http\Controllers\CityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,14 +40,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('shop-configuration', [ShopController::class, 'doConfiguration']);
 
     Route::resource('shop/order', ShopOrderController::class);
+    Route::get('shop/{status}/order', [ShopOrderController::class,'status']);
+    Route::resource('products', ProductController::class);
+    Route::resource('offers', OfferController::class);
+    Route::resource('cities', CityController::class);
 
     Route::view('merchant', 'merchants.dashboard');
     Route::view('admin', 'admin.dashboard');
-    Route::view('pending', 'admin.dispatcher.pending');
-    Route::view('approved', 'admin.dispatcher.approved');
-    Route::view('processing', 'admin.dispatcher.processing');
-    Route::view('completed', 'admin.dispatcher.completed');
-    Route::view('cancelled', 'admin.dispatcher.cancelled');
+
     Route::view('approvedmerchant', 'admin.merchant.approvedmerchant');
     Route::view('pendingmerchant', 'admin.merchant.pendingmerchant');
     Route::view('rejectedmerchant', 'admin.merchant.rejectedmerchant');
@@ -56,12 +59,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::view('users', 'admin.user.users');
     Route::view('adduser', 'admin.user.adduser');
     Route::view('documents', 'admin.documents');
-    Route::view('promocode', 'admin.promocode');
-    Route::view('cities', 'admin.cities');
     Route::view('reports', 'admin.reports');
     Route::view('accounting', 'admin.accounting');
     Route::view('notification', 'admin.notification');
-    Route::view('product', 'merchants.products.product');
     Route::view('addcategory', 'merchants.products.addcategory');
     Route::view('editcategory', 'merchants.products.editcategory');
     Route::view('addproduct-1', 'merchants.products.addproduct-1');

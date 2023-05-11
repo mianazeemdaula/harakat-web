@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Shop;
+use Illuminate\Support\Facades\Storage;
+use App\Models\TimeSlot;
+
+use Image;
 
 class ShopController extends Controller
 {
@@ -17,10 +21,20 @@ class ShopController extends Controller
         $shop = $request->user()->shop;
         $shop->shop_name = $request->name;
         $shop->phone = $request->phone;
-        $shop->base_delivery_charges = $request->base_delivery_charges;
-        $shop->delivery_charges_km = $request->delivery_charges_km;
+        // $shop->base_delivery_charges = $request->base_delivery_charges;
+        // $shop->delivery_charges_km = $request->delivery_charges_km;
         $shop->min_order_amount = $request->min_order_amount;
         $shop->delivery_radius = $request->delivery_radius;
+        if($request->has('image')){
+            $file = $request->image;
+            $ext = $file->getClientOriginalExtension();
+            $fileName = time().'.'.$ext;
+            $path = "shop/".$fileName;
+            $image = Image::make($file->getRealPath());
+            $image->save($path);
+            $shop->user->image = $path;
+            $shop->user->save();
+        }
         $shop->save();
         return redirect()->back();
     }
@@ -36,7 +50,22 @@ class ShopController extends Controller
     }
 
     public function doConfiguration(Request $request){
-        return $request->all();
+
+        $shop = $request->user()->shop;
+        $shop->prepration_time = $request->prepration_time;
+        $shop->min_delivery_time = $request->min_delivery_time;
+        $shop->max_delivery_time = $request->max_delivery_time;
+        $shop->save();
+        for ($i=0; $i <= 6; $i++) { 
+            TimeSlot::updateOrInsert([
+                'user_id' => $request->user()->id,
+                'day_num' => $i,
+            ], [
+                'min_delivery_time' => $request->timefrom[$i],
+                'max_delivery_time' => $request->timeto[$i],
+            ]);
+        }
+        return redirect()->back();
     }
 
 

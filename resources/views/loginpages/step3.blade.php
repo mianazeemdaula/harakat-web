@@ -20,7 +20,7 @@
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="md:flex flex-col space-y-5">
+                    <div class="md:flex flex-col space-y-5 mt-4">
 
                         <div class="flex items-center space-x-4">
                             <div class="">

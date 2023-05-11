@@ -22,7 +22,7 @@ class ShopOrderController extends Controller
 
     public function show($id)
     {
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
         return view('merchants.orders.orderdetails', compact('order'));
     }
 
@@ -57,5 +57,12 @@ class ShopOrderController extends Controller
         }
         $order->save();
         return redirect()->back();
+    }
+
+
+    public function status($status)
+    {
+        $orders = Order::all();
+        return view('admin.dispatcher.approved',compact('orders', 'status'));
     }
 }

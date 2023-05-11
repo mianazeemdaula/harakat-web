@@ -23,7 +23,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('merchant');
+            return redirect()->intended('shop');
         }else{
             return redirect()->back()->withErrors(['error' => 'Credentials not matched.']);
         }
