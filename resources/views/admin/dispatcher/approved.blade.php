@@ -35,15 +35,12 @@
                     <form action="{{ url("shop/order/$order->id") }}" method="post">
                         @csrf
                         @if ($order->status == 'open' || $order->status == 'pending')
-                            )
                             <input type="hidden" name="status" value="accept">
                             <button class="py-3 px-2 text-center text-white rounded-lg bg-green-700">Accept</button>
                         @elseif ($order->status == 'accept')
-                            )
                             <input type="hidden" name="status" value="processed">
                             <button class="py-3 px-2 text-center text-white rounded-lg bg-green-700">Processed</button>
                         @elseif ($order->status == 'processed')
-                            )
                             <input type="hidden" name="status" value="dispatched">
                             <button class="py-3 px-2 text-center text-white rounded-lg bg-green-700">Dispatched</button>
                         @endif
