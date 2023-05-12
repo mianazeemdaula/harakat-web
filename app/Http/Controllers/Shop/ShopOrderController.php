@@ -49,8 +49,8 @@ class ShopOrderController extends Controller
             FCM::send($fcmTokens, 'New Order Request', 'You have a new order request to deliver', $data);
         }else if($request->status == 'processed'){
             $order->processes_at = now();
-        }else if($request->status == 'processed'){
-            $order->processes_at = now();
+        }else if($request->status == 'dispatched'){
+            $order->dispatched_at = now();
         }else if($request->status == 'canceled'){
             $order->canceled_at = now();
             $order->req_riders = null;

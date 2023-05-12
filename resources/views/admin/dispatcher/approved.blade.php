@@ -18,7 +18,7 @@
                 class="px-8 py-3 border-2 border-blue-800 rounded-lg text-blue-800 font-extrabold">Cancelled
                 Orders(1)</a>
         </div>
-        @foreach ($orders as $item)
+        @foreach ($orders as $order)
             <div class="flex flex-row w-full rounded-md border-2 border-blue-800 mt-2">
                 <div class="m-4"><img class="border-2 border-blue-800 object-fill h-40 w-60"
                         src="{{ URL::asset('/images/montano.png') }}" alt=""></div>
@@ -32,7 +32,22 @@
                     </h2>
                 </div>
                 <div class="flex flex-col gap-y-5 w-32 my-2 mr-4">
-                    <button class="py-3 px-2 text-center text-white rounded-lg bg-green-700">Process</button>
+                    <form action="{{ url("shop/order/$order->id") }}" method="post">
+                        @csrf
+                        @if ($order->status == 'open' || $order->status == 'pending')
+                            )
+                            <input type="hidden" name="status" value="accept">
+                            <button class="py-3 px-2 text-center text-white rounded-lg bg-green-700">Accept</button>
+                        @elseif ($order->status == 'accept')
+                            )
+                            <input type="hidden" name="status" value="processed">
+                            <button class="py-3 px-2 text-center text-white rounded-lg bg-green-700">Processed</button>
+                        @elseif ($order->status == 'processed')
+                            )
+                            <input type="hidden" name="status" value="dispatched">
+                            <button class="py-3 px-2 text-center text-white rounded-lg bg-green-700">Dispatched</button>
+                        @endif
+                    </form>
                     <button class="py-3 px-2 text-center text-white rounded-lg bg-amber-700">Order Details</button>
                     <button class="py-3 px-2 text-center text-white rounded-lg bg-red-700">Cancel</button>
                 </div>
