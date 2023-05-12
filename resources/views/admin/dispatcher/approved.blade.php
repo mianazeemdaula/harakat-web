@@ -34,6 +34,7 @@
                 <div class="flex flex-col gap-y-5 w-32 my-2 mr-4">
                     <form action="{{ url("shop/order/$order->id") }}" method="post">
                         @csrf
+                        @method('put')
                         @if ($order->status == 'open' || $order->status == 'pending')
                             <input type="hidden" name="status" value="accept">
                             <button class="py-3 px-2 text-center text-white rounded-lg bg-green-700">Accept</button>
