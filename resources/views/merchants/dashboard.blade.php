@@ -1,57 +1,43 @@
 @extends('layouts.shop')
 @section('body')
     <div class="w-full m-6">
-        <canvas id="users-chart"></canvas>
+        <div class="flex space-x-4">
+            <div class="w-60 h-60">
+                <canvas id="users-chart"></canvas>
+            </div>
+            <div class="w-60 h-60">
+                <canvas id="revenue-chart"></canvas>
+            </div>
+        </div>
     </div>
 @endsection
 
 @section('js')
     <script type="module" >
-        const data = [{
-                date: '2022-01-01',
-                count: 10
-            },
-            {
-                date: '2022-01-02',
-                count: 15
-            },
-            {
-                date: '2022-01-03',
-                count: 20
-            },
-            {
-                date: '2022-01-04',
-                count: 25
-            },
-            {
-                date: '2022-01-05',
-                count: 30
-            },
-        ];
-
+        const data = {!! $orders_count->toJson() !!};
+        const revenue = {!! $revenue->toJson() !!};
         const ctx = document.getElementById('users-chart').getContext('2d');
+        const revenuectx = document.getElementById('revenue-chart').getContext('2d');
         new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: data.map((d) => d.date),
                 datasets: [{
-                    label: 'Daily Number of Users',
+                    label: 'Daily Number of Orders',
                     data: data.map((d) => d.count),
                     backgroundColor: 'rgba(99, 102, 241, 0.6)',
                     borderColor: 'rgba(99, 102, 241, 1)',
+                    fill: false,
+
                     borderWidth: 1,
+                    cubicInterpolationMode: 'monotone',
+                    tension: 0.4
                 }, ],
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            precision: 0,
-                        },
-                    }, ],
                 },
                 plugins: {
                     legend: {
@@ -59,7 +45,39 @@
                         position: 'top',
                         labels: {
                             font: {
-                                size: 16,
+                                size: 12,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+
+        new Chart(revenuectx, {
+            type: 'bar',
+            data: {
+                labels: revenue.map((d) => d.date),
+                datasets: [{
+                    label: 'Revenue in last 5 days',
+                    data: data.map((d) => d.count),
+                    backgroundColor: 'rgba(99, 102, 241, 0.6)',
+                    borderColor: 'rgba(99, 102, 241, 1)',
+                    fill: false,
+                    borderWidth: 1,
+                    cubicInterpolationMode: 'monotone',
+                    tension: 0.4
+                }, ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 12,
                             },
                         },
                     },

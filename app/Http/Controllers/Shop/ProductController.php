@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Image;
 use App\Models\ProductCategory;
+use App\Models\Addon;
+use App\Models\AddonCategory;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -17,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate();
+        $products = Product::where('user_id', auth()->user()->id)->paginate();
         return view('merchants.products.index', compact('products'));
     }
 
@@ -138,5 +140,22 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addon($id)
+    {
+        $cats = AddonCategory::where('user_id', auth()->user()->id)->get();
+        $addons = Product::findOrFail($id)->addons;
+        $firstAddons = [];
+        if($addons->count() > 0){
+            $firstAddons = Addon::where('addon_category_id',$id)->get();
+        }
+        return view('merchants.products.addaddon', compact('cats', 'addons','firstAddons', 'id'));
+    }
+
+    public function doAddon(Request $request)
+    {
+        Product::find($request->product_id)->addons()->syncWithoutDetaching($request->addons);
+        return redirect()->back()->with('success', 'Addon Added successfully.');
     }
 }

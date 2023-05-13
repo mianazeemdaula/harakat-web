@@ -12,6 +12,7 @@ use App\Http\Controllers\Shop\OfferController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AddonCategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AddonsController;
 /*
 |--------------------------------------------------------------------------
@@ -44,14 +45,16 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('shop/order', ShopOrderController::class);
     Route::get('shop/{status}/order', [ShopOrderController::class,'status']);
-    Route::resource('products', ProductController::class);
     Route::resource('promos', OfferController::class);
     Route::resource('cities', CityController::class);
     Route::resource('accounting', TransactionController::class);
     Route::resource('addon-cat', AddonCategoryController::class);
-    Route::resource('products.addons', AddonsController::class);
+    Route::resource('addons', AddonsController::class);
+    Route::resource('products', ProductController::class);
+    Route::get('product-addons/{id}', [ProductController::class, 'addon']);
+    Route::post('product-addons', [ProductController::class, 'doAddon']);
 
-    Route::view('merchant', 'merchants.dashboard');
+    Route::get('merchant', [HomeController::class, 'merchant']);
     Route::view('admin', 'admin.dashboard');
 
     Route::view('approvedmerchant', 'admin.merchant.approvedmerchant');

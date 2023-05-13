@@ -119,7 +119,7 @@ class SignupController extends Controller
             DB::commit();
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
-                return redirect()->intended('shop');
+                return redirect()->intended('merchant');
             }
         } catch (\Throwable $th) {
             DB::rollback();

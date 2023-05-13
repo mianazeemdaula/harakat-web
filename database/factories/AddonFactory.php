@@ -22,6 +22,7 @@ class AddonFactory extends Factory
             'price' => fake()->randomFloat(1,1,6),
             'available' => fake()->numberBetween(0,1),
             'weight' => fake()->numberBetween(1,1000),
+            'addon_category_id' => fake()->numberBetween(1,5),
             'description' => fake()->paragraph(1),
             'description_ar' => fake()->paragraph(1),
         ];

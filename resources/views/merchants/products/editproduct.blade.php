@@ -13,6 +13,15 @@
         <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            <div class="flex justify-center">
+                <label for="avatar" class="relative">
+                    <img src="{{ $product->image }}" alt="image" class="rounded-full w-24 h-24">
+                    <img id="preview" src="#" alt="Preview"
+                        class="absolute inset-0 w-full h-full object-cover rounded-full opacity-0">
+                    <input type="file" id="avatar" name="image" accept="image/*" class="hidden"
+                        onchange="previewImage(event)">
+                </label>
+            </div>
             <div class="grid grid-cols-2 gap-2 justify-items-center p-6">
                 <div>
                     <h3 class="p-2">NAME</h3>
@@ -62,15 +71,12 @@
                     </select>
                 </div>
                 <div class="flex items-center space-x-4 mt-4">
-                    <label for="avatar" class="relative">
-                        <img src="{{ $product->image }}" alt="image" class="rounded-full w-24 h-24">
-                        <img id="preview" src="#" alt="Preview"
-                            class="absolute inset-0 w-full h-full object-cover rounded-full opacity-0">
-                        <input type="file" id="avatar" name="image" accept="image/*" class="hidden"
-                            onchange="previewImage(event)">
-                    </label>
-                    <button class="w-52 h-10 rounded-lg text-xl text-white bg-blue-800">Submit</button>
+                    <a href="{{ url("/product-addons/$product->id") }}"
+                        class="w-80 flex justify-center text-white rounded-full mt-8 px-16 py-3  bg-blue-600">Manage
+                        Addons</a>
                 </div>
+
+                <button class="w-52 h-10 rounded-lg text-xl text-white bg-blue-800">Submit</button>
                 <div class="grid grid-cols-2 gird-cols-3 gap-2">
                     <h3>Available</h3>
                     <h3>Promotion</h3>

@@ -45,9 +45,9 @@ class DatabaseSeeder extends Seeder
         ))->create();
         \App\Models\Shop::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+1],
         ))->create()->each(function($shop){
-            \App\Models\Addon::factory(rand(10,20))->state(new Sequence(fn ($se) => ['user_id' =>$shop->user_id],
-            ))->create();
+            
         });
+        \App\Models\Addon::factory(rand(5,10))->create();
         \App\Models\Rider::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+11],
         ))->create();
         \App\Models\Customer::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+21],

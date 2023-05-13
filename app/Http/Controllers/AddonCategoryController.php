@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\AddonCategory;
+
 class AddonCategoryController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class AddonCategoryController extends Controller
      */
     public function index()
     {
-        
+        $cats = AddonCategory::where('user_id', auth()->user()->id)->get();
+        return view('merchants.addoncategories.index',compact('cats'));
     }
 
     /**
@@ -23,7 +26,7 @@ class AddonCategoryController extends Controller
      */
     public function create()
     {
-        return view('merchants.products.addnewaddons-category');
+        return view('merchants.addoncategories.create');
     }
 
     /**
@@ -34,7 +37,20 @@ class AddonCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'name_ar' => 'required',
+            'description' => 'required',
+            'description_ar' => 'required',
+        ]);
+        $cat = new AddonCategory;
+        $cat->user_id = $request->user()->id;
+        $cat->name = $request->name;
+        $cat->name_ar = $request->name_ar;
+        $cat->description = $request->description;
+        $cat->description_ar = $request->description_ar;
+        $cat->save();
+        return redirect()->route('addon-cat.index');
     }
 
     /**
