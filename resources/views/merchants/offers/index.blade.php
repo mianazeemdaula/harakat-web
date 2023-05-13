@@ -2,7 +2,7 @@
 @section('body')
     <div class="w-full m-6">
         <div class="my-4">
-            <a href="{{ route('offers.create') }}" class="p-2 rounded-lg text-xl text-white bg-blue-800">Add
+            <a href="{{ route('promos.create') }}" class="p-2 rounded-lg text-xl text-white bg-blue-800">Add
                 Offer</a>
         </div>
         @foreach ($offers as $offer)
@@ -12,7 +12,8 @@
                         <div class="text-lg leading-6 font-medium text-gray-900"> {{ $offer->code }} ( {{ $offer->limit }} )
                         </div>
                         <div class="flex">
-                            <div class="text-sm leading-5 text-gray-500 mr-4">AED{{ $offer->discount }}</div>
+                            <div class="text-sm leading-5 text-gray-500 mr-4">AED <span
+                                    class="font-bold">{{ $offer->discount }}</span></div>
                             <div class="text-sm leading-5 text-gray-500">{{ $offer->title }}</div>
                         </div>
                     </div>
@@ -21,21 +22,21 @@
                     <div class="flex items-center">
                         <div class="flex items-center justify-between">
                             <div class="flex-1 flex">
-                                <div class="">Minimum Purchase <span
-                                        class="font-bold">AED{{ $offer->min_purchase }}</span></div>
-                                <div class="">Get <span class="font-bold">AED{{ $offer->max_discount }}</span> Off
+                                <div class="w-60">Minimum Purchase <p class="font-bold">AED{{ $offer->min_purchase }}</p>
+                                </div>
+                                <div class="w-60">Get Off<p class="font-bold">AED{{ $offer->max_discount }}</p>
                                 </div>
                             </div>
-                            <div class=" flex-1 flex">
-                                <div class="ml-4">Start <span class="font-bold">{{ $offer->start_date }}</span></div>
-                                -
-                                <div class="ml-4">End <span class="font-bold">{{ $offer->expire_date }}</span> Off
+                            <div class="flex-1 flex space-x-4">
+                                <div class="w-60">Start <p class="font-bold">{{ $offer->start_date }}</p>
+                                </div>
+                                <div class="w-60">End<p class="font-bold">{{ $offer->expire_date }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <a href="{{ route('offers.edit', $offer->id) }}" class="text-gray-500 hover:text-gray-700">
+                        <a href="{{ route('promos.edit', $offer->id) }}" class="text-gray-500 hover:text-gray-700">
                             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -43,7 +44,7 @@
                             </svg>
 
                         </a>
-                        <form action="{{ route('offers.destroy', $offer) }}" method="POST">
+                        <form action="{{ route('promos.destroy', $offer) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-gray-500 hover:text-gray-700">

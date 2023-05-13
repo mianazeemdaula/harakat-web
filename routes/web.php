@@ -10,6 +10,9 @@ use App\Http\Controllers\Shop\ShopOrderController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\OfferController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\AddonCategoryController;
+use App\Http\Controllers\AddonsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,8 +45,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('shop/order', ShopOrderController::class);
     Route::get('shop/{status}/order', [ShopOrderController::class,'status']);
     Route::resource('products', ProductController::class);
-    Route::resource('offers', OfferController::class);
+    Route::resource('promos', OfferController::class);
     Route::resource('cities', CityController::class);
+    Route::resource('accounting', TransactionController::class);
+    Route::resource('addon-cat', AddonCategoryController::class);
+    Route::resource('products.addons', AddonsController::class);
 
     Route::view('merchant', 'merchants.dashboard');
     Route::view('admin', 'admin.dashboard');
@@ -60,7 +66,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::view('adduser', 'admin.user.adduser');
     Route::view('documents', 'admin.documents');
     Route::view('reports', 'admin.reports');
-    Route::view('accounting', 'admin.accounting');
     Route::view('notification', 'admin.notification');
     Route::view('addcategory', 'merchants.products.addcategory');
     Route::view('editcategory', 'merchants.products.editcategory');
@@ -68,10 +73,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::view('addproduct', 'merchants.products.addproduct');
     Route::view('editproduct', 'merchants.products.editproduct');
     Route::view('manageoption', 'merchants.products.manageoption');
-    Route::view('addnewaddons-category', 'merchants.products.addnewaddons-category');
     Route::view('addnewaddons', 'merchants.products.addnewaddons');
-
-
-
 });
 

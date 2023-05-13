@@ -63,6 +63,6 @@ class ShopOrderController extends Controller
     public function status($status)
     {
         $orders = Order::all();
-        return view('admin.dispatcher.approved',compact('orders', 'status'));
+        return view('merchants.orders.index',compact('orders', 'status'));
     }
 }
