@@ -13,7 +13,11 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) {
+           if(auth()->user()->hasRole('admin')){
+            return redirect('admin');
+           }else{
             return  redirect('merchant');
+           }
         }
         return view('loginpages.login');
     }
@@ -23,7 +27,11 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('merchant');
+            if(auth()->user()->hasRole('admin')){
+                return redirect()->intended('admin');
+            }else{
+                return redirect()->intended('merchant');
+            }
         }else{
             return redirect()->back()->withErrors(['error' => 'Credentials not matched.']);
         }
