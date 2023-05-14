@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('title_ar');
             $table->string('short_desc')->nullable();
             $table->string('short_desc_ar')->nullable();
-            $table->mediumText('content')->nullable()->default('text');
-            $table->mediumText('content_ar')->nullable()->default('text');
+            $table->text('content')->nullable()->default('text');
+            $table->text('content_ar')->nullable()->default('text');
             $table->timestamps();
         });
     }
