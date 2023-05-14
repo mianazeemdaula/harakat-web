@@ -17,7 +17,7 @@ class InboxFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => fake()->numberBetween(1,35),
+            'user_id' => fake()->numberBetween(2,30),
             // 'page_key' => fake()->numberBetween(1,10),
             'title' => fake()->streetName(),
             'title_ar' => fake()->streetName(),
