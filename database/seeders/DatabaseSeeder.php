@@ -76,7 +76,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Notification::factory(200)->create();
         \App\Models\Address::factory(50)->create();
         \App\Models\AppContent::factory(10)->create();
-        \App\Models\Inbox::factory(100)->create();
+        // \App\Models\Inbox::factory(100)->create();
         \App\Models\LoyaltyCard::insert([
             ['name' => 'Fazaa', 'name_ar' => 'فزعة'],
             ['name' => 'Homat al watan', 'name_ar' => 'حماة الوطن'],
