@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('product-addons', [ProductController::class, 'doAddon']);
 
     Route::get('merchant', [HomeController::class, 'merchant']);
-    Route::view('admin', 'admin.dashboard');
+    Route::get('admin', [HomeController::class, 'admin']);
 
     Route::view('approvedmerchant', 'admin.merchant.approvedmerchant');
     Route::view('pendingmerchant', 'admin.merchant.pendingmerchant');

@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('inboxes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            // $table->morphs('inboxable')->nullable();
-            // $table->boolean('star')->default(false);
             $table->string('title');
             $table->string('title_ar');
             $table->string('short_desc')->nullable();

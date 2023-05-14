@@ -23,23 +23,13 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <a href="{{ route('products.edit', $product->id) }}" class="text-gray-500 hover:text-gray-700">
-                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 3h6v6M4 17l6.125-1.625L16.375 9l2.25-2.25L20.75 4l-2.25-2.25L16.375 3l-6.25 6.375L4 16.75v.5l.625.125L8.625 19l.5-.625" />
-                            </svg>
-
+                            <x-bi-pencil-square />
                         </a>
                         <form action="{{ route('products.destroy', $product) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-gray-500 hover:text-gray-700">
-                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M4.293 13.707a1 1 0 010-1.414L8.586 7.5 4.293 3.207a1 1 0 111.414-1.414L10 6.086l4.293-4.293a1 1 0 111.414 1.414L11.414 7.5l4.293 4.293a1 1 0 11-1.414 1.414L10 8.914l-4.293 4.293a1 1 0 01-1.414 0z"
-                                        clip-rule="evenodd" />
-                                </svg>
+                                <x-bi-trash-fill />
                             </button>
                         </form>
                     </div>

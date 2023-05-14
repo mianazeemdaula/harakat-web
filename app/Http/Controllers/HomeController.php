@@ -13,6 +13,7 @@ class HomeController extends Controller
 {
      public function merchant()
      {
+         $user = auth()->user();
         $orders_count =  DB::table('orders')->select(DB::raw('DATE(created_at) AS date'), DB::raw('COUNT(*) AS count'))
         ->groupBy(DB::raw('DATE(created_at)'))
         ->whereDate('created_at', '>=' ,now()->subDays(5))->get();
@@ -20,6 +21,14 @@ class HomeController extends Controller
         $revenue =  Transaction::select(DB::raw('DATE(created_at) AS date'), DB::raw('COUNT(*) AS count'))
         ->groupBy(DB::raw('DATE(created_at)'))
         ->whereDate('created_at', '>=' ,now()->subDays(5))->get();
+        $pendingCount = Order::where('user_id',$user->id)->whereStatus('pending')->count();
+        $activeCount = Order::where('user_id',$user->id)->whereStatus('active')->count();
+        $cancelCount = Order::where('user_id',$user->id)->whereStatus('canceled')->count();
         return view('merchants.dashboard', compact('orders_count', 'revenue'));
+     }
+
+     public function admin()
+     {
+          return view('admin.dashboard');
      }
 }

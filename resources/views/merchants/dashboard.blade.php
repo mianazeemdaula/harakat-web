@@ -1,6 +1,20 @@
 @extends('layouts.shop')
 @section('body')
     <div class="w-full m-6">
+        <div class="grid grid-cols-3 gap-4 mb-4">
+            <x-stat-card title="Pending Orders" count="AED {{ 0 }}">
+                <x-bi-basket-fill />
+            </x-stat-card>
+            <x-stat-card title="Active Orders" count="AED {{ 0 }}">
+                <x-bi-bag-fill />
+            </x-stat-card>
+            <x-stat-card title="Delivered Orders" count="AED {{ 0 }}">
+                <x-bi-bag-fill />
+            </x-stat-card>
+            <x-stat-card title="Cancel Orders" count="AED {{ 0 }}">
+                <x-bi-bag-fill />
+            </x-stat-card>
+        </div>
         <div class="flex space-x-4">
             <div class="w-60 h-60">
                 <canvas id="users-chart"></canvas>

@@ -38,6 +38,7 @@ return new class extends Migration
             $table->string('payment_type')->default('cod');
             $table->unsignedBigInteger('payment_card')->nullable();
             $table->unsignedBigInteger('offer_id')->nullable();
+            $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->json('req_riders')->nullable();
             $table->timestamps();
         });

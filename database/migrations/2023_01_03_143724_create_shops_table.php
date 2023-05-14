@@ -20,10 +20,6 @@ return new class extends Migration
             $table->unsignedBigInteger('city_id');
             $table->string('shop_name')->nullable()->default('text');
             $table->string('phone',20)->nullable()->default('text');
-            // $table->string('licence')->nullable()->default('text');
-            // $table->timestamp('licence_verified_at')->nullable();
-            // $table->string('other_licence')->nullable()->default('text');
-            // $table->string('awards')->nullable()->default('awards');
             $table->float('base_delivery_charges')->nullable()->default(1.0);
             $table->float('delivery_charges_km')->nullable()->default(1.0);
             $table->float('min_order_amount')->nullable()->default(1.0);
