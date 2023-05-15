@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 use MatanYadaev\EloquentSpatial\SpatialBuilder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Rider extends Model
 {
@@ -37,6 +38,11 @@ class Rider extends Model
     public static function query(): SpatialBuilder
     {
         return parent::query();
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
 
 }

@@ -1,4 +1,4 @@
-@extends('layouts.shop')
+@extends('layouts.admin')
 @section('body')
     <div class="w-full p-9">
         <h2 class="text-center font-bold">Manage Citites</h2>

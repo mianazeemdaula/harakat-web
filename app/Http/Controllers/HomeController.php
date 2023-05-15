@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\Transaction;
 use DB;
 
@@ -29,6 +30,10 @@ class HomeController extends Controller
 
      public function admin()
      {
-          return view('admin.dashboard');
+          $totalRider = User::whereHas('rider')->count();
+          $totalShop = User::whereHas('shop')->count();
+          $totalUser = User::whereHas('customer')->count();
+          $todayUser = User::whereDate('created_at', now())->count();
+          return view('admin.dashboard', compact('totalRider', 'totalShop','todayUser','totalUser'));
      }
 }

@@ -68,6 +68,19 @@ class ShopController extends Controller
         return redirect()->back();
     }
 
+    public function index()
+    {
+
+    }
+
+    public function shopStatusWise($status)
+    {
+        $shops =   User::whereHas('shop')->with(['shop' => function($q) use($status){
+            // $q->where('status', $status);
+        }])->get();
+        return view('admin.merchant.approvedmerchant', compact('shops', 'status'));
+    }
+
 
     public function update(Request $request, $id)
     {

@@ -13,7 +13,10 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AddonCategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AddonsController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RiderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,11 +54,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('addon-cat', AddonCategoryController::class);
     Route::resource('addons', AddonsController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('riders', RiderController::class);
+    Route::get('shops-status/{status}/', [ShopController::class,'shopStatusWise']);
     Route::get('product-addons/{id}', [ProductController::class, 'addon']);
     Route::post('product-addons', [ProductController::class, 'doAddon']);
 
     Route::get('merchant', [HomeController::class, 'merchant']);
     Route::get('admin', [HomeController::class, 'admin']);
+    Route::resource('shop.document', DocumentController::class);
 
     Route::view('approvedmerchant', 'admin.merchant.approvedmerchant');
     Route::view('pendingmerchant', 'admin.merchant.pendingmerchant');
@@ -65,9 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::view('orderdetailsmerchant', 'admin.merchant.orderdetailsmerchant');
     Route::view('orderdetails-1merchant', 'admin.merchant.orderdetails-1merchant');
     Route::view('shoplicensemerchant', 'admin.merchant.shoplicensemerchant');
-    Route::view('users', 'admin.user.users');
-    Route::view('adduser', 'admin.user.adduser');
-    Route::view('documents', 'admin.documents');
+    // Route::view('documents', 'admin.documents');
     Route::view('reports', 'admin.reports');
     Route::view('notification', 'admin.notification');
     Route::view('addcategory', 'merchants.products.addcategory');
