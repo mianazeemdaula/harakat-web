@@ -51,7 +51,7 @@
                                 <form action="{{ url("shop-update-status/$item->id") }}" method="post">
                                     @csrf
                                     @method('put')
-                                    @if ($item->shop->status == 'pending' || $item->shop->status == 'canceled')
+                                    @if ($item->shop->status == 'pending' || $item->shop->status == 'rejected')
                                         <input type="hidden" name="status" value="approved">
                                         <button
                                             class="py-2 px-3 text-center text-white rounded-lg bg-blue-700">Approve</button>
