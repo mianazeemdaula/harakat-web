@@ -48,11 +48,8 @@
                                 <div class="flex space-x-3"><a href="{{ route('riders.edit', $item->id) }}">
                                         <x-bi-pencil />
                                     </a>
-                                    <a href="http://">
+                                    <a href="{{ url("documents/rider/$item->id") }}">
                                         <x-bi-folder />
-                                    </a>
-                                    <a href="http://">
-                                        <x-bi-trash />
                                     </a>
                                 </div>
                             </td>

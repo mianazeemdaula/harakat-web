@@ -179,8 +179,8 @@ class OrderController extends Controller
                 $order->picked_at = now();
             }else if($request->status == 'delivered'){
                 $order->delivered_at = now();
+                $amount = $order->total_amount - $order->delivery_amount;
                 if($order->payment_type == 'cod'){
-                    $amount = $order->total_amount - $order->delivery_amount;
                     $transaction = Transaction::create([
                         'user_id' => $order->rider_id,
                         'type' => 'Cash',
@@ -188,8 +188,15 @@ class OrderController extends Controller
                         'details' => "COD Order #$order->id"
                     ]);
                     Balance::updateOrCreate(['user_id'=> $order->rider_id],['cash' => DB::raw("cash + $amount")]);
+                }else{
+                    $transaction = Transaction::create([
+                        'user_id' => 1,
+                        'type' => 'Income',
+                        'amount' => $amount,
+                        'details' => "Order #$order->id"
+                    ]);
+                    Balance::updateOrCreate(['user_id'=> 1],['balance' => DB::raw("balance + $amount")]);
                 }
-                $amount = $order->total_amount;
                 $transaction = Transaction::create([
                     'user_id' => $order->shop_id,
                     'type' => 'Income',
@@ -215,21 +222,21 @@ class OrderController extends Controller
             }
             $order->save();
             // FCM
-            $fcmTokens = [];
-            $riderIds = Rider::whereNotNull('live_geo')->pluck('user_id');
-            $riders = User::whereNotNull('fcm_token')->whereIn('id',$riderIds)->get();
-            foreach ($riders as $rider) {
-                $fcmTokens[] = $rider->fcm_token;
-            }
-            $order->req_riders = $riderIds;
-            $order->save();
-            $data = [
-                'type' => 'new_order',
-                'id' => $order->id,
-                '_from' => $order->shop->shop->address,
-                '_to' => $order->drop_address,
-            ];
-            FCM::send($fcmTokens, 'New Order Request', 'You have a new order request to deliver', $data);
+            // $fcmTokens = [];
+            // $riderIds = Rider::whereNotNull('live_geo')->pluck('user_id');
+            // $riders = User::whereNotNull('fcm_token')->whereIn('id',$riderIds)->get();
+            // foreach ($riders as $rider) {
+            //     $fcmTokens[] = $rider->fcm_token;
+            // }
+            // $order->req_riders = $riderIds;
+            // $order->save();
+            // $data = [
+            //     'type' => 'new_order',
+            //     'id' => $order->id,
+            //     '_from' => $order->shop->shop->address,
+            //     '_to' => $order->drop_address,
+            // ];
+            // FCM::send($fcmTokens, 'New Order Request', 'You have a new order request to deliver', $data);
             DB::commit();
             return $this->show($order->id);
         } catch (\Throwable $th) {

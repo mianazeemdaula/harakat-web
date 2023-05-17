@@ -12,11 +12,16 @@ use App\Http\Controllers\Shop\OfferController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AddonCategoryController;
+use App\Http\Controllers\MailBoxController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AddonsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RiderController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\AppContentController;
+use App\Http\Controllers\ShopDocController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +33,8 @@ use App\Http\Controllers\RiderController;
 |
 */
 
+
+
 Route::get('/', [AuthController::class, 'login']);
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'doLogin']);
@@ -38,7 +45,7 @@ Route::post('shop/reg/cat', [SignupController::class, 'doShopStep2']);
 Route::get('shop/reg/final', [SignupController::class, 'signup']);
 Route::post('shop/reg/final', [SignupController::class, 'doSignup']);
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'setapplang']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('shopdetails', [ShopController::class, 'profile']);
     Route::post('shopdetails', [ShopController::class, 'doProfile']);
@@ -56,31 +63,54 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('products', ProductController::class);
     Route::resource('users', UserController::class);
     Route::resource('riders', RiderController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('productcategories', ProductCategoryController::class);
+    Route::resource('app-content', AppContentController::class);
+    Route::resource('shop-docs', ShopDocController::class);
+    Route::get('shop-docs-upload/{type}', [ShopDocController::class, 'upload']);
+    Route::resource('user-loyalty-card', UserLoyaltyCardController::class);
     Route::get('shops-status/{status}/', [ShopController::class,'shopStatusWise']);
+    Route::get('shop-products/{id}/', [ShopController::class,'shopProducts']);
     Route::get('product-addons/{id}', [ProductController::class, 'addon']);
     Route::post('product-addons', [ProductController::class, 'doAddon']);
 
     Route::get('merchant', [HomeController::class, 'merchant']);
     Route::get('admin', [HomeController::class, 'admin']);
-    Route::resource('shop.document', DocumentController::class);
+    Route::get('documents/{role}/{user}', [DocumentController::class,'getdocs']);
+    Route::get('documents/{role}/{user}/{type}', [DocumentController::class,'viewStatus']);
+    // Route::get('documents/{id}', [DocumentController::class,'show']);
+    Route::resource('documents', DocumentController::class);
+    Route::resource('mailboxes', MailBoxController::class);
 
-    Route::view('approvedmerchant', 'admin.merchant.approvedmerchant');
-    Route::view('pendingmerchant', 'admin.merchant.pendingmerchant');
-    Route::view('rejectedmerchant', 'admin.merchant.rejectedmerchant');
-    Route::view('documentmerchant', 'admin.merchant.documentmerchant');
-    Route::view('addmerchant', 'admin.merchant.addmerchant');
-    Route::view('orderdetailsmerchant', 'admin.merchant.orderdetailsmerchant');
-    Route::view('orderdetails-1merchant', 'admin.merchant.orderdetails-1merchant');
-    Route::view('shoplicensemerchant', 'admin.merchant.shoplicensemerchant');
+    
+    Route::get('notification', [HomeController::class, 'notification']);
+    Route::post('notification', [HomeController::class, 'doNotification']);
+
+    // App settings
+    Route::get('app-setting', [HomeController::class, 'appSetting']);
+    Route::post('app-setting', [HomeController::class, 'doAppSetting']);
+
+    // Loyalty Cards Discounts
+    Route::get('loyalty-card-discount', [HomeController::class, 'shopLoyalDiscount']);
+    Route::post('loyalty-card-discount', [HomeController::class, 'doShopLoyalDiscount']);
+
+    // Route::view('approvedmerchant', 'admin.merchant.approvedmerchant');
+    // Route::view('pendingmerchant', 'admin.merchant.pendingmerchant');
+    // Route::view('rejectedmerchant', 'admin.merchant.rejectedmerchant');
+    // Route::view('documentmerchant', 'admin.merchant.documentmerchant');
+    // Route::view('addmerchant', 'admin.merchant.addmerchant');
+    // Route::view('orderdetailsmerchant', 'admin.merchant.orderdetailsmerchant');
+    // Route::view('orderdetails-1merchant', 'admin.merchant.orderdetails-1merchant');
+    // Route::view('shoplicensemerchant', 'admin.merchant.shoplicensemerchant');
     // Route::view('documents', 'admin.documents');
-    Route::view('reports', 'admin.reports');
-    Route::view('notification', 'admin.notification');
-    Route::view('addcategory', 'merchants.products.addcategory');
-    Route::view('editcategory', 'merchants.products.editcategory');
-    Route::view('addproduct-1', 'merchants.products.addproduct-1');
-    Route::view('addproduct', 'merchants.products.addproduct');
-    Route::view('editproduct', 'merchants.products.editproduct');
-    Route::view('manageoption', 'merchants.products.manageoption');
-    Route::view('addnewaddons', 'merchants.products.addnewaddons');
+    // Route::view('reports', 'admin.reports');
+    // Route::view('addcategory', 'merchants.products.addcategory');
+    // Route::view('editcategory', 'merchants.products.editcategory');
+    // Route::view('addproduct-1', 'merchants.products.addproduct-1');
+    // Route::view('addproduct', 'merchants.products.addproduct');
+    // Route::view('editproduct', 'merchants.products.editproduct');
+    // Route::view('manageoption', 'merchants.products.manageoption');
+    // Route::view('addnewaddons', 'merchants.products.addnewaddons');
+    Route::get('lang', [HomeController::class,'lang_change'])->name('lang_change');
 });
 

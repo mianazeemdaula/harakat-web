@@ -62,7 +62,12 @@ class ShopOrderController extends Controller
 
     public function status($status)
     {
-        $orders = Order::all();
-        return view('merchants.orders.index',compact('orders', 'status'));
+        $orders = Order::whereStatus($status)->get();
+        $pendingCount = Order::whereStatus('open')->count();
+        $approvedCount = Order::whereStatus('approved')->count();
+        $processedCount = Order::whereStatus('processed')->count();
+        $completedCount = Order::whereStatus('delivered')->count();
+        $canceledCount = Order::whereStatus('canceled')->count();
+        return view('merchants.orders.index',compact('orders', 'status', 'pendingCount', 'approvedCount', 'processedCount','completedCount', 'canceledCount'));
     }
 }

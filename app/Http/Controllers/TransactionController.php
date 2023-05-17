@@ -21,10 +21,10 @@ class TransactionController extends Controller
         $transactions = Transaction::where('user_id', $user->id)
         ->orderBy('created_at','desc')->paginate();
         if($user->hasRole('shop')){
+            return view('admin.accounting', compact('transactions', 'balance'));
         }else{
-            
+            return view('admin.finance.balancesheet', compact('transactions', 'balance'));
         }
-        return view('admin.accounting', compact('transactions', 'balance'));
     }
 
     /**

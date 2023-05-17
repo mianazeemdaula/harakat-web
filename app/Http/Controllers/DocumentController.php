@@ -5,9 +5,38 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\ShopDocument;
+use App\Models\UserLoyaltyCard;
+use App\Models\LoyaltyCard;
 
 class DocumentController extends Controller
 {
+    public function getdocs($role, $id)
+    {
+        if($role == 'shop'){
+            $docs =  ShopDocument::where('shop_id',$id)->get();
+            return view('admin.documents.shop', compact('id', 'docs'));
+        }else if($role == 'rider'){
+            $docs =  ShopDocument::where('shop_id',$id)->get();
+            return view('admin.documents.rider', compact('id', 'docs'));
+        }
+        else if($role == 'user'){
+            $cards =  LoyaltyCard::get();
+            $userCards = UserLoyaltyCard::where('user_id', $id)->get();
+            return view('admin.documents.user', compact('id', 'cards', 'userCards'));
+        }
+        
+    }
+
+    public function viewStatus($role, $id,$type)
+    {
+        if($role == 'shop' || $role == 'rider'){
+            $docs =  ShopDocument::where('shop_id', $id)
+            ->where('type',$type)->get();
+            return view('admin.documents.shop_docs', compact('docs', 'role', 'id'));
+        }
+        $doc = UserLoyaltyCard::findOrFail($type);
+        return view('admin.documents.view_user_doc', compact('doc', 'role', 'id'));
+    }
      /**
      * Display a listing of the resource.
      *
@@ -76,7 +105,8 @@ class DocumentController extends Controller
      */
     public function show($id)
     {
-        
+        $doc = ShopDocument::findOrFail($id);
+        return view('admin.documents.view_shop_doc', compact('doc'));
     }
 
     /**
@@ -99,12 +129,12 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $shopId, $id)
+    public function update(Request $request, $id)
     {
         $doc = ShopDocument::find($id);
         $doc->status = $request->status;
         $doc->save();
-        return  redirect()->back()->with('success', 'Document updated successfully.');
+        return  redirect("documents/shop/$doc->shop_id")->with('success', 'Document updated successfully.');
 
     }
 

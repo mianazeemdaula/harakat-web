@@ -15,7 +15,7 @@ class CityController extends Controller
     public function index()
     {
         $cities = City::all();
-        return view('admin.cities', compact('cities'));
+        return view('admin.cities.index', compact('cities'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.cities.create');
     }
 
     /**
@@ -36,7 +36,15 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' =>'required|unique:cities',
+            'name_ar' => 'required',
+        ]);
+        $city = new City;
+        $city->name = $request->name;
+        $city->name_ar = $request->name_ar;
+        $city->save();
+        return redirect('cities')->with('success', 'City added successfully');
     }
 
     /**
@@ -58,7 +66,8 @@ class CityController extends Controller
      */
     public function edit($id)
     {
-        //
+        $city = City::findOrFail($id);
+        return view('admin.cities.edit', compact('city'));
     }
 
     /**
@@ -70,7 +79,15 @@ class CityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' =>'required|unique:cities',
+            'name_ar' => 'required',
+        ]);
+        $city = City::findOrFail($id);
+        $city->name = $request->name;
+        $city->name_ar = $request->name_ar;
+        $city->save();
+        return redirect('cities')->with('success', 'City updated successfully');
     }
 
     /**

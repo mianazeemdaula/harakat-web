@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('inboxes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user2_id');
             $table->string('title');
             $table->string('title_ar');
             $table->string('short_desc')->nullable();

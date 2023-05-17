@@ -1,6 +1,6 @@
 @extends('layouts.shop')
 @section('body')
-    <div class="w-full h-full ml-2 mr-6">
+    <div class="p-9">
         <div class="flex flex-row space-x-1 mt-12">
             <a href="{{ url('shop/pending/order/') }}"
                 class="px-8 py-3 border-2 border-blue-800 rounded-lg text-blue-800 font-extrabold">Pending

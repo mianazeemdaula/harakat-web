@@ -17,7 +17,7 @@ class Helper {
         ]);
 
         $body = json_decode($response->getBody());
-        $address = $body->results[0]->formatted_address;
+        $address = $body->results[0]->formatted_address ?? '';
         return $address;
     }
 }

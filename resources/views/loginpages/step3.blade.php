@@ -13,9 +13,14 @@
             <div class=" flex flex-col mt-4 w-screen justify-center items-center">
                 <div>Step 3 of 3</div>
                 <h1>Create your Account</h1>
+                <div>
+                    @if ($errors->any())
+                        {!! implode('', $errors->all('<div>:message</div>')) !!}
+                    @endif
+                </div>
                 <div class="w-1/2 mt-6">
                     <div class="">
-                        <input type="text" name="shop_name" placeholder="Full Name">
+                        <input type="text" name="shop_name" placeholder="Full Name" value="{{ old('shop_name') }}">
                         @error('shop_name')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
@@ -24,7 +29,8 @@
 
                         <div class="flex items-center space-x-4">
                             <div class="">
-                                <input type="email" placeholder="Email" name="email" class="">
+                                <input type="email" placeholder="Email" name="email" class=""
+                                    value="{{ old('email') }}">
                                 @error('email')
                                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                 @enderror
@@ -38,7 +44,8 @@
                         </div>
                         <div class="flex items-center space-x-8">
                             <div class="">
-                                <input type="phone" placeholder="Phone" name="phone" class="">
+                                <input type="phone" placeholder="Phone" name="phone" class=""
+                                    value="{{ old('phone') }}">
                                 @error('phone')
                                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                 @enderror
@@ -68,6 +75,8 @@
                                 @enderror
                             </div>
                         </div>
+
+                        {{--
                         <div class="flex items-center space-x-8">
                             <div class="">
                                 <input type="text" placeholder="Other Licsnse" name="other_license" class="flex flex-1">
@@ -81,7 +90,7 @@
                                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Shop;
 use Illuminate\Support\Facades\Storage;
 use App\Models\TimeSlot;
+use App\Models\Product;
 
 use Image;
 
@@ -75,15 +76,26 @@ class ShopController extends Controller
 
     public function shopStatusWise($status)
     {
-        $shops =   User::whereHas('shop')->with(['shop' => function($q) use($status){
-            // $q->where('status', $status);
-        }])->get();
+        $shops =   User::whereHas('shop', function($q) use($status) {
+            $q->where('status', $status);
+        })->with(['shop'])->get();
         return view('admin.merchant.approvedmerchant', compact('shops', 'status'));
+    }
+
+    public function shopProducts($id)
+    {
+        $products = Product::where('user_id', $id)->paginate();
+        return view('admin.merchant.products.index', compact('products'));
     }
 
 
     public function update(Request $request, $id)
     {
 
+    }
+
+    public function destroy($id)
+    {
+        //
     }
 }

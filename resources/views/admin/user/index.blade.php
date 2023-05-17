@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('body')
     <div class="w-full p-10">
-        <h6>Documents</h6>
+        <h6>Users</h6>
         <div class="overflow-x-auto mt-6">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
@@ -42,7 +42,7 @@
                                 <div class="flex space-x-3"><a href="{{ route('users.edit', $item->id) }}">
                                         <x-bi-pencil />
                                     </a>
-                                    <a href="http://">
+                                    <a href="{{ url("documents/user/$item->id") }}">
                                         <x-bi-folder />
                                     </a>
                                     <a href="http://">

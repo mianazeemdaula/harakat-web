@@ -64,8 +64,8 @@ class SignupController extends Controller
             'shop_name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'other_license' => 'required',
-            'awards' => 'required',
+            // 'other_license' => 'required',
+            // 'awards' => 'required',
             'phone' => 'required',
         ]);
         try {
@@ -88,25 +88,25 @@ class SignupController extends Controller
             $shop->address = $address;
             $shop->location = new Point($request->lat, $request->lng);
             $shop->save();
-            $licenses =  explode(",",$request->other_license);
-            foreach ($licenses as $licens) {
-                $doc = new ShopDocument;
-                $doc->shop_id = $user->id;
-                $doc->doc = $licens;
-                $doc->title = $licens;
-                $doc->type = 'licence';
-                $doc->save();
-            }
+            // $licenses =  explode(",",$request->other_license);
+            // foreach ($licenses as $licens) {
+            //     $doc = new ShopDocument;
+            //     $doc->shop_id = $user->id;
+            //     $doc->doc = $licens;
+            //     $doc->title = $licens;
+            //     $doc->type = 'licence';
+            //     $doc->save();
+            // }
 
-            $awards =  explode(",",$request->awards);
-            foreach ($awards as $award) {
-                $doc = new ShopDocument;
-                $doc->shop_id = $user->id;
-                $doc->doc = $award;
-                $doc->title = $award;
-                $doc->type = 'award';
-                $doc->save();
-            }
+            // $awards =  explode(",",$request->awards);
+            // foreach ($awards as $award) {
+            //     $doc = new ShopDocument;
+            //     $doc->shop_id = $user->id;
+            //     $doc->doc = $award;
+            //     $doc->title = $award;
+            //     $doc->type = 'award';
+            //     $doc->save();
+            // }
             for ($i=0; $i <= 6; $i++) { 
                 $timeslot = new TimeSlot();
                 $timeslot->min_delivery_time = '10:00:00';

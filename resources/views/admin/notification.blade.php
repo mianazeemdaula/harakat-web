@@ -1,30 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.admin')
+@section('body')
+    <div class="w-full m-6">
+        <form method="POST" action="{{ url('notification') }}">
+            @csrf
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="to" class="block text-gray-700 font-bold mb-2">TO:</label>
+                    <input type="checkbox" name="riders" id=""> Riders
+                    <input type="checkbox" name="shops" id=""> Shops
+                    <input type="checkbox" name="users" id=""> Users
+                    @error('to')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label for="individual" class="block text-gray-700 font-bold mb-2">Individual:</label>
+                    <select id="individual" name="individual[]" multiple
+                        class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('individual') }}">
+                        @foreach ($users as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('individual')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label for="title" class="block text-gray-700 font-bold mb-2">Title:</label>
+                    <input id="title" name="title" type="text"
+                        class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('title') }}" required
+                        autofocus>
+                    @error('title')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
-    <title>HarkatShop</title>
-</head>
+                <div>
+                    <label for="body" class="block text-gray-700 font-bold mb-2">Body:</label>
+                    <input id="body" name="body" type="text"
+                        class="form-input rounded-md shadow-sm mt-1 block w-full" value="{{ old('body') }}" required>
+                    @error('body')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="mt-4">
+                    <button type="submit"
+                        class="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Submit</button>
+                </div>
+        </form>
 
-<body>
-    <div class="w-screen h-screen">
-        <x-header></x-header>
-        <div class="flex flex-row w-screen mt-2 h-5/6">
-            <x-admin.sidebar></x-admin.sidebar>
-            <div class="w-full">
-                <h2 class="text-center font-bold">Notification</h2>
-                <form action="" method="POST" class="flex flex-col items-center space-y-4">
-                    <input type="text" placeholder="To" class="w-4/6 px-4">
-                    <input type="email" placeholder="Message" class="w-4/6 px-4">
-                    <a href=" {{url('')}}" class="flex justify-center"><button type="submit" class="text-white rounded-full px-16 py-3 bg-blue-600">Save</button></a>
-                </form>
-
-            </div>
-        </div>
     </div>
-</body>
-
-</html>
+@endsection

@@ -40,42 +40,42 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(1)->state(new Sequence(fn ($se) => ['email' => "admin@gmail.com"],
         ))->create();
         \App\Models\User::find(1)->assignRole('admin');
-        \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "shop".$se->index."@gmail.com"],
-        ))->create();
-        \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "rider".$se->index."@gmail.com"],
-        ))->create();
-        \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "user".$se->index."@gmail.com"],
-        ))->create();
-        \App\Models\Shop::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+1],
-        ))->create()->each(function($shop){
+        // \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "shop".$se->index."@gmail.com"],
+        // ))->create();
+        // \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "rider".$se->index."@gmail.com"],
+        // ))->create();
+        // \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "user".$se->index."@gmail.com"],
+        // ))->create();
+        // \App\Models\Shop::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+2],
+        // ))->create()->each(function($shop){
             
-        });
-        \App\Models\Addon::factory(rand(5,10))->create();
-        \App\Models\Rider::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+12],
-        ))->create();
-        \App\Models\Customer::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+22],
-        ))->create();
-        \App\Models\ProductCategory::factory(10)->create();
-        \App\Models\Product::factory(100)->create()->each(function($p){
-            $p->addons()->sync([rand(1,10),rand(11,20),rand(21,30), rand(31,40)]);
-        });
-        \App\Models\PaymentCard::factory(100)->create();
-        \App\Models\Review::factory(300)->create();
+        // });
+        // \App\Models\Addon::factory(rand(5,10))->create();
+        // \App\Models\Rider::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+12],
+        // ))->create();
+        // \App\Models\Customer::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+22],
+        // ))->create();
+        // \App\Models\ProductCategory::factory(10)->create();
+        // \App\Models\Product::factory(100)->create()->each(function($p){
+        //     $p->addons()->sync([rand(1,10),rand(11,20),rand(21,30), rand(31,40)]);
+        // });
+        // \App\Models\PaymentCard::factory(100)->create();
+        // \App\Models\Review::factory(300)->create();
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-        ]);
-        $user->customer()->save(new \App\Models\Customer([
-            'city_id' => 1,
-            'dob' => now(),
-            'gender' => 'male',
-        ]));
-        \App\Models\Offer::factory(100)->create();
-        \App\Models\Notification::factory(200)->create();
-        \App\Models\Address::factory(50)->create();
-        \App\Models\AppContent::factory(10)->create();
+        // $user = \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        //     'password' => bcrypt('password'),
+        // ]);
+        // $user->customer()->save(new \App\Models\Customer([
+        //     'city_id' => 1,
+        //     'dob' => now(),
+        //     'gender' => 'male',
+        // ]));
+        // \App\Models\Offer::factory(100)->create();
+        // \App\Models\Notification::factory(200)->create();
+        // \App\Models\Address::factory(50)->create();
+        // \App\Models\AppContent::factory(10)->create();
         // \App\Models\Inbox::factory(100)->create();
         \App\Models\LoyaltyCard::insert([
             ['name' => 'Fazaa', 'name_ar' => 'فزعة'],

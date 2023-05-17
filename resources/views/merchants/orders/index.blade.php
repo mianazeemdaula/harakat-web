@@ -1,22 +1,22 @@
 @extends('layouts.shop')
 @section('body')
     <div class="m-9 w-full">
-        <div class="flex flex-row space-x-1 mt-12">
+        <div class="flex flex-row space-x-1 ">
             <a href="{{ url('shop/pending/order/') }}"
                 class="px-4 py-3 {{ $status == 'pending' ? 'bg-blue-800 text-white' : 'border-2 border-blue-800 text-blue-800' }} rounded-lg  font-extrabold">Pending
-                Orders(1)</a>
+                Orders({{ $pendingCount }})</a>
             <a href="{{ url('shop/approved/order/') }}"
                 class="px-4 py-3 {{ $status == 'approved' ? 'bg-blue-800 text-white' : 'border-2 border-blue-800 text-blue-800' }} rounded-lg  font-extrabold">Approved
-                Orders(1)</a>
+                Orders({{ $approvedCount }})</a>
             <a href="{{ url('shop/processing/order/') }}"
                 class="px-4 py-3 {{ $status == 'processing' ? 'bg-blue-800 text-white' : 'border-2 border-blue-800 text-blue-800' }} rounded-lg  font-extrabold">Processing
-                Orders(1)</a>
+                Orders({{ $processedCount }})</a>
             <a href="{{ url('shop/completed/order/') }}"
                 class="px-4 py-3 {{ $status == 'completed' ? 'bg-blue-800 text-white' : 'border-2 border-blue-800 text-blue-800' }} rounded-lg  font-extrabold">Completed
-                Orders(1)</a>
+                Orders({{ $completedCount }})</a>
             <a href="{{ url('shop/canceled/order/') }}"
                 class="px-4 py-3 {{ $status == 'canceled' ? 'bg-blue-800 text-white' : 'border-2 border-blue-800 text-blue-800' }} rounded-lg  font-extrabold">Cancelled
-                Orders(1)</a>
+                Orders({{ $canceledCount }})</a>
         </div>
         @foreach ($orders as $order)
             <div class="flex flex-row w-full rounded-md border-2 border-blue-800 mt-2">
