@@ -5,16 +5,18 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Inbox;
+use App\Models\InboxChat;
 
-class InboxController extends Controller
+class ChatController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $auth = auth()->user();
-        $data = Inbox::where('user_id', $auth->id)
-        ->orWhere('user2_id', $auth->id)->orderBy('id','desc')->paginate();
-        return response()->json($data, 200);
+        //
     }
 
     /**
@@ -35,7 +37,12 @@ class InboxController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $chat = new InboxChat;
+        $chat->inbox_id = $request->inbox;
+        $chat->user_id = $request->user()->id;
+        $chat->msg = $request->msg;
+        $chat->save();
+        return response()->json($chat, 200);
     }
 
     /**
@@ -46,8 +53,8 @@ class InboxController extends Controller
      */
     public function show($id)
     {
-        $inbox = Inbox::with(['user', 'user2'])->find($id);
-        return response()->json($inbox, 200);
+        $data = InboxChat::where('inbox_id', $id)->orderBy('created_at', 'desc')->paginate();
+        return response()->json($data, 200);
     }
 
     /**
@@ -70,15 +77,7 @@ class InboxController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Inbox::find($id);
-        if($request->has('read')){
-            $data->read = !$data->read;
-        }
-        if($request->has('star')){
-            $data->star = !$data->star;
-        }
-        $data->save();
-        return response()->json($data, 200);
+        //
     }
 
     /**
@@ -90,21 +89,5 @@ class InboxController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function startChat($id)
-    {
-        $ids = [auth()->id(), $id];
-        $inbox =  Inbox::whereIn('user_id', $ids)
-        ->orWhere('user2_id',$ids)->first();
-        if(!$inbox){
-            $inbox = new Inbox;
-            $inbox->user_id = auth()->id();
-            $inbox->user2_id = $id;
-            $inbox->title = User::find($id)->name;
-            $inbox->title_ar = User::find($id)->name;
-            $inbox->save();
-        }
-        return $this->show($inbox->id);
     }
 }

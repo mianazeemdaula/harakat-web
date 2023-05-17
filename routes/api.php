@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\BalanceController;
+use App\Http\Controllers\Api\ChatController;
 
 
 Route::get('users/{id}', function ($id) {
@@ -59,11 +60,13 @@ Route::prefix('customer')->group(function () {
         Route::resource('card', CardController::class);
         Route::resource('loyalty-card', LoyaltyCardController::class);
         Route::resource('inbox', InboxController::class);
+        Route::resource('chat', ChatController::class);
         // Route::resource('recent-product', RecentProductController::class);
         Route::get('user/profile', [UserController::class,'profile']);
         Route::post('user/update', [UserController::class,'updateUser']);
         Route::post('user/delete', [UserController::class,'deleteAccount']);
         Route::post('claim', [OfferController::class,'claim']);
+        Route::get('start-chat/{id}', [InboxController::class,'startChat']);
         Route::resource('address', AddressController::class);
     });
 });

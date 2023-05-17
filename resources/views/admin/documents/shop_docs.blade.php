@@ -35,7 +35,8 @@
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->title }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->doc }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><img src="{{ $item->doc }}"
+                                    alt="" srcset="" class="w-10 h-10 rounded-md"></td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->type }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->status }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -44,10 +45,10 @@
                                         <x-bi-eye />
                                     </a>
                                     <a href="{{ url("doc/$item->id/reject") }}">
-                                        <x-bi-check-circle />
+                                        <x-bi-file-earmark-excel />
                                     </a>
                                     <a href="{{ url("doc/$item->id/accept") }}">
-                                        <x-bi-file-earmark-excel />
+                                        <x-bi-check-circle />
                                     </a>
                                 </div>
                             </td>
