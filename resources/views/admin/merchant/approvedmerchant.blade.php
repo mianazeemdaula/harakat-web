@@ -48,7 +48,7 @@
                                     class="py-2 px-3 text-center text-white rounded-lg bg-blue-700">Document
                                     List</a>
 
-                                <form action="{{ url('shop-update-status/{id}') }}" method="post">
+                                <form action="{{ url("shop-update-status/$item->id") }}" method="post">
                                     @csrf
                                     @method('put')
                                     @if ($item->shop->status == 'pending' || $item->shop->status == 'canceled')
