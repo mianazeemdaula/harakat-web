@@ -3,7 +3,6 @@
     <div class="w-full m-6">
         <form method="POST" action="{{ route('addon-cat.store') }}">
             @csrf
-
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label for="name" class="block text-gray-700 font-bold mb-2">Name:</label>

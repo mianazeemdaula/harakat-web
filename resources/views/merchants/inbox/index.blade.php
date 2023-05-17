@@ -7,8 +7,8 @@
     <div class="w-full p-9">
         <div class="flex items-center justify-between">
             <h5 class="">MailBox</h5>
-            <a href="{{ route('mailboxes.create') }}" class="py-2 px-2 text-center text-white rounded-lg bg-blue-700">Create
-                MailBox</a>
+            {{-- <a href="{{ route('mailboxes.create') }}" class="py-2 px-2 text-center text-white rounded-lg bg-blue-700">Create
+                MailBox</a> --}}
         </div>
 
         <div class="overflow-x-auto mt-6">

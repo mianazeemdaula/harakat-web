@@ -36,12 +36,17 @@
                 <div class="ml-3">Users</div>
             </button></a>
         <a href="{{ url('categories') }}"><button class="flex flex-row btn">
-                <div><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
-                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="21.35" height="21.167" viewBox="0 0 21.35 21.167">
+                    <g id="tag" transform="translate(-1 -1)">
+                        <path id="Path_9" data-name="Path 9"
+                            d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"
+                            fill="none" stroke="#384364" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" />
+                        <path id="Path_10" data-name="Path 10" d="M7,7" fill="none" stroke="#384364"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                    </g>
+                </svg>
+
                 <div class="ml-3">{{ __('label.categories') }}</div>
             </button></a>
         <a href="{{ url('productcategories') }}"><button class="flex flex-row btn">
@@ -54,13 +59,17 @@
                 <div class="ml-3">{{ __('label.product_categories') }}</div>
             </button></a>
         <a href="{{ url('app-content
-                                                ') }}"><button class="flex flex-row btn">
-                <div><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
-                </div>
+                                                                ') }}"><button
+                class="flex flex-row btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21.02" viewBox="0 0 22 21.02">
+                    <g id="star" transform="translate(-1 -1)">
+                        <path id="Path_11" data-name="Path 11"
+                            d="M12,2l3.09,6.26L22,9.27l-5,4.87,1.18,6.88L12,17.77,5.82,21.02,7,14.14,2,9.27,8.91,8.26Z"
+                            fill="none" stroke="#384364" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" />
+                    </g>
+                </svg>
+
                 <div class="ml-3">{{ __('label.app_content') }}</div>
             </button></a>
         <a href="{{ url('app-setting') }}"><button class="flex flex-row btn">

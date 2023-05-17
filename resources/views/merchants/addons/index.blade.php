@@ -2,7 +2,7 @@
 @section('body')
     <div class="w-full p-10">
         <div class="my-4">
-            <a href="{{ route('addons.create') }}" class="p-2 rounded-lg text-xl text-white bg-blue-800">Add
+            <a href="{{ route('addons.create') }}" class="p-2 rounded-lg text-white bg-blue-800">Add
                 Addon</a>
         </div>
         <div class="overflow-x-auto mt-6">
