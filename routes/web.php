@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth', 'setapplang']], function () {
     Route::get('shop-products/{id}/', [ShopController::class,'shopProducts']);
     Route::get('product-addons/{id}', [ProductController::class, 'addon']);
     Route::post('product-addons', [ProductController::class, 'doAddon']);
+    Route::put('shop-update-status/{id}', [ShopController::class, 'update']);
 
     Route::get('merchant', [HomeController::class, 'merchant']);
     Route::get('admin', [HomeController::class, 'admin']);

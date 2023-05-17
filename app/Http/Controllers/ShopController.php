@@ -91,7 +91,10 @@ class ShopController extends Controller
 
     public function update(Request $request, $id)
     {
-
+        $shop = User::findOrFail($id)->shop;
+        $shop->status = $request->status;
+        $shop->save();
+        return redirect()->back();
     }
 
     public function destroy($id)

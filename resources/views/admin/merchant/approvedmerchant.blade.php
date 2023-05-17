@@ -47,6 +47,20 @@
                                 <a href="{{ url("documents/shop/$item->id/") }}"
                                     class="py-2 px-3 text-center text-white rounded-lg bg-blue-700">Document
                                     List</a>
+
+                                <form action="{{ url('shop-update-status/{id}') }}" method="post">
+                                    @csrf
+                                    @method('put')
+                                    @if ($item->shop->status == 'pending' || $item->shop->status == 'canceled')
+                                        <input type="hidden" name="status" value="approved">
+                                        <button
+                                            class="py-2 px-3 text-center text-white rounded-lg bg-blue-700">Approve</button>
+                                    @elseif ($item->shop->status == 'approved')
+                                        <input type="hidden" name="status" value="rejected">
+                                        <button
+                                            class="py-2 px-3 text-center text-white rounded-lg bg-blue-700">Reject</button>
+                                    @endif
+                                </form>
                                 {{-- <a class="py-2 px-2 text-center text-white rounded-lg bg-blue-700">Edit</a>
                                 <a class="py-2 px-2 text-center text-white rounded-lg bg-blue-700">Delete</a> --}}
                             </td>
