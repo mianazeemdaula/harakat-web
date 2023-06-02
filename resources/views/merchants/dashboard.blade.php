@@ -1,19 +1,21 @@
 @extends('layouts.shop')
 @section('body')
     <div class="w-full m-6">
-        <div class="grid grid-cols-3 gap-4 mb-4">
-            <x-stat-card title="Pending Orders" count="AED {{ 0 }}">
-                <x-bi-basket-fill />
-            </x-stat-card>
-            <x-stat-card title="Active Orders" count="AED {{ 0 }}">
-                <x-bi-bag-fill />
-            </x-stat-card>
-            <x-stat-card title="Delivered Orders" count="AED {{ 0 }}">
-                <x-bi-bag-fill />
-            </x-stat-card>
-            <x-stat-card title="Cancel Orders" count="AED {{ 0 }}">
-                <x-bi-bag-fill />
-            </x-stat-card>
+        <div class="w-2/3">
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <x-stat-card title="{{ __('label.pending_orders') }}" count="{{ $pendingCount }}" color="bg-blue-200">
+                    <x-bi-basket-fill />
+                </x-stat-card>
+                <x-stat-card title="{{ __('label.active_orders') }}" count="{{ $activeCount }}" color="bg-yellow-200">
+                    <x-bi-bag-fill />
+                </x-stat-card>
+                <x-stat-card title="{{ __('label.delivered_orders') }}" count="{{ $deliveredCount }}" color="bg-green-200">
+                    <x-bi-bag-fill />
+                </x-stat-card>
+                <x-stat-card title="{{ __('label.cancelled_orders') }}" count="{{ $cancelCount }}" color="bg-red-200">
+                    <x-bi-bag-fill />
+                </x-stat-card>
+            </div>
         </div>
         <div class="flex space-x-4">
             <div class="w-60 h-60">
@@ -37,7 +39,7 @@
             data: {
                 labels: data.map((d) => d.date),
                 datasets: [{
-                    label: 'Daily Number of Orders',
+                    label: "{{ __('label.total_delivered_orders') }}",
                     data: data.map((d) => d.count),
                     backgroundColor: 'rgba(99, 102, 241, 0.6)',
                     borderColor: 'rgba(99, 102, 241, 1)',
@@ -72,7 +74,7 @@
             data: {
                 labels: revenue.map((d) => d.date),
                 datasets: [{
-                    label: 'Revenue in last 5 days',
+                    label: "{{ __('label.total_placed_orders') }}",
                     data: data.map((d) => d.count),
                     backgroundColor: 'rgba(99, 102, 241, 0.6)',
                     borderColor: 'rgba(99, 102, 241, 1)',

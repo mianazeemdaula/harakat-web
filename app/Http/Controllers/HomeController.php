@@ -31,7 +31,8 @@ class HomeController extends Controller
         $pendingCount = Order::where('user_id',$user->id)->whereStatus('pending')->count();
         $activeCount = Order::where('user_id',$user->id)->whereStatus('active')->count();
         $cancelCount = Order::where('user_id',$user->id)->whereStatus('canceled')->count();
-        return view('merchants.dashboard', compact('orders_count', 'revenue'));
+        $deliveredCount = Order::where('user_id',$user->id)->whereStatus('delivered')->count();
+        return view('merchants.dashboard', compact('orders_count', 'revenue', 'pendingCount', 'activeCount', 'cancelCount','deliveredCount'));
      }
 
      public function admin()
