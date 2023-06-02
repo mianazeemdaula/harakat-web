@@ -40,4 +40,9 @@ return [
     'addons' => 'Addon',
     'loyalty_discount' => 'Loyalty discount',
     'document' => 'Document',
+    'merchant' => 'Merchant',
+    'users' => 'Users',
+    'notifications' => 'Notifications',
+    'cities' => 'Cities',
+    'app_settings' => 'App Settings',
 ];

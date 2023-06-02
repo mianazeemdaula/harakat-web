@@ -40,4 +40,9 @@ return [
     'addons' => 'الإضافات',
     'loyalty_discount' => 'خصم الولاء',
     'document' => 'وثيقة',
+    'merchant' => 'التجار',
+    'users' => 'المستخدمون',
+    'notifications' => 'إشعارات',
+    'cities' => 'مدن',
+    'app_settings' => 'إعدادات التطبيقات',
 ];
