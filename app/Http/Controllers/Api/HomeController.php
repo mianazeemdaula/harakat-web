@@ -22,7 +22,8 @@ class HomeController extends Controller
     {
         $user = $request->user();
         $ids = Shop::nearBy($request->lat, $request->lng)
-        ->where('category_id', $request->cat_id)->pluck('user_id');
+        ->where('category_id', $request->cat_id)
+        ->where('status', 'approved')->pluck('user_id');
         $data['shops'] = User::whereIn('id',$ids)->take(5)->get();
         $data['products'] = Product::with(['category','shop','addons'])->whereIn('id',$ids)->take(5)->get();
         $data['popular'] = Product::with(['category','shop','addons'])->whereIn('id',$ids)->take(5)->get();
@@ -45,14 +46,16 @@ class HomeController extends Controller
     }
     public function shops(Request $request)
     {
-        $ids = Shop::nearBy($request->lat, $request->lng)->pluck('user_id');
+        $ids = Shop::nearBy($request->lat, $request->lng)
+        ->where('status', 'approved')->pluck('user_id');
         $data = User::whereIn('id',$ids)->get();
         return response()->json($data, 200);
     }
 
     public function offers(Request $request)
     {
-        $ids = Shop::nearBy($request->lat, $request->lng)->pluck('user_id');
+        $ids = Shop::nearBy($request->lat, $request->lng)
+        ->where('status', 'approved')->pluck('user_id');
         $data = Offer::with(['shop'])->whereIn('user_id',$ids)->get();
         return response()->json($data, 200);
     }
