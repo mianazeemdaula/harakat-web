@@ -58,8 +58,9 @@
                 </div>
                 <div class="ml-3">{{ __('label.product_categories') }}</div>
             </button></a>
-        <a href="{{ url('app-content
-                                                                ') }}"><button
+        <a
+            href="{{ url('app-content
+                                                                                                        ') }}"><button
                 class="flex flex-row btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21.02" viewBox="0 0 22 21.02">
                     <g id="star" transform="translate(-1 -1)">
@@ -92,7 +93,7 @@
                 </div>
                 <div class="ml-3">Cities</div>
             </button></a>
-        <a href="{{ url('reports') }}"><button class="flex flex-row btn">
+        {{-- <a href="{{ url('reports') }}"><button class="flex flex-row btn">
                 <div><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -100,7 +101,7 @@
                     </svg>
                 </div>
                 <div class="ml-3">Reports</div>
-            </button></a>
+            </button></a> --}}
         <a href="{{ url('accounting') }}"><button class="flex flex-row btn">
                 <div><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
