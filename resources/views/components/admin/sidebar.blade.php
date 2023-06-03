@@ -60,7 +60,7 @@
             </button></a>
         <a
             href="{{ url('app-content
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        ') }}"><button
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ') }}"><button
                 class="flex flex-row btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="21.02" viewBox="0 0 22 21.02">
                     <g id="star" transform="translate(-1 -1)">
@@ -120,6 +120,5 @@
                 </div>
                 <div class="ml-3">{{ __('label.notifications') }}</div>
             </button></a>
-
     </div>
 </div>

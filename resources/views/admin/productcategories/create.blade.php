@@ -1,4 +1,8 @@
-@extends('layouts.admin')
+@extends(
+    auth()->user()->hasRole('shop')
+        ? 'layouts.shop'
+        : 'layouts.admin'
+)
 @section('body')
     <div class="w-full m-6">
         <form method="POST" action="{{ route('productcategories.store') }}" enctype="multipart/form-data">

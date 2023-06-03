@@ -1,7 +1,7 @@
 @extends(
     auth()->user()->hasRole('shop')
         ? 'layouts.shop'
-        : 'layoutes.admin'
+        : 'layouts.admin'
 )
 @section('body')
     <div class="p-10 w-full">

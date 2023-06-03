@@ -1,4 +1,8 @@
-@extends('layouts.admin')
+@extends(
+    auth()->user()->hasRole('shop')
+        ? 'layouts.shop'
+        : 'layouts.admin'
+)
 @section('body')
     <div class="w-full p-10">
         <div class="my-4">
