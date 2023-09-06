@@ -66,14 +66,14 @@
             @php
                 $total = 0;
             @endphp
-            @foreach ([1, 2, 3, 4, 5] as $item)
+            @foreach ($order->details as $item)
                 <div class="flex text-sm justify-between">
                     <p class="">Beef Burger</p>
-                    <p>{{ $item }}</p>
-                    <p>{{ 5 }}</p>
-                    <p>{{ $item * 5 }}</p>
+                    <p>{{ $item->product->name }}</p>
+                    <p>{{ $item->price }}</p>
+                    <p>{{ $item->qty * $item->price }}</p>
                     @php
-                        $total += $item * 5;
+                        $total += $item->qty * $item->price;
                     @endphp
                 </div>
             @endforeach
@@ -82,8 +82,8 @@
 
             <div class="text-right">
                 <p>Subtotal: AED {{ $total }}</p>
-                <p>Tax: AED {{ 15 }}</p>
-                <p>Total: AED {{ 15 + $total }}</p>
+                <p>Tax: AED {{ $order->vat }}</p>
+                <p>Total: AED {{ $order->vat + $total }}</p>
             </div>
 
             <div class="print-footer">

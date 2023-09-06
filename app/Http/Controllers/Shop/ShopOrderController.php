@@ -73,8 +73,8 @@ class ShopOrderController extends Controller
 
     
     function receipt($id) {
-        // $order =  Order::findOrFail($id);
-        $order = \App\Models\User::find(1);
+        $order =  Order::findOrFail($id);
+        // $order = \App\Models\User::find(1);
         return view('merchants.orders.receipt', compact('order'));
     }
 }
