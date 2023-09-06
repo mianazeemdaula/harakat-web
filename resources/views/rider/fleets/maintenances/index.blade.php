@@ -1,55 +1,58 @@
 @extends('layouts.rider')
 @section('body')
     <div class="w-full p-10">
-        <h6>Riders</h6>
-        <div class="overflow-x-auto mt-6 max-w-fit">
-            <table class="divide-y divide-gray-200">
+        <div class="my-4">
+            <a href="{{ route('vehicles.maintenances.create', $fleetId ?? 0) }}"
+                class="p-2 rounded-lg text-white bg-blue-800">Add
+                Expense</a>
+        </div>
+        <div class="overflow-x-auto mt-6">
+            <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            ID</th>
+                            Driver</th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Name</th>
+                            Type</th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Email
+                            Make
                         </th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Address
+                            Model
                         </th>
                         <th scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Mobile
+                            Plate Number
                         </th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            City
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Action
                         </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($riders as $item)
+                    @foreach ($collection as $item)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->id }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->email }}</td>
-                            <td class="px-6 py-4 whitespace-pre-wrap text-sm text-gray-500">{{ $item->rider->address }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->mobile }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->rider->city->name }}
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->rider->name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->type }}
                             </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->make }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->model }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->plate_number }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                <div class="flex space-x-3">
-                                    <a href="{{ route('riders.edit', $item->id) }}">
+                                <div class="flex space-x-3"><a href="{{ route('expenses.edit', $item->id) }}">
                                         <x-bi-pencil />
                                     </a>
-                                    </a>
+                                    {{-- <a href="http://">
+                                    <x-bi-folder />
+                                </a> --}}
+                                    {{-- <a href="http://">
+                                        <x-bi-trash />
+                                    </a> --}}
                                 </div>
                             </td>
                         </tr>

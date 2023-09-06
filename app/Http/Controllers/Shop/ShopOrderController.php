@@ -70,4 +70,11 @@ class ShopOrderController extends Controller
         $canceledCount = Order::whereStatus('canceled')->count();
         return view('merchants.orders.index',compact('orders', 'status', 'pendingCount', 'approvedCount', 'processedCount','completedCount', 'canceledCount'));
     }
+
+    
+    function receipt($id) {
+        // $order =  Order::findOrFail($id);
+        $order = \App\Models\User::find(1);
+        return view('merchants.orders.receipt', compact('order'));
+    }
 }

@@ -40,19 +40,19 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(1)->state(new Sequence(fn ($se) => ['email' => "admin@gmail.com"],
         ))->create();
         \App\Models\User::find(1)->assignRole('admin');
-        // \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "shop".$se->index."@gmail.com"],
-        // ))->create();
-        // \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "rider".$se->index."@gmail.com"],
-        // ))->create();
-        // \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "user".$se->index."@gmail.com"],
-        // ))->create();
+        \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "shop".$se->index."@gmail.com"],
+        ))->create();
+        \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "rider".$se->index."@gmail.com"],
+        ))->create();
+        \App\Models\User::factory(10)->state(new Sequence(fn ($se) => ['email' => "user".$se->index."@gmail.com"],
+        ))->create();
         // \App\Models\Shop::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+2],
         // ))->create()->each(function($shop){
             
         // });
         // \App\Models\Addon::factory(rand(5,10))->create();
-        // \App\Models\Rider::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+12],
-        // ))->create();
+        \App\Models\Rider::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+12],
+        ))->create();
         // \App\Models\Customer::factory(10)->state(new Sequence(fn ($se) => ['user_id' =>$se->index+22],
         // ))->create();
         // \App\Models\ProductCategory::factory(10)->create();

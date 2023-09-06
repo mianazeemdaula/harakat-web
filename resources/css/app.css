@@ -25,15 +25,15 @@
     }
 
     input {
-        @apply p-3 rounded-lg border-2 border-blue-800 py-3;
+        @apply px-3 rounded-lg border border-blue-800 py-2;
     }
 
     select {
-        @apply p-3 rounded-lg border-2 border-blue-800 py-3;
+        @apply px-3 rounded-lg border border-blue-800 py-2;
     }
 
     input:focus {
-        @apply border-2 border-blue-800;
+        @apply border border-blue-800;
     }
 
 

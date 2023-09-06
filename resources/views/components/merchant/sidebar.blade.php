@@ -1,7 +1,7 @@
 <div class="w-72 {{ app()->getLocale() == 'en' ? 'border-r-2' : 'border-l-2' }}  border-gray-200 h-screen">
     <div class="flex flex-col items-center">
         <img class="h-16 w-16 object-cover rounded-full" src="{{ auth()->user()->image }}" alt="" />
-        <div class="font-bold">{{ auth()->user()->shop->shop_name }}</div>
+        <div class="font-bold">{{ auth()->user()->shop->shop_name ?? '' }}</div>
         <a href="" class="text-xs text-gray-500">{{ auth()->user()->email }}</a>
     </div>
     <div class="flex flex-col mt-8 space-y-2">

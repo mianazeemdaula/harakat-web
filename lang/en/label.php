@@ -45,4 +45,8 @@ return [
     'notifications' => 'Notifications',
     'cities' => 'Cities',
     'app_settings' => 'App Settings',
+    'fleets' => 'Fleet',
+    'maintinance' => 'Maintinance',
+    'track_rider' => 'Track Driver',
+    'assign_order' => 'Assign Order',
 ];

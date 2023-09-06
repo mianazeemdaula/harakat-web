@@ -21,6 +21,7 @@ use App\Http\Controllers\RiderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\AppContentController;
+use App\Http\Controllers\UserLoyaltyCardController;
 use App\Http\Controllers\ShopDocController;
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,7 @@ Route::group(['middleware' => ['auth', 'setapplang']], function () {
 
     Route::resource('shop/order', ShopOrderController::class);
     Route::get('shop/{status}/order', [ShopOrderController::class,'status']);
+    Route::get('order-receipt/{id}', [ShopOrderController::class,'receipt']);
     Route::resource('promos', OfferController::class);
     Route::resource('cities', CityController::class);
     Route::resource('accounting', TransactionController::class);
@@ -82,18 +84,23 @@ Route::group(['middleware' => ['auth', 'setapplang']], function () {
     // Route::get('documents/{id}', [DocumentController::class,'show']);
     Route::resource('documents', DocumentController::class);
     Route::resource('mailboxes', MailBoxController::class);
-
+    
     
     Route::get('notification', [HomeController::class, 'notification']);
     Route::post('notification', [HomeController::class, 'doNotification']);
-
+    
     // App settings
     Route::get('app-setting', [HomeController::class, 'appSetting']);
     Route::post('app-setting', [HomeController::class, 'doAppSetting']);
-
+    
     // Loyalty Cards Discounts
     Route::get('loyalty-card-discount', [HomeController::class, 'shopLoyalDiscount']);
     Route::post('loyalty-card-discount', [HomeController::class, 'doShopLoyalDiscount']);
+    
+    Route::group(['namespace' => 'App\Http\Controllers\Rider'],function () {
+        Route::resource('vehicles', VehicleController::class);
+        Route::resource('vehicles.maintenances', FleetMaintenanceController::class);
+    });
 
     // Route::view('approvedmerchant', 'admin.merchant.approvedmerchant');
     // Route::view('pendingmerchant', 'admin.merchant.pendingmerchant');
