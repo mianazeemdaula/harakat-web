@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\City;
 use App\Models\Country;
 
-class CityController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class CityController extends Controller
      */
     public function index()
     {
-        $cities = City::all();
-        return view('admin.cities.index', compact('cities'));
+        $cities = Country::all();
+        return view('admin.countries.index', compact('cities'));
     }
 
     /**
@@ -27,8 +26,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        $countries = Country::all();
-        return view('admin.cities.create', compact('countries'));
+        return view('admin.countries.create');
     }
 
     /**
@@ -40,16 +38,14 @@ class CityController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' =>'required|unique:cities',
+            'name' => "required|unique:cities",
             'name_ar' => 'required',
-            'country_id' => 'required|exists:countries,id',
         ]);
-        $city = new City;
+        $city = new Country;
         $city->name = $request->name;
         $city->name_ar = $request->name_ar;
-        $city->country_id = $request->country_id;
         $city->save();
-        return redirect('cities')->with('success', 'City added successfully');
+        return redirect('countries')->with('success', 'Country added successfully');
     }
 
     /**
@@ -71,9 +67,8 @@ class CityController extends Controller
      */
     public function edit($id)
     {
-        $city = City::findOrFail($id);
-        $countries = Country::all();
-        return view('admin.cities.edit', compact('city', 'countries'));
+        $city = Country::findOrFail($id);
+        return view('admin.countries.edit', compact('city'));
     }
 
     /**
@@ -86,16 +81,14 @@ class CityController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' =>"required|unique:cities,name,$id",
+            'name' => "required|unique:countries,name,$id",
             'name_ar' => 'required',
-            'country_id' => 'required|exists:countries,id',
         ]);
-        $city = City::findOrFail($id);
+        $city = Country::findOrFail($id);
         $city->name = $request->name;
         $city->name_ar = $request->name_ar;
-        $city->country_id = $request->country_id;
         $city->save();
-        return redirect('cities')->with('success', 'City updated successfully');
+        return redirect('countries')->with('success', 'Country updated successfully');
     }
 
     /**

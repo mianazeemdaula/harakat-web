@@ -49,4 +49,5 @@ return [
     'maintinance' => 'Maintinance',
     'track_rider' => 'Track Driver',
     'assign_order' => 'Assign Order',
+    'countries' => 'Countries',
 ];

@@ -10,6 +10,7 @@ use App\Http\Controllers\Shop\ShopOrderController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\OfferController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AddonCategoryController;
 use App\Http\Controllers\MailBoxController;
@@ -59,6 +60,7 @@ Route::group(['middleware' => ['auth', 'setapplang']], function () {
     Route::get('order-receipt/{id}', [ShopOrderController::class,'receipt']);
     Route::resource('promos', OfferController::class);
     Route::resource('cities', CityController::class);
+    Route::resource('countries', CountryController::class);
     Route::resource('accounting', TransactionController::class);
     Route::resource('addon-cat', AddonCategoryController::class);
     Route::resource('addons', AddonsController::class);

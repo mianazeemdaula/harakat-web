@@ -45,4 +45,5 @@ return [
     'notifications' => 'إشعارات',
     'cities' => 'مدن',
     'app_settings' => 'إعدادات التطبيقات',
+    'countries' => 'بلدان',
 ];
